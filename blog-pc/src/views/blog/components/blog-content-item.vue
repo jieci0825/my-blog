@@ -8,7 +8,9 @@ const props = defineProps<{ itemData: any }>()
 <template>
 	<div class="content-item-wrap">
 		<div class="title">
-			<a href="javascript:void(0);">
+			<a
+				:href="`/blog-detail/${props.itemData.id}`"
+				target="_blank">
 				<span>{{ props.itemData.title }}</span>
 			</a>
 		</div>

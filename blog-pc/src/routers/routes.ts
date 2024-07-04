@@ -20,6 +20,14 @@ export default [
 				meta: {
 					title: '网络日志'
 				}
+			},
+			{
+				path: 'blog-detail/:id',
+				name: 'blog-detail',
+				component: () => import('@/views/blog-detail/index.vue'),
+				meta: {
+					title: '详情'
+				}
 			}
 		]
 	},

@@ -1,24 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { AuthorInfo } from '../types'
 import Toc, { type TocItem } from '@/components/toc'
 import axios from 'axios'
 import BlogSidebarItemSkeleton from './blog-sidebar-item-skeleton.vue'
 import { useSkeleton } from '@/hooks'
+import { useGlobalGetters } from '@/store'
 
 const { loadingSkeleton, closeSkeleton } = useSkeleton()
 
-// 作者信息
-const authorInfo = ref<AuthorInfo>()
-const getAuthorInfo = () => {
-	authorInfo.value = {
-		nickname: '劫辞',
-		avatarUrl: 'https://cos.coderjc.cn/my-resource/avatar.webp',
-		description: '前端领域的学习者，网络上的旅行者，生活中的自闭者，见字如面，很高兴能与你在网络的星辰大海之中相遇',
-		sign: '山林不向四季起誓，荣枯随缘'
-	}
-}
-getAuthorInfo()
+const { getAuthorInfoState } = useGlobalGetters()
 
 // 分类列表
 const categoryList = ref<TocItem[]>([])
@@ -115,20 +105,20 @@ getHotBlogList()
 			<div class="item-wrap">
 				<div class="author-item">
 					<div class="info">
-						<p class="nickname">{{ authorInfo?.nickname }}</p>
+						<p class="nickname">{{ getAuthorInfoState?.nickname }}</p>
 						<p class="sign">
 							<span>
-								{{ authorInfo?.sign }}
+								{{ getAuthorInfoState?.sign }}
 							</span>
 						</p>
 						<p class="description">
 							<span>
-								{{ authorInfo?.description }}
+								{{ getAuthorInfoState?.description }}
 							</span>
 						</p>
 					</div>
 					<div class="avatar">
-						<img :src="authorInfo?.avatarUrl" />
+						<img :src="getAuthorInfoState?.avatarUrl" />
 					</div>
 				</div>
 			</div>

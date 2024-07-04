@@ -1,10 +1,3 @@
-export interface AuthorInfo {
-	nickname: string
-	avatarUrl: string
-	description: string
-	sign: string
-}
-
 export interface BlogItem {
 	title: string
 	description?: string
