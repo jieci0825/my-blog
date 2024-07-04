@@ -1,0 +1,105 @@
+@select-bg-color: #ffcc00;
+@select-text-color: #000;
+
+@font-face {
+	font-family: '阿里妈妈数黑体 Bold';
+	font-weight: 700;
+	src: url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/M7LmOBXIaJP5.woff2') format('woff2'),
+		url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/6mGakiJHTL5l.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: '阿里妈妈东方大楷 Regular';
+	font-weight: 400;
+	src: url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/bSqwDZIFvuxe.woff2') format('woff2'),
+		url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/jUMDDZU22GAS.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: '阿里妈妈刀隶体 Regular';
+	font-weight: 400;
+	src: url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/p063kxFoFZmX.woff2') format('woff2'),
+		url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/vXgL5SxzWLQe.woff') format('woff');
+	font-display: swap;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* 解决手机浏览器点击有选框的问题 */
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	font-size: 14px;
+}
+
+ul li {
+	list-style: none;
+}
+
+a {
+	color: inherit;
+}
+
+.card {
+	box-shadow: var(--base-box-shadow);
+}
+
+/* Firefox */
+::-moz-selection {
+	background-color: @select-bg-color;
+	color: @select-text-color;
+}
+
+::selection {
+	background-color: @select-bg-color;
+	color: @select-text-color;
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+	/* 滚动条的宽度 */
+	width: 8px;
+	/* 滚动条的高度 */
+	height: 8px;
+}
+
+/* 设置滚动条轨道的样式 */
+::-webkit-scrollbar-track {
+	/* 滚动条轨道的背景色 */
+	background-color: transparent;
+}
+
+/* 设置滚动条滑块的样式 */
+::-webkit-scrollbar-thumb {
+	border-radius: 20px;
+	/* 滚动条滑块的背景色 */
+	background-color: var(--scroll-color);
+}
+
+/* 设置滚动条滑块悬停时的样式 */
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--scroll-color);
+	/* 滚动条滑块悬停时的背景色 */
+}
+
+/* 设置滚动条相交的右下角夹角颜色 */
+::-webkit-scrollbar-corner {
+	background: rgba(0, 0, 0, 0);
+}
+
+img {
+	user-select: none;
+}
+
+// 清除el下拉菜单黑框
+.el-tooltip__trigger:focus-visible {
+	outline: unset;
+}
+

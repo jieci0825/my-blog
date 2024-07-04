@@ -1,5 +1,13 @@
 import { createApp } from 'vue'
-import './style.css'
+import './styles/index.less'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import routers from './routers'
+import { registerApp } from '@/global'
+
+const app = createApp(App)
+
+registerApp(app)
+
+app.use(routers)
+app.mount('#app')
