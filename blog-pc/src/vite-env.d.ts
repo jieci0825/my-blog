@@ -8,3 +8,8 @@ declare module '*.vue' {
 	import Vue from 'vue'
 	export default Vue
 }
+
+interface ImportMetaEnv {
+	readonly VITE_APP_TITLE: string
+	// 更多环境变量...
+}

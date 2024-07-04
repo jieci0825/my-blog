@@ -1,4 +1,4 @@
-const siteTitle = '劫辞の树洞'
+const siteTitle = import.meta.env.VITE_APP_TITLE
 const divide = ' - '
 var routeTitle = '',
 	articleTitle = ''
