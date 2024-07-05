@@ -1,14 +1,27 @@
 <script setup lang="ts">
+import axios from 'axios'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import BlogDetailContent from './components/blog-detail-content.vue'
+
 const $route = useRoute()
 
-// const
+const htmlContent = ref('')
+
+const getDetail = async () => {
+	const { data } = await axios({
+		method: 'GET',
+		url: `https://s.coder-helper.coderjc.cn/api/front/document/detail/${$route.params.id}`
+	})
+	htmlContent.value = data.data.htmlContent
+}
+getDetail()
 </script>
 
 <template>
 	<div class="blog-detail-container">
 		<div class="container">
-			<div class="sidebar"></div>
+			<BlogDetailContent :html-content="htmlContent"></BlogDetailContent>
 		</div>
 	</div>
 </template>
