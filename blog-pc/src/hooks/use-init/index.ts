@@ -1,6 +1,9 @@
 import { useGlobalActions } from '@/store'
+import { useChangeFont } from '../use-change-font'
 
 export function useInit() {
+	useChangeFont()
+
 	const { setAuthorInfo } = useGlobalActions()
 
 	// todo：发送请求获取作者信息

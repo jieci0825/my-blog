@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavScreen from './nav-screen.vue'
+import NavbarActions from './navbar-actions.vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { NavbarEmits, NavbarMenuItem } from './navbar.type'
 import { computed, ref } from 'vue'
@@ -98,6 +99,7 @@ useEventListener(window, 'resize', onSize)
 						<div class="line"></div>
 					</div>
 				</div>
+				<NavbarActions></NavbarActions>
 			</div>
 		</div>
 		<NavScreen
@@ -170,6 +172,9 @@ useEventListener(window, 'resize', onSize)
 					border-radius: var(--base-b-r);
 					border: 1px solid var(--border-color);
 					padding: 3px 8px;
+					@media (max-width: @size-sm) {
+						display: none;
+					}
 				}
 				@media (max-width: @size-sm) {
 					margin: 0 10px 0 auto;

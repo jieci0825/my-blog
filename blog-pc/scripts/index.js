@@ -14,9 +14,9 @@ function setFontSize(doc, win, designWidth) {
 }
 
 function onResize() {
-	setFontSize(document, window, 750)
+	// setFontSize(document, window, 750)
 }
 
-onResize()
+// onResize()
 
 window.addEventListener('resize', debounce(onResize, 100))
