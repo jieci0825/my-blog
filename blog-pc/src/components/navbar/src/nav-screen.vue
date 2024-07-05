@@ -13,14 +13,11 @@ const emits = defineEmits<NavScreenEmits>()
 			<div class="container">
 				<div class="menu">
 					<div
+						@click="emits('jumpPage', item.path)"
 						class="menu-item"
 						v-for="item in prosp.navMenuList"
 						:key="item.path">
-						<a
-							href="javascript:void(0);"
-							@click="emits('jumpPage', item.path)"
-							>{{ item.label }}</a
-						>
+						<a href="javascript:void(0);">{{ item.label }}</a>
 					</div>
 				</div>
 			</div>

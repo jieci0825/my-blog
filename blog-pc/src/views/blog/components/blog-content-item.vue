@@ -75,9 +75,6 @@ const props = defineProps<{ itemData: any }>()
 	&:nth-child(1) {
 		margin-top: 0;
 	}
-	&:last-child {
-		border-bottom: none;
-	}
 	.title {
 		margin: 0 auto;
 		text-align: center;

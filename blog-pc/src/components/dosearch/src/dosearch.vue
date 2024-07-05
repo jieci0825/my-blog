@@ -194,7 +194,7 @@ const footerTips = ref<IFooterTips[]>([
 					<span class="iconfont icon-search"></span>
 					<div class="input-wrap">
 						<input
-							autofocus
+							v-focus
 							ref="searchInputRef"
 							v-model="keyword"
 							@input="_dOnInput"

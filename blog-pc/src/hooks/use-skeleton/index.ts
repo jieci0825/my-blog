@@ -3,9 +3,9 @@ import { ref } from 'vue'
 const loadingSkeleton = ref(true)
 
 export default function closeSkeleton() {
-	setTimeout(() => {
-		loadingSkeleton.value = false
-	}, 3000)
+	// setTimeout(() => {
+	// }, 3000)
+	loadingSkeleton.value = false
 }
 export function useSkeleton() {
 	return { closeSkeleton, loadingSkeleton }
