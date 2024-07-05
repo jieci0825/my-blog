@@ -25,6 +25,16 @@
 	font-display: swap;
 }
 
+@font-face {
+	font-family: 'FiraCode-Regular';
+	src: local('FiraCode-Regular'),
+		url('https://coderjc-1312270807.cos.ap-guangzhou.myqcloud.com/my-resource/font/FiraCode/FiraCode-Regular.woff2')
+			format('woff2');
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -37,6 +47,12 @@ body {
 	width: 100vw;
 	height: 100vh;
 	font-size: 14px;
+	font-family: 'FiraCode-Regular', 'FZKai-Z03s';
+}
+
+.reset-font {
+	font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑',
+		Arial, sans-serif;
 }
 
 ul li {
@@ -49,6 +65,15 @@ a {
 
 .card {
 	box-shadow: var(--base-box-shadow);
+}
+
+.highlight-keyword {
+	display: inline-block;
+	background-color: var(--el-color-primary-light-9);
+	color: var(--primary-color);
+	border-radius: 3px;
+	margin: 0 1px;
+	padding: 0 2px;
 }
 
 /* Firefox */
@@ -102,4 +127,3 @@ img {
 .el-tooltip__trigger:focus-visible {
 	outline: unset;
 }
-

@@ -53,6 +53,6 @@ useEventListener(anaRef, 'click', () => {
 	text-align: center;
 	color: var(--text-color-5);
 	line-height: 20px;
-	font-size: 12px;
+	font-size: 14px;
 }
 </style>

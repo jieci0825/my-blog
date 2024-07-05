@@ -52,10 +52,10 @@ const emits = defineEmits<NavScreenEmits>()
 				display: flex;
 				align-items: center;
 				padding: 12px 0 8px;
-				font-weight: 500;
+				font-weight: 600;
 				line-height: 24px;
 				color: var(--text-color-2);
-				font-size: 14px;
+				font-size: 16px;
 				border-bottom: 1px solid var(--border-color);
 				a {
 					text-decoration: none;

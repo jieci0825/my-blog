@@ -39,7 +39,7 @@ const handleClick = (evt: MouseEvent) => {
 	width: 100%;
 	.toc-item {
 		line-height: 24px;
-		font-size: 13px;
+		font-size: 15px;
 		width: 100%;
 		color: var(--text-color-3);
 		align-items: center;

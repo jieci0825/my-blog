@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import Navbar from '@/components/navbar/src/navbar.vue'
+import { ref } from 'vue'
+import Dosearch from '@/components/dosearch'
+import Navbar from '@/components/navbar'
+import { useEventListener } from '@/hooks'
+
+const visibleDosearch = ref(false)
+
+useEventListener(document, 'keydown', (evt: KeyboardEvent) => {
+	if (evt.ctrlKey && evt.key === 'k') {
+		evt.preventDefault()
+		visibleDosearch.value = true
+	}
+})
 </script>
 
 <template>
 	<div class="layout-container">
 		<div class="header-area">
-			<Navbar></Navbar>
+			<Navbar @open-dosearch="visibleDosearch = true"></Navbar>
 		</div>
 		<div class="main-area">
 			<router-view></router-view>
 		</div>
 	</div>
+
+	<!-- dosearch -->
+	<Dosearch v-model:visible="visibleDosearch"></Dosearch>
 
 	<el-backtop
 		target=".main-area"

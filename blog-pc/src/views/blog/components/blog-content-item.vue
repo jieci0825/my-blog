@@ -85,7 +85,7 @@ const props = defineProps<{ itemData: any }>()
 		cursor: pointer;
 		text-align: center;
 		position: relative;
-		font-size: 20px;
+		font-size: 22px;
 		font-weight: bold;
 		text-decoration: none;
 		padding: 0 30px;
@@ -148,6 +148,7 @@ const props = defineProps<{ itemData: any }>()
 			width: 100%;
 			.description {
 				width: 100%;
+				font-size: 16px;
 				.more-omit(2);
 				color: var(--text-color-3);
 			}
@@ -169,7 +170,6 @@ const props = defineProps<{ itemData: any }>()
 				gap: 10px;
 				:deep(.el-tag__content) {
 					font-size: 12px;
-					transform: scale(0.9);
 				}
 				:deep(.el-tag) {
 					cursor: pointer;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NavScreen from './nav-screen.vue'
 import { useRouter, useRoute } from 'vue-router'
-import { NavbarMenuItem } from './navbar.type'
+import type { NavbarEmits, NavbarMenuItem } from './navbar.type'
 import { computed, ref } from 'vue'
 import { useEventListener } from '@/hooks'
 import { debounce } from '@/utils'
@@ -24,6 +24,8 @@ const navbarMenu: NavbarMenuItem[] = [
 		path: '/about'
 	}
 ]
+
+const emits = defineEmits<NavbarEmits>()
 
 const $router = useRouter()
 const $route = useRoute()
@@ -64,6 +66,13 @@ useEventListener(window, 'resize', onSize)
 					@click="jumpPage('/home')">
 					<img src="/icon.svg" />
 					<span>CODERJC</span>
+				</div>
+				<!-- search -->
+				<div
+					class="search"
+					@click="emits('openDosearch')">
+					<span class="iconfont icon-search"></span>
+					<span class="dosearch-btn-keys"> <kbd>Ctrl</kbd> + <kbd>K</kbd> </span>
 				</div>
 				<!-- menu -->
 				<div class="content">
@@ -137,6 +146,35 @@ useEventListener(window, 'resize', onSize)
 					font-family: '阿里妈妈东方大楷 Regular';
 				}
 			}
+			.search {
+				cursor: pointer;
+				margin: 0 20px;
+				color: var(--text-color-5);
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				transition: color 0.25s ease-in;
+				&:hover {
+					color: var(--primary-color);
+					.dosearch-btn-keys {
+						border-color: var(--primary-color);
+					}
+				}
+				.iconfont {
+					font-size: 20px;
+					font-weight: bold;
+				}
+				.dosearch-btn-keys {
+					font-weight: bold;
+					transition: border 0.25s ease-in, color 0.25s ease-in;
+					border-radius: var(--base-b-r);
+					border: 1px solid var(--border-color);
+					padding: 3px 8px;
+				}
+				@media (max-width: @size-sm) {
+					margin: 0 10px 0 auto;
+				}
+			}
 			.hamburger-wrap {
 				display: none;
 				@media (max-width: @size-sm) {
@@ -194,6 +232,7 @@ useEventListener(window, 'resize', onSize)
 						font-weight: 600;
 						position: relative;
 						color: var(--text-color-2);
+						font-size: 16px;
 						&.active {
 							color: var(--primary-color);
 							&::before {

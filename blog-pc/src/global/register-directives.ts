@@ -1,3 +1,6 @@
-import { App } from 'vue'
+import type { App } from 'vue'
+import { focus } from '@/directives'
 
-export default function (app: App) {}
+export default function (app: App) {
+	app.directive('focus', focus)
+}

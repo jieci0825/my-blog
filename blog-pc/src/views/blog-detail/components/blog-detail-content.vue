@@ -9,6 +9,6 @@
 	flex: 1;
 	max-width: 720px;
 	border: 1px solid var(--border-color);
-	border-radius: var(--border-b-r);
+	border-radius: var(--base-b-r);
 }
 </style>

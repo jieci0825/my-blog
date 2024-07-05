@@ -200,17 +200,16 @@ getHotBlogList()
 				flex-direction: column;
 				gap: 5px;
 				.nickname {
-					font-size: 15px;
 					font-size: 18px;
 					font-weight: bold;
 					color: var(--primary-color);
 				}
 				.sign {
+					font-size: 16px;
 					color: var(--text-color-3);
 				}
 				.description {
-					font-size: 12px;
-					// text-indent: 2em;
+					font-size: 14px;
 					color: var(--text-color-5);
 					span {
 						background: linear-gradient(to right, #f2fbfa, #d5f2ef, #aae5df);
@@ -232,6 +231,7 @@ getHotBlogList()
 		.hot-article {
 			width: 100%;
 			.title {
+				font-size: 18px;
 				font-weight: bold;
 				color: var(--text-color-2);
 				border-bottom: 1px solid var(--border-color);
@@ -241,6 +241,7 @@ getHotBlogList()
 				width: 100%;
 				margin-top: 10px;
 				.item {
+					font-size: 15px;
 					line-height: 24px;
 					.one-omit();
 					color: var(--text-color-3);

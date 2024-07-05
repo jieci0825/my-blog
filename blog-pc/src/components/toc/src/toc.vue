@@ -75,6 +75,7 @@ provide(TocKey, {
 		color: var(--text-color-2);
 		border-bottom: 1px solid var(--border-color);
 		padding-bottom: 5px;
+		font-size: 18px;
 	}
 
 	.toc-content {
