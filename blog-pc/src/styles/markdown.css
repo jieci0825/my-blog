@@ -105,7 +105,6 @@
 
 .markdown-body strong {
 	font-weight: inherit;
-	font-weight: bolder;
 }
 
 .markdown-body h1 {
@@ -121,7 +120,7 @@
 .markdown-body kbd,
 .markdown-body pre {
 	font-family: 'FiraCode-Regular', 'FZKai-Z03s';
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .markdown-body hr {
@@ -800,7 +799,7 @@
 	padding: 0.2em 0.4em;
 	margin: 0 5px;
 	font-size: 85%;
-	font-weight: 600;
+	font-weight: 500;
 	border-radius: 3px;
 }
 
@@ -825,20 +824,10 @@
 	tab-size: 2;
 }
 
-.markdown-body .highlight {
-	margin-bottom: 16px;
-}
-
-.markdown-body .highlight pre {
-	margin-bottom: 0;
-	word-break: normal;
-}
-
-.markdown-body .highlight pre,
 .markdown-body pre {
 	padding: 1em;
 	overflow: auto;
-	line-height: 1.6;
+	line-height: 1.4;
 	background-color: var(--md-pre-bg-color);
 	border-radius: var(--base-b-r);
 }
