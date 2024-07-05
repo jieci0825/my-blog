@@ -23,5 +23,10 @@ import BlogContent from './components/blog-content.vue'
 		display: flex;
 		gap: 20px;
 	}
+
+	@media (max-width: @size-xs) {
+		padding: 10px 0;
+		overflow: hidden auto;
+	}
 }
 </style>

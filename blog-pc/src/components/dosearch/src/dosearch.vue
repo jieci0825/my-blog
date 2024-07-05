@@ -324,6 +324,9 @@ const footerTips = ref<IFooterTips[]>([
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			@media (max-width: @size-xs) {
+				display: none;
+			}
 			.tips-box {
 				display: flex;
 				user-select: none;

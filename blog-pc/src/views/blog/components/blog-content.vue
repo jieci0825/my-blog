@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import BlogContentItem from './blog-content-item.vue'
 import BlogContentItemSkeleton from './blog-content-item-skeleton.vue'
+import BlogContentItemXS from './blog-content-item-xs.vue'
+import BlogContentItemXSSkeleton from './blog-content-item-xs-skeleton.vue'
 import axios from 'axios'
-import { useSkeleton } from '@/hooks';
+import { useSkeleton } from '@/hooks'
 
 // blog 列表
 const blogList = ref([])
@@ -33,16 +35,35 @@ const getBlogList = async () => {
 }
 
 getBlogList()
-
 </script>
 
 <template>
 	<div class="content">
 		<template v-if="!loadingSkeleton">
-			<BlogContentItem v-for="(item,index) in blogList" :key="index" :item-data="item"</BlogContentItem>
+			<BlogContentItem
+				v-for="(item, index) in blogList"
+				:key="index"
+				:item-data="item"></BlogContentItem>
 		</template>
 		<template v-else>
-			<BlogContentItemSkeleton v-for="item in 5" :key="item" :loading="loadingSkeleton"></BlogContentItemSkeleton>
+			<BlogContentItemSkeleton
+				v-for="item in 5"
+				:key="item"
+				:loading="loadingSkeleton"></BlogContentItemSkeleton>
+		</template>
+	</div>
+	<div class="content-xs">
+		<template v-if="!loadingSkeleton">
+			<BlogContentItemXS
+				v-for="(item, index) in blogList"
+				:key="index"
+				:item-data="item"></BlogContentItemXS>
+		</template>
+		<template v-else>
+			<BlogContentItemXSSkeleton
+				v-for="item in 5"
+				:key="item"
+				:loading="loadingSkeleton"></BlogContentItemXSSkeleton>
 		</template>
 	</div>
 </template>
@@ -58,6 +79,17 @@ getBlogList()
 	padding: 20px;
 	@media (max-width: @size-md) {
 		margin-right: auto;
+	}
+	@media (max-width: @size-xs) {
+		display: none;
+	}
+}
+
+.content-xs {
+	width: 100%;
+	display: none;
+	@media (max-width: @size-xs) {
+		display: block;
 	}
 }
 </style>
