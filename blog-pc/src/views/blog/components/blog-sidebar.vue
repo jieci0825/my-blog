@@ -129,6 +129,7 @@ getHotBlogList()
 					<Toc
 						@click="tocClick"
 						title="分类列表"
+						iconfont-name="icon-folderOpened"
 						:toc-list="categoryList"
 						:is-marker="false"></Toc>
 				</div>

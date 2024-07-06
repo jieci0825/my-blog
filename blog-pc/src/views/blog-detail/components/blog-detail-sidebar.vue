@@ -1,10 +1,31 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue'
+import { watch, ref, computed } from 'vue'
 import type { BlogDetailSidebarProps, TitleNode } from '../types'
+import Toc, { TocItem } from '@/components/toc'
 
 const props = defineProps<BlogDetailSidebarProps>()
 
 const titleTree = ref<TitleNode[]>([])
+
+const tocList = computed(() => {
+	function _deep(list: TitleNode[]) {
+		const _result = list.map(item => {
+			const toc: TocItem = {
+				label: item.title,
+				id: item.raw.id,
+				children: null
+			}
+
+			if (item.children?.length) {
+				toc.children = _deep(item.children)
+			}
+
+			return toc
+		})
+		return _result
+	}
+	return _deep(titleTree.value)
+})
 
 watch(
 	() => props.titleList,
@@ -106,7 +127,18 @@ function getTitleTree(headings: Element[]) {
 </script>
 
 <template>
-	<div class="sidebar"></div>
+	<div class="sidebar">
+		<div class="sticky">
+			<div class="item-wrap">
+				<Toc
+					scroll-target=".main-area"
+					:isMarker="true"
+					:is-anchor="true"
+					title="页面导航"
+					:toc-list="tocList"></Toc>
+			</div>
+		</div>
+	</div>
 </template>
 
 <style scoped lang="less">
@@ -114,6 +146,7 @@ function getTitleTree(headings: Element[]) {
 	flex-shrink: 0;
 	width: 300px;
 	margin-right: auto;
+	margin-left: 20px;
 	@media (max-width: @size-md) {
 		display: none;
 	}
@@ -122,7 +155,7 @@ function getTitleTree(headings: Element[]) {
 		top: 20px;
 	}
 	.item-wrap {
-		padding: 15px;
+		padding: 15px 0;
 		height: auto;
 		border-radius: var(--base-b-r);
 		border: 1px solid var(--border-color);

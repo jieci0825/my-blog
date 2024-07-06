@@ -21,6 +21,7 @@ const getDetail = async () => {
 	nextTick(() => {
 		highlight()
 		titleList.value = getAllTitleDom()
+		jumpTo()
 	})
 }
 getDetail()
@@ -45,7 +46,27 @@ async function highlight() {
 
 // 获取所有标题dom
 function getAllTitleDom() {
-	return Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6'))
+	const container = document.querySelector('.markdown-body')
+	if (!container) return []
+	// 获取所有标题dom
+	const headings = Array.from(container.querySelectorAll('h1,h2,h3,h4,h5,h6'))
+	// 给所有标题添加 id
+	headings.forEach((heading, index) => {
+		heading.id = `anchor-heading-${index}`
+	})
+	return headings
+}
+
+// 跳转到页面指定位置
+const jumpTo = (id?: string, e?: Event) => {
+	let behavior: any = 'smooth'
+	if (!id) {
+		behavior = 'instant'
+		id = window.location.hash.replace('#', '')
+	}
+	if (!id) return
+	if (e) e.preventDefault()
+	document.getElementById(id)?.scrollIntoView({ behavior })
 }
 </script>
 

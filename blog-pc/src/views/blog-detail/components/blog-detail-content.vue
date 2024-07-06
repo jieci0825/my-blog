@@ -20,6 +20,10 @@ const props = defineProps<BlogDetailContentProps>()
 	max-width: 720px;
 	border: 1px solid var(--border-color);
 	border-radius: var(--base-b-r);
+	margin-left: auto;
+	@media (max-width: @size-md) {
+		margin-right: auto;
+	}
 	@media (max-width: @size-xs) {
 		width: 100%;
 		border: none;

@@ -54,6 +54,7 @@ useEventListener(document, 'keydown', (evt: KeyboardEvent) => {
 		margin-top: var(--header-height);
 		height: calc(100vh - var(--header-height));
 		overflow: auto;
+		scroll-behavior: smooth;
 	}
 }
 </style>
