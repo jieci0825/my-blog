@@ -135,7 +135,7 @@ const onKeypad = (e: KeyboardEvent) => {
 const handleConfirm = () => {
 	if (!selectItem.value) return
 	// todo: 然后跳转详情页面，根据分类跳转
-	window.open(`/blog-detail/${14}`, '_blank')
+	window.open(`/blog-detail/${selectItem.value.id}`, '_blank')
 	// 关闭搜索界面
 	destroy()
 }

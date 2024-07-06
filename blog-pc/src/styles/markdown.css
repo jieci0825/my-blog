@@ -827,7 +827,7 @@
 .markdown-body pre {
 	padding: 1em;
 	overflow: auto;
-	line-height: 1.4;
+	line-height: 1.3;
 	background-color: var(--md-pre-bg-color);
 	border-radius: var(--base-b-r);
 }

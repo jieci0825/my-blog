@@ -1,38 +1,7 @@
 <script setup lang="ts">
-import { nextTick, watch } from 'vue'
 import { BlogDetailContentProps } from '../types'
-import { codeToHtml } from 'shiki'
 
 const props = defineProps<BlogDetailContentProps>()
-
-watch(
-	() => props.htmlContent,
-	newVal => {
-		if (!newVal) return
-		nextTick(() => {
-			highlight()
-		})
-	},
-	{ immediate: true }
-)
-
-async function highlight() {
-	const preList = Array.from(document.querySelectorAll('pre'))
-
-	if (!preList.length) return
-
-	for (const pre of preList) {
-		const parent = pre.parentNode as HTMLElement
-		// 获取父节点的 data-language 属性值
-		const lang = parent.getAttribute('data-language')
-		const formatCode = await codeToHtml(pre.textContent!, {
-			lang: lang || 'javascript',
-			theme: 'night-owl'
-		})
-		parent.innerHTML = ''
-		parent.innerHTML = formatCode
-	}
-}
 </script>
 
 <template>

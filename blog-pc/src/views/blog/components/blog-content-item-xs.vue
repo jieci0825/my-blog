@@ -3,11 +3,17 @@ import { formatTime } from '@/utils'
 
 // todo：补齐类型
 const props = defineProps<{ itemData: any }>()
+
+const toBlogDetail = () => {
+	window.open(`/blog-detail/${props.itemData.id}`, '_blank')
+}
 </script>
 
 <template>
 	<div class="content-item-wrap">
-		<div class="content-item">
+		<div
+			class="content-item"
+			@click="toBlogDetail">
 			<div class="title">{{ props.itemData.title }}</div>
 			<div class="data-show">
 				<div class="show-item">
@@ -28,7 +34,9 @@ const props = defineProps<{ itemData: any }>()
 					{{ props.itemData.description }}
 				</div>
 			</div>
-			<div class="cover">
+			<div
+				class="cover"
+				@click.stop>
 				<div class="cover-inner">
 					<el-image
 						style="width: 100%; height: 100%"
@@ -47,9 +55,10 @@ const props = defineProps<{ itemData: any }>()
 
 <style scoped lang="less">
 .content-item-wrap {
-	width: 100%;
 	padding: 0 10px;
 	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
 	&:nth-child(1) {
 		margin-top: 0;
 	}
@@ -84,7 +93,6 @@ const props = defineProps<{ itemData: any }>()
 		.description {
 			font-size: 15px;
 			color: var(--text-color-3);
-			padding-right: 10px;
 			margin-bottom: 10px;
 			.text {
 				width: 100%;
@@ -93,7 +101,7 @@ const props = defineProps<{ itemData: any }>()
 		}
 		.cover {
 			border: 1px solid var(--border-color);
-			margin: auto;
+			margin: 0 auto;
 			width: 100%;
 			overflow: hidden;
 			border-radius: var(--base-b-r);

@@ -70,15 +70,26 @@ const {
 			</template>
 		</div>
 		<div class="footer">
-			<el-pagination
-				style="width: 100%"
-				size="small"
-				background
-				@current-change="onPage"
-				@size-change="onPageSize"
-				:page-sizes="[5, 10, 15, 20]"
-				layout="total, sizes, ->, prev, pager, next, jumper"
-				:total="pagination.total" />
+			<div class="pagination">
+				<el-pagination
+					size="small"
+					background
+					@current-change="onPage"
+					@size-change="onPageSize"
+					:page-sizes="[5, 10, 15, 20]"
+					layout="total, sizes, ->, prev, pager, next, jumper"
+					:total="pagination.total" />
+			</div>
+			<div class="pagination-xs">
+				<el-pagination
+					size="small"
+					background
+					@current-change="onPage"
+					@size-change="onPageSize"
+					:page-sizes="[5, 10, 15, 20]"
+					layout="total, prev, pager, next"
+					:total="pagination.total" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -106,19 +117,35 @@ const {
 		padding: 0;
 		border: none;
 	}
+
+	.content-xs {
+		width: 100vw;
+		display: none;
+		@media (max-width: @size-xs) {
+			display: block;
+		}
+	}
+
 	.footer {
 		padding-top: 10px;
 		width: 100%;
 		display: flex;
 		align-items: center;
-	}
-}
-
-.content-xs {
-	width: 100%;
-	display: none;
-	@media (max-width: @size-xs) {
-		display: block;
+		.pagination-xs {
+			display: none;
+		}
+		.pagination {
+			width: 100%;
+		}
+		@media (max-width: @size-xs) {
+			justify-content: center;
+			.pagination {
+				display: none;
+			}
+			.pagination-xs {
+				display: block;
+			}
+		}
 	}
 }
 </style>
