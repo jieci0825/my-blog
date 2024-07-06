@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide, computed } from 'vue'
+import { ref, provide, computed, watch } from 'vue'
 import type { TocItem, TocNode, TocProps, TocEmits } from './toc.type'
 import TocItemWrap from './toc-item-wrap.vue'
 import { TocKey } from './constants'
@@ -68,6 +68,18 @@ const _tocList = computed(() => {
 
 	return result
 })
+
+// 监听-为了完成进入页面选中第一个标题
+watch(
+	() => tocDoms.value,
+	newVal => {
+		// 数组有值且当前路劲上不存在锚点信息
+		if (newVal.length && !window.location.hash) {
+			currentAnchorId.value = newVal[0].id
+			currentAnchorIndex.value = 0
+		}
+	}
+)
 
 // 设置当前锚点 id
 function setCurrentAnchorId() {
