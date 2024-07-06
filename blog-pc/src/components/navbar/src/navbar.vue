@@ -66,7 +66,7 @@ useEventListener(window, 'resize', onSize)
 					class="title"
 					@click="jumpPage('/home')">
 					<img src="/icon.svg" />
-					<span>CODERJC</span>
+					<span>劫辞</span>
 				</div>
 				<!-- search -->
 				<div

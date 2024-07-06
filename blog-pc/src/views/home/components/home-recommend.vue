@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const recommendList = ref([1, 2, 3, 4, 5, 6, 7])
+const recommendList = ref([1, 2, 3, 4, 5])
 </script>
 
 <template>

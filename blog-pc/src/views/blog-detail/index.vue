@@ -5,10 +5,12 @@ import { useRoute } from 'vue-router'
 import BlogDetailContent from './components/blog-detail-content.vue'
 import BlogDetailSidebar from './components/blog-detail-sidebar.vue'
 import { codeToHtml } from 'shiki'
+import { useGlobalGetters } from '@/store'
 
 const $route = useRoute()
+const {} = useGlobalGetters()
 
-const htmlContent = ref('')
+const blogInfo = ref({})
 const titleList = ref<Element[]>([])
 
 const getDetail = async () => {
@@ -16,7 +18,8 @@ const getDetail = async () => {
 		method: 'GET',
 		url: `https://s.coder-helper.coderjc.cn/api/front/document/detail/${$route.params.id}`
 	})
-	htmlContent.value = data.data.htmlContent
+	blogInfo.value = data.data
+	console.log('🚢 ~ 当前打印的内容 ~ data.data:', data.data)
 
 	nextTick(() => {
 		highlight()
@@ -73,7 +76,7 @@ const jumpTo = (id?: string, e?: Event) => {
 <template>
 	<div class="blog-detail-container">
 		<div class="container">
-			<BlogDetailContent :html-content="htmlContent"></BlogDetailContent>
+			<BlogDetailContent :blog-info="blogInfo"></BlogDetailContent>
 			<BlogDetailSidebar :title-list="titleList"></BlogDetailSidebar>
 		</div>
 	</div>

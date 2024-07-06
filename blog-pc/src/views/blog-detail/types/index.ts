@@ -1,5 +1,13 @@
-export interface BlogDetailContentProps {
+// todo
+export interface BlogInfo {
+	title: string
+	author: string
+	date: string
 	htmlContent: string
+}
+
+export interface BlogDetailContentProps {
+	blogInfo: any
 }
 
 export interface BlogDetailSidebarProps {

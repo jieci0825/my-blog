@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import { BlogDetailContentProps } from '../types'
+import type { BlogDetailContentProps } from '../types'
 
 const props = defineProps<BlogDetailContentProps>()
 </script>
 
 <template>
 	<div class="content-wrap">
-		<div class="header"></div>
+		<div class="header">
+			<h1 class="title">{{ props.blogInfo.title }}</h1>
+			<div class="info">
+				<span class="author">coderjc</span>
+				<span class="date">{{ props.blogInfo.date }}</span>
+			</div>
+		</div>
 		<div
 			class="main markdown-body"
-			v-html="props.htmlContent"></div>
+			v-html="props.blogInfo.htmlContent"></div>
 	</div>
 </template>
 
@@ -34,6 +40,12 @@ const props = defineProps<BlogDetailContentProps>()
 		}
 		.markdown-body pre {
 			font-size: 12px !important;
+		}
+	}
+	.header {
+		margin-bottom: 30px;
+		.title {
+			margin-bottom: 10px;
 		}
 	}
 }

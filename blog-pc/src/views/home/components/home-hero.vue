@@ -17,8 +17,8 @@ const actionList = [
 	<div class="home-hero">
 		<div class="container">
 			<div class="main">
-				<h1 class="name">Coderjc Blog</h1>
-				<p class="text">前端领域学习者，记录我的学习与日常</p>
+				<h1 class="name">劫辞の树洞</h1>
+				<p class="text">见字如面，愿君不啻微茫，造炬成阳</p>
 				<p class="tagline">山林不向四季起誓，荣枯随缘</p>
 
 				<div class="actions">
@@ -45,8 +45,7 @@ const actionList = [
 	padding: var(--home-padding);
 	padding-bottom: 50px;
 	@media (max-width: @size-xs) {
-		padding-left: var(--home-sm-padding);
-		padding-right: var(--home-sm-padding);
+		padding: var(--home-sm-padding);
 	}
 	.container {
 		margin: 0 auto;
@@ -58,7 +57,6 @@ const actionList = [
 		}
 		.main {
 			padding-right: var(--home-padding);
-			font-family: '阿里妈妈东方大楷 Regular';
 			letter-spacing: -0.4px;
 			.name {
 				font-size: 50px;
