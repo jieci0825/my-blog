@@ -75,11 +75,16 @@ watch(
 	newVal => {
 		// 数组有值且当前路劲上不存在锚点信息
 		if (newVal.length && !window.location.hash) {
-			currentAnchorId.value = newVal[0].id
-			currentAnchorIndex.value = 0
+			setCurrentAnchorId()
 		}
 	}
 )
+
+// 设置 id 和 index
+function setIdAndIndex(id: string, index: number) {
+	currentAnchorId.value = id
+	currentAnchorIndex.value = index
+}
 
 // 设置当前锚点 id
 function setCurrentAnchorId() {
@@ -92,20 +97,20 @@ function setCurrentAnchorId() {
 		// 当前 dom 在规定的区间之内
 		// 取 50 是因为导航栏的高度占一部分
 		if (rect.top <= range && rect.top > 50) {
-			currentAnchorId.value = element.id
-			currentAnchorIndex.value = i
+			setIdAndIndex(element.id, i)
 			return
 		}
 		// 当前 dom 的 top 大于设定的范围，即在范围之下
 		//  - 如果当前 dom 超出范围，则表示当前dom不在范围且后续的也不需要在检测了
 		else if (rect.top > range) {
+			// 如果此时当前的 currentAnchorId 还没有值，则手动赋值为当前
+			setIdAndIndex(element.id, i)
 			return
 		}
 		// 当前 dom 的 top 小于 range，在范围之上
 		else {
 			// 这里直接先让当前项激活，如果后面有激活的就会被在后面的循环中，前面两个判定条件重新赋值
-			currentAnchorId.value = element.id
-			currentAnchorIndex.value = i
+			setIdAndIndex(element.id, i)
 		}
 	}
 }
