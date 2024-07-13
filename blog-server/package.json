@@ -1,12 +1,32 @@
 {
   "name": "blog-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "koa": "^2.15.0",
+    "nodemon": "^3.1.0",
+    "dayjs": "^1.11.10",
+    "module-alias": "^2.2.3",
+    "require-directory": "^2.1.1",
+    "koa-router": "^12.0.1",
+    "koa-body": "^6.0.1",
+    "@koa/cors": "^5.0.0",
+    "koa-static": "^5.0.0",
+    "sequelize": "^6.37.1",
+    "mysql2": "^3.9.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "_moduleAliases": {
+		"@": "./src",
+		"@model": "./src/app/models",
+		"@api-front": "./src/app/apis/front",
+		"@api-back": "./src/app/apis/back",
+		"@con-front": "./src/app/controllers/front",
+		"@con-back": "./src/app/controllers/back",
+		"@ser-front": "./src/app/services/front",
+		"@ser-back": "./src/app/services/back"
+	}
 }
