@@ -1,0 +1,4 @@
+// token
+export const BLOG_ADMIN_TOKEN = 'BLOG_ADMIN_TOKEN'
+// currentMenuList
+export const BLOG_ADMIN_CURRENT_MENU_LIST = 'BLOG_ADMIN_CURRENT_MENU_LIST'
