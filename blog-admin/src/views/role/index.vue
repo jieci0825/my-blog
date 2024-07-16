@@ -6,10 +6,6 @@ import { useRoleActions, useRoleGetters } from '@/store'
 const { reqGetRoleList } = useRoleActions()
 const { getRoleList } = useRoleGetters()
 reqGetRoleList()
-const pageInfo = ref({
-	currentPage: 1,
-	pageSize: 10
-})
 
 const onPageChange = (page: number) => {
 	console.log(page, '---')

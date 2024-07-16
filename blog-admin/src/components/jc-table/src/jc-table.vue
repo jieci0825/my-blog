@@ -3,7 +3,9 @@ import { computed, useAttrs } from 'vue'
 import { JcTableProps } from './jc-table'
 
 const props = withDefaults(defineProps<JcTableProps>(), {
-	tableData: () => []
+	tableData: () => [],
+	align: 'center',
+	height: '100%'
 })
 
 const attrs = useAttrs()
@@ -17,7 +19,7 @@ const containerStyle = computed(() => {
 
 <template>
 	<el-table
-		v-bind="attrs"
+		v-bind="{ ...attrs, ...props }"
 		:style="containerStyle"
 		:data="props.tableData">
 		<!-- <el-table-column type="selection" width="55" /> -->
@@ -44,4 +46,8 @@ const containerStyle = computed(() => {
 	</el-table>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.el-table {
+	font-size: 16px;
+}
+</style>

@@ -12,6 +12,7 @@ export interface JcTableConfig {
 	columns: ColumnsItem[]
 	width?: string
 	align?: 'left' | 'center' | 'right'
+	height?: string | number
 	[key: string]: any
 }
 

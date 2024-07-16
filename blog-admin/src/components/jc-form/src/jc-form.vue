@@ -51,7 +51,6 @@ const formData = isInnerFormData.value ? innerFormData : modelValue
 function initFormData() {
 	// 当外界传递了表单数据的时候以外界的为准
 	if (!isInnerFormData.value) return
-
 	props.formItems.forEach(item => {
 		formData.value[item.field] = item.defaultValue ?? ''
 	})
@@ -91,11 +90,12 @@ const handleReset = (formEl: FormInstance | undefined) => {
 			:model="formData">
 			<el-row
 				:style="{ width: '100%' }"
-				v-bind="props.rowConfig"
-				v-for="(item, index) in props.formItems"
-				:key="index">
+				v-bind="props.rowConfig">
 				<!-- 单独配置的 col 规则大于整体布局规则 -->
-				<el-col v-bind="item.col ? { span: item.col } : props.colLayout">
+				<el-col
+					v-for="(item, index) in props.formItems"
+					:key="index"
+					v-bind="item.col ? { span: item.col } : props.colLayout">
 					<el-form-item
 						:prop="item.field"
 						:style="props.formItemStyle"
@@ -114,20 +114,22 @@ const handleReset = (formEl: FormInstance | undefined) => {
 						</template>
 					</el-form-item>
 				</el-col>
+				<el-col v-bind="props.colLayout">
+					<el-form-item class="form-footer">
+						<slot name="footer">
+							<el-button @click="handleReset(jcFormRef)">{{ props.footerConfig.resetText }}</el-button>
+							<el-button
+								type="primary"
+								@click="handleSubmit(jcFormRef)"
+								>{{ props.footerConfig.submitText }}</el-button
+							>
+						</slot>
+						<button
+							type="submit"
+							style="display: none"></button>
+					</el-form-item>
+				</el-col>
 			</el-row>
-			<div class="form-footer">
-				<slot name="footer">
-					<el-button @click="handleReset(jcFormRef)">{{ props.footerConfig.resetText }}</el-button>
-					<el-button
-						type="primary"
-						@click="handleSubmit(jcFormRef)"
-						>{{ props.footerConfig.submitText }}</el-button
-					>
-				</slot>
-				<button
-					type="submit"
-					style="display: none"></button>
-			</div>
 		</el-form>
 	</div>
 </template>

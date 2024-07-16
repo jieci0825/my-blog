@@ -23,7 +23,7 @@ const jcRequest: JcRequest = new JcRequest({
 		async responseInterceptorsCatch(error) {
 			const errInfo = error.response?.data
 			console.log('🚢 ~ 当前打印的内容 ~ errInfo:', errInfo)
-			if (errInfo.errorCode) {
+			if (errInfo.errorCode === 9999) {
 				const { logout } = useGlobalActions()
 				logout()
 				ElMessage.error(errInfo.msg)

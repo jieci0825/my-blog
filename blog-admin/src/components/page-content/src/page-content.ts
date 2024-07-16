@@ -1,7 +1,21 @@
 import { JcFormProps } from '@/components/jc-form'
+import { JcPaginatorProps } from '@/components/jc-paginator'
 import { JcTableConfig } from '@/components/jc-table'
 
+export interface PageContentConfig {
+	request?: (params: any) => Promise<any> // 请求数据的 api
+	formatRespData?: (data: any) => any // 格式化请求到数据的函数
+	respCallback?: (data: any) => void // 请求成功后的回调函数
+	immediate?: true
+	listField?: string
+	totalField?: string
+	queryParams?: object
+}
+
 export interface PageContentProps {
-	formConfig: JcFormProps
+	tableData?: any[]
+	formConfig?: JcFormProps
 	tableConfig: JcTableConfig
+	paginatorConfig?: JcPaginatorProps
+	usePageContent?: PageContentConfig
 }

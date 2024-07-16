@@ -52,6 +52,7 @@ export interface JcFormProps {
 	formItemStyle?: object // 应用给 formItem 组件的样式
 	isFooter?: boolean
 	footerConfig?: FooterConfig
+	[key: string]: any
 }
 
 export interface JcFormEmits {
