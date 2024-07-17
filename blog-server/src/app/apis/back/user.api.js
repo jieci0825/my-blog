@@ -6,9 +6,10 @@ const {
 	getLoginUserInfo,
 	getUserList,
 	assignRole,
-	getLoginUserMenuList
+	getLoginUserMenuList,
+	editUser
 } = require('@con-back/user.controller')
-const { verifyToken } = require('@/middleware/auth.middleware')
+const { verifyToken, verifySuperAdmin } = require('@/middleware/auth.middleware')
 const { parsePageInfo } = require('@/middleware/parse.middleware')
 
 // 创建用户
@@ -27,5 +28,8 @@ router.post('/assign-role', verifyToken, assignRole)
 
 // 获取登录用户的菜单列表
 router.get('/menus', verifyToken, getLoginUserMenuList)
+
+// 编辑用户信息
+router.put('/', verifyToken, verifySuperAdmin, editUser)
 
 module.exports = router

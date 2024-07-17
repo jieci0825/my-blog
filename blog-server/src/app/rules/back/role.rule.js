@@ -5,6 +5,7 @@ const createRoleRules = {
 		.isString()
 		.required([''])
 		.pattern(/^[A-Za-z]+$/),
+	roleNickname: new Rule().isString().required(['']),
 	roleDesc: new Rule().isString().required()
 }
 

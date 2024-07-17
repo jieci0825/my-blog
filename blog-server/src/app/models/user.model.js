@@ -42,6 +42,12 @@ User.init(
 			type: DataTypes.STRING,
 			comment: '个人简介'
 		},
+		status: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			defaultValue: 1,
+			comment: '状态 1启用 0停用'
+		},
 		role_id: {
 			type: DataTypes.INTEGER,
 			comment: '角色id'

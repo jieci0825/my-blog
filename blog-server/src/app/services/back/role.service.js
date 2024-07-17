@@ -3,20 +3,26 @@ const { Role } = require('@/app/models/role.model')
 const { User } = require('@/app/models/user.model')
 const { sequelize } = require('@/core/db')
 const { Collide, Forbidden } = require('@/core/error-type')
+const { Op } = require('sequelize')
 
 /**
  * 创建角色
  * @param {object} data
  */
 async function createRole(data) {
-	const roleInfo = await Role.findOne({ where: { role_name: data.roleName } })
+	const roleInfo = await Role.findOne({
+		where: {
+			[Op.or]: [{ role_name: data.roleName }, { role_nickname: data.roleNickname }]
+		}
+	})
 	if (roleInfo) {
 		throw new Collide('当前角色已经存在')
 	}
 
 	const insertData = {
 		role_name: data.roleName,
-		role_desc: data.roleDesc
+		role_desc: data.roleDesc,
+		role_nickname: data.roleNickname
 	}
 
 	await Role.create(insertData)
@@ -26,8 +32,11 @@ async function createRole(data) {
  * 获取角色列表
  */
 async function getRoleList() {
-	const list = await Role.findAll()
-	return list
+	const roleList = await Role.findAll()
+	for (const role of roleList) {
+		role.dataValues.isSuperAdmin = role.role_name === global.config.adminName
+	}
+	return roleList
 }
 
 /**

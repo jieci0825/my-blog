@@ -1,9 +1,11 @@
 const { Menu } = require('@/app/models/menu.model')
 const { RoleMenu } = require('@/app/models/role-menu.model')
+const { Role } = require('@/app/models/role.model')
 const { User } = require('@/app/models/user.model')
 const { Collide } = require('@/core/error-type')
 const { toTree, toCamelCaseForObj } = require('@/utils')
 const { Op } = require('sequelize')
+const { sequelize } = require('@/core/db')
 
 /**
  * 创建用户
@@ -46,7 +48,33 @@ async function getUserList(condition) {
 		where.nickname = { [Op.like]: `%${condition.nickname}%` }
 	}
 
-	const { count, rows } = await User.findAndCountAll({ where, offset: condition.page, limit: condition.pageSize })
+	const ROLE_INFO_AS = 'roleInfo'
+
+	// 建立模型之间的关联
+	if (User.associations[ROLE_INFO_AS]) {
+		delete User.associations[ROLE_INFO_AS]
+	}
+	User.belongsTo(Role, { foreignKey: 'role_id', as: ROLE_INFO_AS })
+
+	const { count, rows } = await User.findAndCountAll({
+		where,
+		offset: condition.page,
+		limit: condition.pageSize,
+		include: [
+			{
+				model: Role,
+				as: ROLE_INFO_AS,
+				attributes: ['role_nickname']
+			}
+		]
+	})
+
+	for (const row of rows) {
+		const item = row.dataValues
+		item.roleNickname = item[ROLE_INFO_AS] ? item[ROLE_INFO_AS].role_nickname : undefined
+		delete item[ROLE_INFO_AS]
+	}
+
 	return { list: rows, total: count }
 }
 
@@ -77,10 +105,31 @@ async function getLoginUserMenuList(userId) {
 	return treeMenu
 }
 
+/**
+ * 编辑用户信息
+ * @param {object} data
+ */
+async function editUser(data) {
+	const userInfo = await User.findOne({ where: { id: data.id } })
+	if (!userInfo) {
+		throw new Collide('当前用户不存在')
+	}
+	const updateData = {
+		account: data.account,
+		nickname: data.nickname,
+		avatar_url: data.avatarUrl,
+		sign: data.sign,
+		description: data.description
+	}
+
+	await User.update(updateData, { where: { id: data.id } })
+}
+
 module.exports = {
 	createUser,
 	getUserInfo,
 	getUserList,
 	assignRole,
-	getLoginUserMenuList
+	getLoginUserMenuList,
+	editUser
 }

@@ -16,6 +16,11 @@ Role.init(
 			allowNull: false,
 			comment: '角色名称'
 		},
+		role_nickname: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			comment: '角色昵称'
+		},
 		role_desc: {
 			type: DataTypes.STRING,
 			comment: '角色描述'

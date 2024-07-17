@@ -1,7 +1,7 @@
 const { Validator } = require('@/validator')
 const { Success, DataSuccess } = require('@/core/error-type')
 const userService = require('@ser-back/user.service')
-const { createUserRules, getUserListRules, assignRoleRules } = require('@/app/rules/back/user.rule')
+const { createUserRules, getUserListRules, assignRoleRules, editUserRules } = require('@/app/rules/back/user.rule')
 
 /**
  * 创建用户
@@ -48,10 +48,20 @@ async function getLoginUserMenuList(ctx) {
 	throw new DataSuccess(result)
 }
 
+/**
+ *
+ */
+async function editUser(ctx) {
+	const { data } = new Validator().validate(ctx, editUserRules)
+	await userService.editUser(data)
+	throw new Success('编辑用户成功')
+}
+
 module.exports = {
 	createUser,
 	getLoginUserInfo,
 	getUserList,
 	assignRole,
-	getLoginUserMenuList
+	getLoginUserMenuList,
+	editUser
 }
