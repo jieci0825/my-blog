@@ -3,25 +3,68 @@ import type { JcFormProps } from '@/components/jc-form'
 const userFormConfig: JcFormProps = {
 	formItems: [
 		{
+			label: '登录账号',
+			field: 'account',
+			type: 'text',
+			placeholder: '用户账号'
+		},
+		{
 			label: '用户昵称',
 			field: 'nickname',
 			type: 'text',
-			placeholder: '请输入昵称查询'
+			placeholder: '用户昵称'
+		},
+		{
+			label: '用户头像',
+			field: 'avatarUrl',
+			type: 'file',
+			model: 'one',
+			placeholder: '用户头像'
+		},
+		{
+			label: '个性签名',
+			field: 'sign',
+			type: 'textarea',
+			placeholder: '个性签名',
+			otherElConfig: {
+				showWordLimit: true,
+				maxlength: 100,
+				minlength: 0,
+				autosize: { minRows: 2, maxRows: 6 }
+			}
+		},
+		{
+			label: '个人简介',
+			field: 'description',
+			type: 'textarea',
+			placeholder: '个人简介',
+			otherElConfig: {
+				showWordLimit: true,
+				maxlength: 200,
+				minlength: 0,
+				autosize: { minRows: 3, maxRows: 6 }
+			}
 		}
 	],
-	labelWidth: 80,
+	rules: {
+		account: [
+			{ required: true, message: '请输入用户账号', trigger: 'blur' },
+			{ min: 6, max: 12, message: '用户账号长度在 6 到 12 个字符', trigger: 'blur' }
+		],
+		nickname: [
+			{ required: true, message: '请输入用户昵称', trigger: 'blur' },
+			{ min: 2, max: 10, message: '用户昵称长度在 2 到 10 个字符', trigger: 'blur' }
+		]
+	},
+	labelWidth: 100,
 	colLayout: {
 		xs: 24,
-		sm: 12,
-		md: 12,
-		lg: 8,
-		xl: 8
+		sm: 24,
+		md: 24,
+		lg: 24,
+		xl: 24
 	},
-	footerConfig: {
-		resetText: '重置',
-		submitText: '查询'
-	},
-	inline: true
+	inline: false
 }
 
 export default userFormConfig

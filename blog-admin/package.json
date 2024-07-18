@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.2",
+    "cos-js-sdk-v5": "^1.8.3",
     "dayjs": "^1.11.11",
     "element-plus": "^2.7.6",
     "nprogress": "^0.2.0",

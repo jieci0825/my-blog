@@ -112,6 +112,22 @@ const handleReset = (formEl: FormInstance | undefined) => {
 								:placeholder="item.placeholder">
 							</el-input>
 						</template>
+						<!-- 文本域 -->
+						<template v-else-if="item.type === 'textarea'">
+							<el-input
+								:placeholder="item.placeholder"
+								v-model="formData[item.field]"
+								v-bind="item.otherElConfig"
+								type="textarea" />
+						</template>
+						<!-- 文件上传 -->
+						<template v-else-if="item.type === 'file'">
+							<JcUpload
+								v-model="formData[item.field]"
+								v-bind="item.fileConfig"
+								:init-preview-image="formData[item.field]"
+								:model="item.model"></JcUpload>
+						</template>
 					</el-form-item>
 				</el-col>
 				<el-col v-bind="props.colLayout">

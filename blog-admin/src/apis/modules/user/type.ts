@@ -8,7 +8,7 @@ export interface UserItem {
 	description?: string
 	sign?: string
 	roleId?: number
-	roleNickname?: ''
+	roleNickname?: string | undefined
 }
 
 export interface GetUserListParams extends IPageParams {

@@ -63,3 +63,21 @@ export function getAncestorNodes<T extends { [key: string]: any }>(tree: T[], va
 	}
 	return getNodes(tree)
 }
+
+// 转换文件大小单位
+const units = ['B', 'KB', 'MB', 'GB'] as const
+type ByteUnit = (typeof units)[number]
+export function convertBytes(bytes: number, toUnit: ByteUnit = 'MB') {
+	const index = units.indexOf(toUnit.toUpperCase() as ByteUnit)
+
+	if (index === -1) {
+		throw new Error(`无效的单位。请使用以下其中之一: ${units.join(', ')}`)
+	}
+
+	let result = bytes
+	for (let i = 0; i < index; i++) {
+		result /= 1024
+	}
+
+	return result.toFixed(2) + ' ' + units[index]
+}

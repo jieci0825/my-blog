@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { PageContentProps } from './page-content'
+import type { PageConteEmits, PageContentProps } from './page-content'
 import { usePageContent } from '@/hooks'
+import JcTable from '@/components/jc-table'
+import { Edit, Delete } from '@element-plus/icons-vue'
 
 const props = withDefaults(defineProps<PageContentProps>(), {})
+const emits = defineEmits<PageConteEmits>()
 
 const initFormData: { [key: string]: any } = {}
 props.formConfig?.formItems.forEach(item => {
@@ -19,6 +22,13 @@ const { onPageChange, onSizeChange, data, pagination, search } = usePageContent(
 const onSubmit = () => {
 	search()
 }
+
+const handleTableEdit = (scope: any) => {
+	emits('handleTableEdit', scope)
+}
+const handleTableDelete = (scope: any) => {
+	emits('handleTableDelete', scope)
+}
 </script>
 
 <template>
@@ -33,9 +43,42 @@ const onSubmit = () => {
 		</div>
 		<!-- table -->
 		<div class="table-wrapper">
+			<!-- <Component :is="h(JcTable, { ...props.tableConfig, tableData: data }, $slots)">
+			</Component> -->
 			<JcTable
 				v-bind="props.tableConfig"
-				:table-data="data"></JcTable>
+				:table-data="data">
+				<template
+					v-for="(_, slot) in $slots"
+					:key="slot"
+					v-slot:[slot]="scope">
+					<slot
+						:name="slot"
+						v-bind="scope"></slot>
+				</template>
+				<template #operate="scope">
+					<slot
+						name="operate"
+						:row="scope">
+						<el-button
+							@click="handleTableEdit(scope)"
+							type="primary"
+							:icon="Edit"
+							plain
+							size="small"
+							>编辑</el-button
+						>
+						<el-button
+							@click="handleTableDelete(scope)"
+							type="danger"
+							:icon="Delete"
+							plain
+							size="small"
+							>删除</el-button
+						>
+					</slot>
+				</template>
+			</JcTable>
 		</div>
 		<!-- paginator -->
 		<div class="paginator-wrapper">

@@ -19,3 +19,8 @@ export interface PageContentProps {
 	paginatorConfig?: JcPaginatorProps
 	usePageContent?: PageContentConfig
 }
+
+export interface PageConteEmits {
+	(e: 'handleTableEdit', row: any): void
+	(e: 'handleTableDelete', row: any): void
+}

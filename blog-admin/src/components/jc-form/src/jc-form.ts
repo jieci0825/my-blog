@@ -1,11 +1,12 @@
+import type { JcUploadConfig } from '@/components/jc-upload/src/jc-upload'
+
 export type FormItemType =
 	| 'text'
 	| 'textarea'
 	| 'password'
 	| 'button'
 	| 'checkbox'
-	| 'one-file'
-	| 'more-file'
+	| 'file'
 	| 'number'
 	| 'radio'
 	| 'search-select'
@@ -21,6 +22,9 @@ export interface JcFormItem {
 	defaultValue?: any // 默认值
 	col?: number // 占几列 - 最大为 24 列
 	slotName?: string // 如果这个表单项内容需要使用插槽，则配置对应的插槽名
+	otherElConfig?: any // 其他配置项
+	model?: 'one' | 'more' // type 为 file 时可用
+	fileConfig?: JcUploadConfig
 }
 
 interface RowConfig {

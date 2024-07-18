@@ -6,25 +6,10 @@ import { useRoleActions, useRoleGetters } from '@/store'
 const { reqGetRoleList } = useRoleActions()
 const { getRoleList } = useRoleGetters()
 reqGetRoleList()
-
-const onPageChange = (page: number) => {
-	console.log(page, '---')
-}
-const onSizeChange = (size: number) => {
-	console.log(size, '---')
-}
 </script>
 
 <template>
-	<div class="role-container">
-		<JcTable
-			v-bind="roleTableConfig"
-			:table-data="getRoleList"></JcTable>
-		<JcPaginator
-			@page-change="onPageChange"
-			@size-change="onSizeChange"
-			:total="100"></JcPaginator>
-	</div>
+	<div class="role-container"></div>
 </template>
 
 <style scoped lang="less">

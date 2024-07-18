@@ -19,12 +19,16 @@ const loginFormConfig: JcFormProps = {
 		account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
 		password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 	},
+	formItemStyle: {
+		width: '350px'
+	},
+	labelPosition: 'top',
 	colLayout: {
 		xs: 24,
-		sm: 18,
-		md: 16,
-		lg: 12,
-		xl: 8
+		sm: 24,
+		md: 24,
+		lg: 24,
+		xl: 24
 	},
 	footerConfig: {
 		resetText: '清空',
