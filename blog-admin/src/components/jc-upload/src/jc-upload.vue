@@ -4,6 +4,8 @@ import type { JcUploadProps } from './jc-upload'
 import { JcUploadKey } from './constants'
 import JcOneUpload from './jc-one-upload.vue'
 
+defineOptions({ name: 'JcUpload' })
+
 const props = withDefaults(defineProps<JcUploadProps>(), {
 	model: 'one',
 	oneStyle: () => {

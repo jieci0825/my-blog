@@ -5,6 +5,8 @@ import { usePageContent } from '@/hooks'
 import JcTable from '@/components/jc-table'
 import { Edit, Delete, Plus } from '@element-plus/icons-vue'
 
+defineOptions({ name: 'PageContent' })
+
 const props = withDefaults(defineProps<PageContentProps>(), {})
 const emits = defineEmits<PageConteEmits>()
 

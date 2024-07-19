@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { JcDrawerProps } from './jc-drawer'
 
+defineOptions({ name: 'JcDrawer' })
+
 const visable = defineModel({ type: Boolean, default: false })
 const props = withDefaults(defineProps<JcDrawerProps>(), {
 	closeOnClickModal: false,

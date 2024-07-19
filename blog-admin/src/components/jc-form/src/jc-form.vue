@@ -3,6 +3,8 @@ import { computed, ref, useAttrs } from 'vue'
 import { JcFormEmits, JcFormProps } from './jc-form'
 import type { FormInstance } from 'element-plus'
 
+defineOptions({ name: 'JcForm' })
+
 const $attrs = useAttrs()
 const emits = defineEmits<JcFormEmits>()
 const props = withDefaults(defineProps<JcFormProps>(), {

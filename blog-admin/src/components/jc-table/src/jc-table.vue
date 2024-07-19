@@ -2,6 +2,8 @@
 import { computed, useAttrs } from 'vue'
 import { JcTableProps } from './jc-table'
 
+defineOptions({ name: 'JcTable' })
+
 const props = withDefaults(defineProps<JcTableProps>(), {
 	tableData: () => [],
 	align: 'center',

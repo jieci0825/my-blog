@@ -2,6 +2,8 @@
 import { useAttrs, watch } from 'vue'
 import { JcPaginatorEmits, JcPaginatorProps } from './jc-paginator'
 
+defineOptions({ name: 'JcPaginator' })
+
 const props = withDefaults(defineProps<JcPaginatorProps>(), {
 	pageSizes: () => [5, 10, 20, 30],
 	total: 0,
