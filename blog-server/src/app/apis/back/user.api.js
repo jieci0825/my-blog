@@ -5,6 +5,7 @@ const {
 	createUser,
 	getLoginUserInfo,
 	getUserList,
+	logoffUser,
 	assignRole,
 	getLoginUserMenuList,
 	editUser
@@ -21,7 +22,8 @@ router.get('/', verifyToken, getLoginUserInfo)
 // 获取用户列表
 router.get('/list', verifyToken, parsePageInfo, getUserList)
 
-// todo: 注销用户
+// 删除用户
+router.delete('/:id', verifyToken, verifySuperAdmin, logoffUser)
 
 // 给用户分配角色
 router.post('/assign-role', verifyToken, assignRole)

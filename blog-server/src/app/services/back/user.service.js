@@ -79,6 +79,14 @@ async function getUserList(condition) {
 }
 
 /**
+ * 注销用户
+ * @param {number} userId 用户id
+ */
+async function logoffUser(userId) {
+	await User.update({ status: 0 }, { where: { id: userId } })
+}
+
+/**
  * 分配角色
  * @param {object} data
  */
@@ -129,6 +137,7 @@ module.exports = {
 	createUser,
 	getUserInfo,
 	getUserList,
+	logoffUser,
 	assignRole,
 	getLoginUserMenuList,
 	editUser

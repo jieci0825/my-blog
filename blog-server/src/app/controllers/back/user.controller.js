@@ -31,6 +31,15 @@ async function getUserList(ctx) {
 }
 
 /**
+ * 注销用户
+ */
+async function logoffUser(ctx) {
+	const { data } = new Validator().validate(ctx)
+	await userService.logoffUser(data.id)
+	throw new Success('删除用户成功')
+}
+
+/**
  * 分配角色
  */
 async function assignRole(ctx) {
@@ -61,6 +70,7 @@ module.exports = {
 	createUser,
 	getLoginUserInfo,
 	getUserList,
+	logoffUser,
 	assignRole,
 	getLoginUserMenuList,
 	editUser
