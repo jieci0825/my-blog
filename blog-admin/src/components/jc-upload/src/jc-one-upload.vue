@@ -24,7 +24,7 @@ const handleExceed: UploadProps['onExceed'] = files => {
 // 监听单文件变化
 const onOneChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
 	// 校验文件格式
-	const types = jcUploadInject?.accept!.split(',')
+	const types = jcUploadInject?.accept!.split(',').map(item => item.trim())
 	if (types && !types.includes(uploadFile.raw?.type!)) {
 		ElMessage.error(`文件格式不正确，当前文件格式${uploadFile.raw?.type}`)
 		return
@@ -59,6 +59,7 @@ const handleOneEdit = () => {
 // 单文件删除方法
 const handleOneDelete = () => {
 	onePreviewImage.value = ''
+	jcUploadInject?.setModelValue(null)
 }
 // 单文件预览方法
 const handleOnePreview = () => {

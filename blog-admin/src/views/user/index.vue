@@ -7,6 +7,8 @@ import { Postcard, Edit, Delete } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { UserItem } from '@/apis/modules/user/type'
 import { UserFormTypes } from './types'
+import { uploadFile } from '@/cos'
+import { useRefs } from '@/hooks/use-refs'
 
 const drawerTitle = ref('')
 const drawerMode = ref<UserFormTypes>(UserFormTypes.EDIT)
@@ -37,16 +39,26 @@ function setInfo(row: UserItem, mode: UserFormTypes, isVisable: boolean = true) 
 	drawerVisable.value = isVisable
 }
 
+const { refs, setRef } = useRefs()
+
 // 处理表单提交
-const handleSubmit = (data: UserItem) => {
+const handleSubmit = async (data: UserItem) => {
 	if (drawerMode.value === UserFormTypes.EDIT) {
-		console.log('edit: ', data)
+		if (data.avatarUrl && typeof data.avatarUrl !== 'string') {
+			const result = await uploadFile(data.avatarUrl as unknown as File)
+			data.avatarUrl = result.url
+		}
+		const resp = await userApi.reqEditUserInfo(data)
+		ElMessage.success(resp.msg)
+		drawerVisable.value = false
+		refs.pageContentRef?.search()
 	}
 }
 </script>
 
 <template>
 	<PageContent
+		:ref="setRef('pageContentRef')"
 		@handleTableEdit="handleTableEdit"
 		@handleTableDelete="handleTableDelete"
 		:use-page-content="{ request: userApi.reqGetUserList }"

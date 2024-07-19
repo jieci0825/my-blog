@@ -21,6 +21,7 @@ const { onPageChange, onSizeChange, data, pagination, search } = usePageContent(
 
 const onSubmit = () => {
 	search()
+	emits('search')
 }
 
 const handleTableEdit = (scope: any) => {
@@ -29,6 +30,10 @@ const handleTableEdit = (scope: any) => {
 const handleTableDelete = (scope: any) => {
 	emits('handleTableDelete', scope)
 }
+
+defineExpose({
+	search
+})
 </script>
 
 <template>

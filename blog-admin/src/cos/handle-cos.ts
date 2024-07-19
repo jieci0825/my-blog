@@ -9,7 +9,13 @@ import CosConfig from './config'
  * @param {Function} progressCB 回调函数，会传入一个参数 `data`data 表示上传进度数据
  * @returns
  */
-export function handleFileInUploading(cos, file, fileKey, taskIdCB, progressCB) {
+export function handleFileInUploading(
+	cos: any,
+	file: File,
+	fileKey: string,
+	taskIdCB?: Function,
+	progressCB?: Function
+) {
 	let _taskId = ''
 	return new Promise((resolve, reject) => {
 		cos.uploadFile(
@@ -19,7 +25,7 @@ export function handleFileInUploading(cos, file, fileKey, taskIdCB, progressCB) 
 				Key: fileKey,
 				Body: file,
 				SliceSize: 1024 * 1024 * 20, // 大于 20m 使用分块上传
-				onTaskReady: function (taskId) {
+				onTaskReady: function (taskId: string) {
 					// 取消上传cos.cancelTask(taskId)、停止上传cos.pauseTask(taskId)、重新开始上传cos.restartTask(taskId)
 					_taskId = taskId
 					taskIdCB && taskIdCB({ file, taskId })
@@ -28,7 +34,7 @@ export function handleFileInUploading(cos, file, fileKey, taskIdCB, progressCB) 
 					'Content-Type': file.type,
 					'Content-Disposition': 'inline'
 				},
-				onProgress: function (progressData) {
+				onProgress: function (progressData: any) {
 					// - progressData.loaded 已经上传的文件部分大小，以字节（Bytes）为单位
 					// - progressData.total 整个文件的大小，以字节（Bytes）为单位
 					// - progressData.speed 文件的上传速度，以字节/秒（Bytes/s）为单位
@@ -38,7 +44,7 @@ export function handleFileInUploading(cos, file, fileKey, taskIdCB, progressCB) 
 					progressCB && progressCB(data)
 				}
 			},
-			function (err, data) {
+			function (err: any, data: any) {
 				if (err) {
 					reject(JSON.parse(JSON.stringify(err)))
 				} else {
@@ -55,7 +61,7 @@ export function handleFileInUploading(cos, file, fileKey, taskIdCB, progressCB) 
  * @param {String} key COS 存储中对象的 key
  * @param {Function} progressCB 下载进度回调函数
  */
-export function handFileDownload(cos, key, progressCB) {
+export function handFileDownload(cos: any, key: string, progressCB: Function) {
 	return new Promise((resolve, reject) => {
 		cos.getObjectUrl(
 			{
@@ -65,12 +71,12 @@ export function handFileDownload(cos, key, progressCB) {
 				Headers: {
 					'x-cos-traffic-limit': 83886080 // 限速值设置范围为819200 - 838860800，单位默认为 bit/s，即800Kb/s - 800Mb/s，如果超出该范围将返回400错误。
 				},
-				onProgress: function (progressData) {
+				onProgress: function (progressData: any) {
 					const data = JSON.parse(JSON.stringify(progressData))
 					progressCB && progressCB(data)
 				}
 			},
-			function (err, data) {
+			function (err: any, data: any) {
 				if (err) {
 					reject(JSON.parse(JSON.stringify(err)))
 				} else {

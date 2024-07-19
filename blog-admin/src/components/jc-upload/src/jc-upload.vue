@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<JcUploadProps>(), {
 })
 const modelValue = defineModel()
 
-function setModelValue(payload: File | File[]) {
+function setModelValue(payload: File | File[] | null) {
 	modelValue.value = payload
 }
 

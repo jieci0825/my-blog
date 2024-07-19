@@ -30,3 +30,10 @@ export function reqGetUserList(params: GetUserListParams) {
 		params
 	})
 }
+
+/**
+ * 编辑用户信息
+ */
+export function reqEditUserInfo(data: UserItem) {
+	return request.put<IBaseType<string>>({ url: '/user', data })
+}
