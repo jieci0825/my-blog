@@ -16,7 +16,7 @@ props.formConfig?.formItems.forEach(item => {
 })
 const formData = ref<{ [key: string]: any }>(initFormData)
 
-const { onPageChange, onSizeChange, data, pagination, search } = usePageContent({
+const { onPageChange, onSizeChange, data, pagination, fetchData, search } = usePageContent({
 	request: props.usePageContent?.request,
 	queryParams: formData
 })
@@ -34,7 +34,8 @@ const handleTableDelete = (scope: any) => {
 }
 
 defineExpose({
-	search
+	search,
+	fetchData
 })
 </script>
 

@@ -44,3 +44,10 @@ export function reqEditUserInfo(data: UserItem) {
 export function reqLogoffUser(id: string | number) {
 	return request.delete<IBaseType<string>>({ url: `/user/${id}` })
 }
+
+/**
+ * 分配角色
+ */
+export function reqAssignRole(data: { userId: string | number; roleId: string }) {
+	return request.post<IBaseType<string>>({ url: '/user/assign-role', data })
+}

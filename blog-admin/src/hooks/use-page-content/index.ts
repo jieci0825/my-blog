@@ -117,6 +117,7 @@ export const usePageContent = (options: IPageContent) => {
 		reset,
 		search,
 		onPageChange,
-		onSizeChange
+		onSizeChange,
+		fetchData
 	}
 }

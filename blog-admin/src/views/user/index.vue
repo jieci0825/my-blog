@@ -10,16 +10,13 @@ import { UserFormTypes } from './types'
 import { uploadFile } from '@/cos'
 import { useRefs } from '@/hooks/use-refs'
 import { previewImage } from '@/utils'
+import { useRoleActions, useRoleGetters } from '@/store'
 
 const drawerTitle = ref('')
 const drawerMode = ref<UserFormTypes>(UserFormTypes.EDIT)
 const drawerVisable = ref(false)
 const curUserInfo = ref<UserItem>()
 
-// 分配角色
-const handleTableAssignRole = (row: UserItem) => {
-	console.log(row)
-}
 // 编辑用户信息
 const handleTableEdit = (row: UserItem) => {
 	setInfo(row, UserFormTypes.EDIT)
@@ -69,7 +66,6 @@ const handleSubmit = async (data: UserItem) => {
 		resp = await userApi.reqEditUserInfo(data)
 	} else if (drawerMode.value === UserFormTypes.CREATE) {
 		resp = await userApi.reqCreateUser(data)
-		console.log('🚢 ~ 当前打印的内容 ~ resp:', resp)
 	}
 	ElMessage.success(resp.msg)
 	drawerVisable.value = false
@@ -79,6 +75,30 @@ const handleSubmit = async (data: UserItem) => {
 // 创建用户
 const handleCreateUser = () => {
 	setInfo(null, UserFormTypes.CREATE)
+}
+
+const dialogVisable = ref(false)
+const selectRole = ref('')
+const { getRoleList } = useRoleGetters()
+const { reqGetRoleList } = useRoleActions()
+reqGetRoleList()
+// 打开分配角色面板
+const openRoleAssignPanel = (row: UserItem) => {
+	curUserInfo.value = { ...row }
+	selectRole.value = row.roleId as unknown as string
+	dialogVisable.value = true
+}
+// 分配角色
+const handleAssignRole = async () => {
+	if (selectRole.value) {
+		const resp = await userApi.reqAssignRole({
+			userId: curUserInfo.value?.id!,
+			roleId: selectRole.value
+		})
+		ElMessage.success(resp.msg)
+	}
+	refs.pageContentRef?.fetchData()
+	dialogVisable.value = false
 }
 </script>
 
@@ -105,7 +125,7 @@ const handleCreateUser = () => {
 		</template>
 		<template #operate="{ row }">
 			<el-button
-				@click="handleTableAssignRole(row)"
+				@click="openRoleAssignPanel(row)"
 				type="primary"
 				:icon="Postcard"
 				plain
@@ -131,7 +151,7 @@ const handleCreateUser = () => {
 		</template>
 	</PageContent>
 
-	<!-- 对话框 -->
+	<!-- 抽屉 -->
 	<JcDrawer
 		v-model="drawerVisable"
 		size="500px"
@@ -141,6 +161,27 @@ const handleCreateUser = () => {
 			v-bind="userFormConfig"
 			@submit="handleSubmit"></JcForm>
 	</JcDrawer>
+
+	<JcDialog
+		v-model="dialogVisable"
+		title="分配角色">
+		<el-radio-group v-model="selectRole">
+			<el-radio
+				:value="role.id"
+				v-for="role in getRoleList"
+				:key="role.id"
+				>{{ role.roleNickname }}</el-radio
+			>
+		</el-radio-group>
+		<template #footer>
+			<el-button @click="dialogVisable = false">取消</el-button>
+			<el-button
+				@click="handleAssignRole"
+				type="primary"
+				>确定</el-button
+			>
+		</template>
+	</JcDialog>
 </template>
 
 <style scoped lang="less">
