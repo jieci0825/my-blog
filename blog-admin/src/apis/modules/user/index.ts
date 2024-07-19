@@ -37,3 +37,10 @@ export function reqGetUserList(params: GetUserListParams) {
 export function reqEditUserInfo(data: UserItem) {
 	return request.put<IBaseType<string>>({ url: '/user', data })
 }
+
+/**
+ * 注销用户
+ */
+export function reqLogoffUser(id: string | number) {
+	return request.delete<IBaseType<string>>({ url: `/user/${id}` })
+}

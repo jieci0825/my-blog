@@ -3,8 +3,8 @@ import { userApi } from '@/apis'
 import userTableConfig from './config/user-table.config'
 import userSearchFormConfig from './config/user-search-form.config'
 import userFormConfig from './config/user-form.config'
-import { Postcard, Edit, Delete } from '@element-plus/icons-vue'
-import { ref } from 'vue'
+import { Postcard, Edit, Aim } from '@element-plus/icons-vue'
+import { h, ref } from 'vue'
 import { UserItem } from '@/apis/modules/user/type'
 import { UserFormTypes } from './types'
 import { uploadFile } from '@/cos'
@@ -25,8 +25,19 @@ const handleTableEdit = (row: UserItem) => {
 	setInfo(row, UserFormTypes.EDIT)
 }
 // 删除用户
-const handleTableDelete = (row: UserItem) => {
-	console.log(row)
+const handleTableLogoff = async (row: UserItem) => {
+	try {
+		await ElMessageBox({
+			title: '删除用户',
+			message: h('p', null, `你确认要删除 ${row.nickname} 用户吗？`),
+			showCancelButton: true,
+			confirmButtonText: '确认',
+			cancelButtonText: '取消'
+		})
+		const resp = await userApi.reqLogoffUser(row.id)
+		ElMessage.success(resp.msg)
+		refs.pageContentRef?.search()
+	} catch (error) {}
 }
 
 const modeTitleMap = {
@@ -61,7 +72,7 @@ const handleSubmit = async (data: UserItem) => {
 	<PageContent
 		:ref="setRef('pageContentRef')"
 		@handleTableEdit="handleTableEdit"
-		@handleTableDelete="handleTableDelete"
+		@handleTableDelete="handleTableLogoff"
 		:use-page-content="{ request: userApi.reqGetUserList }"
 		:form-config="userSearchFormConfig"
 		:tableConfig="userTableConfig"
@@ -99,10 +110,10 @@ const handleSubmit = async (data: UserItem) => {
 			<el-button
 				@click="handleTableDelete(row)"
 				type="danger"
-				:icon="Delete"
+				:icon="Aim"
 				plain
 				size="small"
-				>删除</el-button
+				>注销</el-button
 			>
 		</template>
 	</PageContent>
