@@ -9,6 +9,7 @@ import { UserItem } from '@/apis/modules/user/type'
 import { UserFormTypes } from './types'
 import { uploadFile } from '@/cos'
 import { useRefs } from '@/hooks/use-refs'
+import { previewImage } from '@/utils'
 
 const drawerTitle = ref('')
 const drawerMode = ref<UserFormTypes>(UserFormTypes.EDIT)
@@ -65,6 +66,16 @@ const handleSubmit = async (data: UserItem) => {
 		:form-config="userSearchFormConfig"
 		:tableConfig="userTableConfig"
 		:paginator-config="{}">
+		<template #avatarUrl="{ row }">
+			<div
+				class="img-box"
+				@click="previewImage({ urlList: [row.avatarUrl] })">
+				<el-image
+					fit="cover"
+					style="width: 100%; height: 100%"
+					:src="row.avatarUrl" />
+			</div>
+		</template>
 		<template #roleNickname="{ row }">
 			<el-tag v-if="row.roleNickname">{{ row.roleNickname }}</el-tag>
 		</template>
@@ -107,3 +118,14 @@ const handleSubmit = async (data: UserItem) => {
 			@submit="handleSubmit"></JcForm>
 	</JcDrawer>
 </template>
+
+<style scoped lang="less">
+.img-box {
+	margin: auto;
+	width: 40px;
+	height: 40px;
+	border: 1px solid var(--border-color);
+	border-radius: 50%;
+	overflow: hidden;
+}
+</style>
