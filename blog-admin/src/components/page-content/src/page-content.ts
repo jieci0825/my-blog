@@ -22,6 +22,7 @@ export interface PageContentProps {
 
 export interface PageConteEmits {
 	(e: 'search'): void
+	(e: 'actCreate'): void
 	(e: 'handleTableEdit', row: any): void
 	(e: 'handleTableDelete', row: any): void
 }

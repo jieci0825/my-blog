@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { PageConteEmits, PageContentProps } from './page-content'
 import { usePageContent } from '@/hooks'
 import JcTable from '@/components/jc-table'
-import { Edit, Delete } from '@element-plus/icons-vue'
+import { Edit, Delete, Plus } from '@element-plus/icons-vue'
 
 const props = withDefaults(defineProps<PageContentProps>(), {})
 const emits = defineEmits<PageConteEmits>()
@@ -45,6 +45,17 @@ defineExpose({
 				v-model="formData"
 				@submit="onSubmit"
 				v-bind="props.formConfig"></JcForm>
+		</div>
+		<!-- actions -->
+		<div class="action-wrapper">
+			<slot name="actions">
+				<el-button
+					@click="emits('actCreate')"
+					type="primary"
+					plain>
+					<el-icon :size="14"> <Plus /> </el-icon>新增
+				</el-button>
+			</slot>
 		</div>
 		<!-- table -->
 		<div class="table-wrapper">
@@ -104,8 +115,18 @@ defineExpose({
 	flex-direction: column;
 	.form-wrapper {
 		width: 100%;
-		margin-bottom: 20px;
 		flex-shrink: 0;
+	}
+	.action-wrapper {
+		width: 100%;
+		flex-shrink: 0;
+		margin-bottom: 20px;
+		display: flex;
+		:deep(.el-button) {
+			.el-icon {
+				margin-right: 5px;
+			}
+		}
 	}
 	.table-wrapper {
 		flex: 1;

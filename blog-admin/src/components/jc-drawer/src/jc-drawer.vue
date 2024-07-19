@@ -1,5 +1,17 @@
 <script setup lang="ts">
+import type { JcDrawerProps } from './jc-drawer'
+
 const visable = defineModel({ type: Boolean, default: false })
+const props = withDefaults(defineProps<JcDrawerProps>(), {
+	closeOnClickModal: false,
+	beforeClose: (done: (cancel?: boolean) => void) => {
+		ElMessageBox.confirm('确定要关闭吗？', '提示', { type: 'warning' })
+			.then(() => {
+				done()
+			})
+			.catch(() => {})
+	}
+})
 </script>
 
 <template>
@@ -7,6 +19,8 @@ const visable = defineModel({ type: Boolean, default: false })
 		class="jc-drawer-contianer"
 		v-if="visable">
 		<el-drawer
+			:close-on-click-modal="props.closeOnClickModal"
+			:before-close="props.beforeClose"
 			v-model="visable"
 			v-bind="$attrs">
 			<template

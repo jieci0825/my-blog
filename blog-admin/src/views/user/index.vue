@@ -29,7 +29,7 @@ const handleTableLogoff = async (row: UserItem) => {
 	try {
 		await ElMessageBox({
 			title: '删除用户',
-			message: h('p', null, `你确认要删除 ${row.nickname} 用户吗？`),
+			message: h('p', { style: { color: 'var(--el-color-danger)' } }, `你确认要注销 ${row.nickname} 用户吗？`),
 			showCancelButton: true,
 			confirmButtonText: '确认',
 			cancelButtonText: '取消'
@@ -44,8 +44,8 @@ const modeTitleMap = {
 	[UserFormTypes.CREATE]: '创建用户',
 	[UserFormTypes.EDIT]: '编辑用户信息'
 }
-function setInfo(row: UserItem, mode: UserFormTypes, isVisable: boolean = true) {
-	curUserInfo.value = { ...row }
+function setInfo(row: UserItem | null, mode: UserFormTypes, isVisable: boolean = true) {
+	curUserInfo.value = row ? { ...row } : ({} as UserItem)
 	drawerMode.value = mode
 	drawerTitle.value = modeTitleMap[mode]
 	drawerVisable.value = isVisable
@@ -66,13 +66,17 @@ const handleSubmit = async (data: UserItem) => {
 		refs.pageContentRef?.search()
 	}
 }
+
+// 创建用户
+const handleCreateUser = () => {
+	setInfo(null, UserFormTypes.CREATE)
+}
 </script>
 
 <template>
 	<PageContent
+		@actCreate="handleCreateUser"
 		:ref="setRef('pageContentRef')"
-		@handleTableEdit="handleTableEdit"
-		@handleTableDelete="handleTableLogoff"
 		:use-page-content="{ request: userApi.reqGetUserList }"
 		:form-config="userSearchFormConfig"
 		:tableConfig="userTableConfig"
@@ -108,7 +112,7 @@ const handleSubmit = async (data: UserItem) => {
 				>编辑</el-button
 			>
 			<el-button
-				@click="handleTableDelete(row)"
+				@click="handleTableLogoff(row)"
 				type="danger"
 				:icon="Aim"
 				plain
