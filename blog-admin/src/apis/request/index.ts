@@ -29,6 +29,7 @@ const jcRequest: JcRequest = new JcRequest({
 				ElMessage.error(errInfo.msg)
 				router.push('/login')
 			}
+			return Promise.reject(error) // 抛出错误，让调用者处理
 		}
 	}
 })

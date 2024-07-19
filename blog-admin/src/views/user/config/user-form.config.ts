@@ -1,4 +1,6 @@
 import type { JcFormProps } from '@/components/jc-form'
+import { UserFormTypes } from '../types'
+import { addAtIndex } from '@/utils'
 
 const userFormConfig: JcFormProps = {
 	formItems: [
@@ -54,6 +56,10 @@ const userFormConfig: JcFormProps = {
 		nickname: [
 			{ required: true, message: '请输入用户昵称', trigger: 'blur' },
 			{ min: 2, max: 10, message: '用户昵称长度在 2 到 10 个字符', trigger: 'blur' }
+		],
+		password: [
+			{ required: true, message: '请输入用户密码', trigger: 'blur' },
+			{ min: 6, max: 16, message: '用户昵称长度在 6 到 16 个字符', trigger: 'blur' }
 		]
 	},
 	labelWidth: 100,
@@ -67,4 +73,18 @@ const userFormConfig: JcFormProps = {
 	inline: false
 }
 
-export default userFormConfig
+export default function (mode: UserFormTypes) {
+	if (mode === UserFormTypes.CREATE) {
+		return {
+			...userFormConfig,
+			formItems: addAtIndex(userFormConfig.formItems, 1, {
+				label: '登录密码',
+				field: 'password',
+				type: 'password',
+				placeholder: '用户密码'
+			})
+		}
+	} else if (mode === UserFormTypes.EDIT) {
+		return userFormConfig
+	}
+}

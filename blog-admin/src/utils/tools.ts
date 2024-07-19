@@ -124,3 +124,14 @@ export function randomStr(len: number = 6): string {
 export function formatFileType(type: string) {
 	return `.${type.split('/').pop()}`
 }
+
+/**
+ * 在一个数组指定的索引位置上添加一项元素
+ */
+export function addAtIndex<T>(arr: T[], index: number, item: T): T[] {
+	if (index < 0 || index > arr.length) {
+		throw new Error('Index out of range')
+	}
+
+	return [...arr.slice(0, index), item, ...arr.slice(index)]
+}

@@ -2,7 +2,7 @@
 import { userApi } from '@/apis'
 import userTableConfig from './config/user-table.config'
 import userSearchFormConfig from './config/user-search-form.config'
-import userFormConfig from './config/user-form.config'
+import userFormFn from './config/user-form.config'
 import { Postcard, Edit, Aim } from '@element-plus/icons-vue'
 import { h, ref } from 'vue'
 import { UserItem } from '@/apis/modules/user/type'
@@ -44,7 +44,10 @@ const modeTitleMap = {
 	[UserFormTypes.CREATE]: '创建用户',
 	[UserFormTypes.EDIT]: '编辑用户信息'
 }
+// 表单配置
+let userFormConfig = userFormFn(UserFormTypes.CREATE)
 function setInfo(row: UserItem | null, mode: UserFormTypes, isVisable: boolean = true) {
+	userFormConfig = userFormFn(mode)
 	curUserInfo.value = row ? { ...row } : ({} as UserItem)
 	drawerMode.value = mode
 	drawerTitle.value = modeTitleMap[mode]
@@ -55,16 +58,22 @@ const { refs, setRef } = useRefs()
 
 // 处理表单提交
 const handleSubmit = async (data: UserItem) => {
-	if (drawerMode.value === UserFormTypes.EDIT) {
-		if (data.avatarUrl && typeof data.avatarUrl !== 'string') {
-			const result = await uploadFile(data.avatarUrl as unknown as File)
-			data.avatarUrl = result.url
-		}
-		const resp = await userApi.reqEditUserInfo(data)
-		ElMessage.success(resp.msg)
-		drawerVisable.value = false
-		refs.pageContentRef?.search()
+	let resp: any = undefined
+	// 处理文件
+	if (data.avatarUrl && typeof data.avatarUrl !== 'string') {
+		const result = await uploadFile(data.avatarUrl as unknown as File)
+		data.avatarUrl = result.url
 	}
+	// 分发请求
+	if (drawerMode.value === UserFormTypes.EDIT) {
+		resp = await userApi.reqEditUserInfo(data)
+	} else if (drawerMode.value === UserFormTypes.CREATE) {
+		resp = await userApi.reqCreateUser(data)
+		console.log('🚢 ~ 当前打印的内容 ~ resp:', resp)
+	}
+	ElMessage.success(resp.msg)
+	drawerVisable.value = false
+	refs.pageContentRef?.search()
 }
 
 // 创建用户
