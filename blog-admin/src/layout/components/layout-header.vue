@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import LayoutFlex from './layout-flex.vue'
+import LayoutBreadcrumb from './layout-breadcrumb.vue'
+import LayoutNav from './layout-nav.vue'
 </script>
 
 <template>
 	<div class="layout-header-wrapper">
 		<!-- top -->
 		<div class="header-top">
+			<!-- flex -->
 			<LayoutFlex></LayoutFlex>
+			<!-- 面包屑 or 菜单 -->
+			<LayoutBreadcrumb />
 		</div>
 
 		<!-- bottom -->
-		<div class="header-bootom"></div>
+		<div class="header-bootom">
+			<LayoutNav></LayoutNav>
+		</div>
 	</div>
 </template>
 
@@ -29,6 +36,12 @@ import LayoutFlex from './layout-flex.vue'
 		height: 60px;
 		display: flex;
 		align-items: center;
+		border-bottom: 1px solid var(--border-color);
+		flex-shrink: 0;
+	}
+	.header-bootom {
+		width: 100%;
+		flex: 1;
 	}
 }
 </style>

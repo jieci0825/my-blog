@@ -1,9 +1,13 @@
+import { DEFAULT_INDEX_ROUTE_NAME } from '@/constants'
 import type { RouteRecordRaw } from 'vue-router'
 
 const routeDynamic: RouteRecordRaw[] = [
 	{
 		path: '/home',
-		name: 'home',
+		name: DEFAULT_INDEX_ROUTE_NAME,
+		meta: {
+			closable: false
+		},
 		component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
 	},
 	{
@@ -25,6 +29,11 @@ const routeDynamic: RouteRecordRaw[] = [
 		path: '/tag',
 		name: 'tag',
 		component: () => import(/* webpackChunkName: "tag" */ '@/views/tag/index.vue')
+	},
+	{
+		path: '/blog',
+		name: 'blog',
+		redirect: '/blog/list'
 	},
 	{
 		path: '/blog/list',

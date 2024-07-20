@@ -5,3 +5,7 @@ export function isObject(value: any): boolean {
 export function isArray(value: any): boolean {
 	return Array.isArray(value)
 }
+
+export function isBoolean(value: any): boolean {
+	return typeof value === 'boolean'
+}

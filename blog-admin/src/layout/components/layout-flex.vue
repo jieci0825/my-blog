@@ -7,9 +7,9 @@ const { toggleCollapse } = useGlobalActions()
 </script>
 
 <template>
-	<div class="layout-flex">
+	<div class="flex-box">
 		<el-icon
-			:size="24"
+			:size="20"
 			@click="toggleCollapse"
 			class="layout-flex-icon">
 			<component :is="getCollapse ? Expand : Fold"></component>
@@ -17,4 +17,10 @@ const { toggleCollapse } = useGlobalActions()
 	</div>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.flex-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>

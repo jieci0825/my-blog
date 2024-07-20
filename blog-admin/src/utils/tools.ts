@@ -1,7 +1,7 @@
-import type { RouteRecordRaw } from 'vue-router'
 import dayjs from 'dayjs'
-import { MenuItem } from '@/apis/modules/menu/type'
 import router from '@/routers'
+import type { MenuItem } from '@/apis/modules/menu/type'
+import type { RouteRecordRaw } from 'vue-router'
 
 // 格式化时间
 export function formatTime(date: Date, format = 'YYYY-MM-DD HH:mm:ss') {
@@ -22,6 +22,7 @@ export function getDynamicRoutes(routes: RouteRecordRaw[], menus: MenuItem[], ro
 		}
 		if (route) {
 			route.meta = {
+				...route.meta,
 				title: menu.menuTitle,
 				icon: menu.menuIcon,
 				name: menu.menuName,
