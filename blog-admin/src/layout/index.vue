@@ -54,6 +54,7 @@ const asideWidth = computed(() => {
 		box-shadow: 2px 0 12px #1d23290d;
 		border-right: none;
 		z-index: 1;
+		transition: width 0.3s;
 	}
 
 	.layout-header {

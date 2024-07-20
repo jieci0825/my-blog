@@ -11,11 +11,13 @@ const props = withDefaults(defineProps<LayoutLogoProps>(), {
 		<div class="logo">
 			<img src="/logo.svg" />
 		</div>
-		<span
-			class="text"
-			v-if="props.showText"
-			>劫辞の博客</span
-		>
+		<transition name="el-fade-in">
+			<span
+				class="text transition-box"
+				v-show="props.showText"
+				>劫辞の博客</span
+			>
+		</transition>
 	</div>
 </template>
 

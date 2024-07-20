@@ -25,7 +25,7 @@ export const useGlobalGetters = () => {
 }
 
 export const useGlobalActions = () => {
-	const { setToken, clearToken } = piniaGlobalStore()
+	const { setToken, clearToken, toggleCollapse } = piniaGlobalStore()
 	const { clearUserInfo, reqGetUserInfo, reqGetUserMenuList, clearUserMenuList } = useUserActions()
 
 	// 登录
@@ -66,6 +66,7 @@ export const useGlobalActions = () => {
 		login,
 		setToken,
 		logout,
-		loadLocal
+		loadLocal,
+		toggleCollapse
 	}
 }

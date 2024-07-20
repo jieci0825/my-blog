@@ -17,8 +17,8 @@ export const piniaGlobalStore = defineStore('global', () => {
 
 	// collapse
 	const isCollapse = ref(false)
-	const toggleCollapse = (value: boolean) => {
-		isCollapse.value = value
+	const toggleCollapse = (value?: boolean) => {
+		isCollapse.value = value === undefined || !isCollapse.value
 	}
 
 	return {

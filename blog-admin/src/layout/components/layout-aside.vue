@@ -2,12 +2,12 @@
 import JcMenu from '@/components/jc-menu'
 import { useGlobalGetters, useUserGetters } from '@/store'
 import LayoutLogo from './layout-logo.vue'
-import { ref } from 'vue'
+import { computed } from 'vue'
 
 const { getUserMenuList } = useUserGetters()
 const { getCollapse } = useGlobalGetters()
 
-const showText = ref(!getCollapse.value)
+const showText = computed(() => !getCollapse.value)
 </script>
 
 <template>
