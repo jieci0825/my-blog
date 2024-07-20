@@ -1,5 +1,5 @@
 import type { JcFormProps } from '@/components/jc-form'
-import { UserFormTypes } from '../types'
+import { ActionType } from '../types'
 import { addAtIndex } from '@/utils'
 
 const userFormConfig: JcFormProps = {
@@ -73,8 +73,8 @@ const userFormConfig: JcFormProps = {
 	inline: false
 }
 
-export default function (mode: UserFormTypes) {
-	if (mode === UserFormTypes.CREATE) {
+export default function (mode: ActionType) {
+	if (mode === ActionType.CREATE) {
 		return {
 			...userFormConfig,
 			formItems: addAtIndex(userFormConfig.formItems, 1, {
@@ -84,7 +84,7 @@ export default function (mode: UserFormTypes) {
 				placeholder: '用户密码'
 			})
 		}
-	} else if (mode === UserFormTypes.EDIT) {
+	} else if (mode === ActionType.EDIT) {
 		return userFormConfig
 	}
 }

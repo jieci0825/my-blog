@@ -6,20 +6,20 @@ import userFormFn from './config/user-form.config'
 import { Postcard, Edit, Aim } from '@element-plus/icons-vue'
 import { h, ref } from 'vue'
 import { UserItem } from '@/apis/modules/user/type'
-import { UserFormTypes } from './types'
+import { ActionType } from './types'
 import { uploadFile } from '@/cos'
 import { useRefs } from '@/hooks/use-refs'
 import { previewImage } from '@/utils'
 import { useRoleActions, useRoleGetters } from '@/store'
 
 const drawerTitle = ref('')
-const drawerMode = ref<UserFormTypes>(UserFormTypes.EDIT)
+const curAction = ref<ActionType>(ActionType.EDIT)
 const drawerVisable = ref(false)
 const curUserInfo = ref<UserItem>()
 
 // 编辑用户信息
 const handleTableEdit = (row: UserItem) => {
-	setInfo(row, UserFormTypes.EDIT)
+	setInfo(row, ActionType.EDIT)
 }
 // 删除用户
 const handleTableLogoff = async (row: UserItem) => {
@@ -38,15 +38,15 @@ const handleTableLogoff = async (row: UserItem) => {
 }
 
 const modeTitleMap = {
-	[UserFormTypes.CREATE]: '创建用户',
-	[UserFormTypes.EDIT]: '编辑用户信息'
+	[ActionType.CREATE]: '创建用户',
+	[ActionType.EDIT]: '编辑用户信息'
 }
 // 表单配置
-let userFormConfig = userFormFn(UserFormTypes.CREATE)
-function setInfo(row: UserItem | null, mode: UserFormTypes, isVisable: boolean = true) {
+let userFormConfig = userFormFn(ActionType.CREATE)
+function setInfo(row: UserItem | null, mode: ActionType, isVisable: boolean = true) {
 	userFormConfig = userFormFn(mode)
 	curUserInfo.value = row ? { ...row } : ({} as UserItem)
-	drawerMode.value = mode
+	curAction.value = mode
 	drawerTitle.value = modeTitleMap[mode]
 	drawerVisable.value = isVisable
 }
@@ -62,9 +62,9 @@ const handleSubmit = async (data: UserItem) => {
 		data.avatarUrl = result.url
 	}
 	// 分发请求
-	if (drawerMode.value === UserFormTypes.EDIT) {
+	if (curAction.value === ActionType.EDIT) {
 		resp = await userApi.reqEditUserInfo(data)
-	} else if (drawerMode.value === UserFormTypes.CREATE) {
+	} else if (curAction.value === ActionType.CREATE) {
 		resp = await userApi.reqCreateUser(data)
 	}
 	ElMessage.success(resp.msg)
@@ -74,7 +74,7 @@ const handleSubmit = async (data: UserItem) => {
 
 // 创建用户
 const handleCreateUser = () => {
-	setInfo(null, UserFormTypes.CREATE)
+	setInfo(null, ActionType.CREATE)
 }
 
 const dialogVisable = ref(false)

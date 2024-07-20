@@ -24,7 +24,6 @@ const containerStyle = computed(() => {
 		v-bind="{ ...attrs, ...props }"
 		:style="containerStyle"
 		:data="props.tableData">
-		<!-- <el-table-column type="selection" width="55" /> -->
 		<template
 			v-for="item in props.columns"
 			:key="item.property">
@@ -51,5 +50,11 @@ const containerStyle = computed(() => {
 <style scoped lang="less">
 .el-table {
 	font-size: 16px;
+	:deep(.el-table__header-wrapper) {
+		display: flex;
+	}
+	:deep(.el-table__body-wrapper) {
+		display: flex;
+	}
 }
 </style>

@@ -1,4 +1,4 @@
-export enum UserFormTypes {
-	EDIT = 'EDIT',
-	CREATE = 'CREATE'
+export enum ActionType {
+	CREATE = 'CREATE',
+	EDIT = 'EDIT'
 }

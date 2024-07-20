@@ -5,3 +5,5 @@ export * as userApi from './modules/user'
 export * as roleApi from './modules/role'
 
 export * as fileApi from './modules/file'
+
+export * as menuApi from './modules/menu'

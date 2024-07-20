@@ -6,3 +6,5 @@ export const BLOG_ADMIN_CURRENT_MENU_LIST = 'BLOG_ADMIN_CURRENT_MENU_LIST'
 export const COS_FILE_PREFIX = 'coderjc-blog'
 // cos access baseurl
 export const COS_ACCESS_BASEURL = 'https://cos.coderjc.cn'
+// super admin name
+export const SUPER_ADMIN_NAME = 'SuperAdmin'

@@ -9,3 +9,7 @@ export interface MenuItem {
 	menuStatus: number
 	children: MenuItem[] | null
 }
+
+export interface ReqGetMenuListParams {
+	type: 'tree' | 'flat'
+}
