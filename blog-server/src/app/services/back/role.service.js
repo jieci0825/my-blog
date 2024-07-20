@@ -1,5 +1,7 @@
+const { Menu } = require('@/app/models/menu.model')
 const { RoleMenu } = require('@/app/models/role-menu.model')
 const { Role } = require('@/app/models/role.model')
+const { toTree, toCamelCaseForObj } = require('@/utils')
 const { User } = require('@/app/models/user.model')
 const { sequelize } = require('@/core/db')
 const { Collide, Forbidden } = require('@/core/error-type')
@@ -96,10 +98,30 @@ async function editRole(data) {
 	await Role.update(editData, { where: { id: data.id } })
 }
 
+/**
+ * 根据角色id获取菜单列表
+ * @param {number} roleId
+ */
+async function getMenuListByRoleId(roleId) {
+	const roleMenuList = await RoleMenu.findAll({ where: { role_id: roleId } })
+	const menuIds = roleMenuList.map(item => item.menu_id)
+	const menuList = await Menu.findAll({
+		where: { id: { [Op.in]: menuIds } },
+		attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] }
+	})
+	const treeMenu = toTree(
+		menuList.map(item => toCamelCaseForObj(item.dataValues)),
+		0,
+		{ childEmpty: null, parentField: 'menuPid' }
+	)
+	return treeMenu || []
+}
+
 module.exports = {
 	createRole,
 	getRoleList,
 	deleteRole,
 	assignPermission,
-	editRole
+	editRole,
+	getMenuListByRoleId
 }

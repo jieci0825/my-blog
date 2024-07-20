@@ -1,11 +1,8 @@
-const { Menu } = require('@/app/models/menu.model')
-const { RoleMenu } = require('@/app/models/role-menu.model')
 const { Role } = require('@/app/models/role.model')
 const { User } = require('@/app/models/user.model')
 const { Collide } = require('@/core/error-type')
-const { toTree, toCamelCaseForObj } = require('@/utils')
 const { Op } = require('sequelize')
-const { sequelize } = require('@/core/db')
+const roleService = require('@ser-back/role.service')
 
 /**
  * 创建用户
@@ -43,7 +40,9 @@ async function getUserInfo(id) {
  * @param {object} condition
  */
 async function getUserList(condition) {
-	const where = {}
+	const where = {
+		status: 1
+	}
 	if (condition.nickname) {
 		where.nickname = { [Op.like]: `%${condition.nickname}%` }
 	}
@@ -99,18 +98,8 @@ async function assignRole(data) {
  */
 async function getLoginUserMenuList(userId) {
 	const userInfo = await User.findByPk(userId)
-	const roleMenuList = await RoleMenu.findAll({ where: { role_id: userInfo.role_id } })
-	const menuIds = roleMenuList.map(item => item.menu_id)
-	const menuList = await Menu.findAll({
-		where: { id: { [Op.in]: menuIds } },
-		attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] }
-	})
-	const treeMenu = toTree(
-		menuList.map(item => toCamelCaseForObj(item.dataValues)),
-		0,
-		{ childEmpty: null, parentField: 'menuPid' }
-	)
-	return treeMenu
+	const result = await roleService.getMenuListByRoleId(userInfo.role_id)
+	return result
 }
 
 /**

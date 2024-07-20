@@ -2,7 +2,14 @@ const Router = require('koa-router')
 const { genBackPrefix } = require('@/utils')
 const router = new Router({ prefix: genBackPrefix('role') })
 const { verifyToken, verifySuperAdmin } = require('@/middleware/auth.middleware')
-const { createRole, getRoleList, deleteRole, assignPermission, editRole } = require('@con-back/role.controller')
+const {
+	createRole,
+	getRoleList,
+	deleteRole,
+	assignPermission,
+	editRole,
+	getMenuListByRoleId
+} = require('@con-back/role.controller')
 
 // 创建角色
 router.post('/', verifyToken, createRole)
@@ -18,5 +25,8 @@ router.post('/assign-permission', verifyToken, verifySuperAdmin, assignPermissio
 
 // 编辑角色信息
 router.put('/', verifyToken, verifySuperAdmin, editRole)
+
+// 根据角色id获取菜单列表
+router.get('/menu/:id', verifyToken, getMenuListByRoleId)
 
 module.exports = router

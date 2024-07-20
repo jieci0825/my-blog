@@ -47,10 +47,20 @@ async function editRole(ctx) {
 	throw new Success('编辑角色成功')
 }
 
+/**
+ * 根据角色id获取菜单列表
+ */
+async function getMenuListByRoleId(ctx) {
+	const { data } = new Validator().validate(ctx)
+	const result = await roleSerevice.getMenuListByRoleId(data.id)
+	throw new DataSuccess(result)
+}
+
 module.exports = {
 	createRole,
 	getRoleList,
 	deleteRole,
 	assignPermission,
-	editRole
+	editRole,
+	getMenuListByRoleId
 }

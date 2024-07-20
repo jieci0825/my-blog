@@ -47,8 +47,6 @@ async function editMenu(data) {
  */
 async function getMenuList(condition) {
 	const menuList = await Menu.findAll({
-		offset: condition.page,
-		limit: condition.pageSize,
 		attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] }
 	})
 	let result = menuList.map(item => toCamelCaseForObj(item.dataValues))
