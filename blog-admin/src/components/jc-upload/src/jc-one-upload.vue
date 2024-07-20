@@ -137,7 +137,7 @@ const handleOnePreview = () => {
 	.one-upload {
 		width: 140px;
 		height: 140px;
-		border: 2px dashed var(--text-color-3);
+		border: 2px dashed var(--text-color);
 		border-radius: 6px;
 		overflow: hidden;
 		display: flex;
@@ -211,7 +211,7 @@ const handleOnePreview = () => {
 		}
 	}
 	.tip-box {
-		color: var(--text-color-3);
+		color: var(--text-color);
 	}
 }
 </style>

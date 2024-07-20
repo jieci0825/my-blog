@@ -9,7 +9,8 @@ import { useUserGetters } from '@/store'
 defineOptions({ name: 'JcMenu' })
 const route = useRoute()
 const props = withDefaults(defineProps<JcMenuProps>(), {
-	menuList: () => []
+	menuList: () => [],
+	isCollapse: false
 })
 
 const currentPath = computed(() => route.path)
@@ -25,11 +26,11 @@ const ancestors = computed(() => {
 <template>
 	<el-menu
 		:unique-opened="true"
+		:collapse="props.isCollapse"
 		active-text-color="var(--primary-color)"
 		background-color="var(--bg-color)"
 		class="el-menu-vertical-demo"
-		:default-active="`${route.meta.id}`"
-		text-color="#6e6e6e">
+		:default-active="`${route.meta.id}`">
 		<JcMenuItem
 			:menu-list="props.menuList"
 			:ancestors="ancestors"

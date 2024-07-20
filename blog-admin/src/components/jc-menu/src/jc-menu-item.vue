@@ -23,7 +23,9 @@ const handleClick = (item: MenuItem) => {
 			:index="`${item.id}`"
 			v-if="item.children">
 			<template #title>
-				<span :class="['iconfont', item.menuIcon]"></span>
+				<el-icon :size="18">
+					<span :class="['iconfont', item.menuIcon]"></span>
+				</el-icon>
 				<span class="text">{{ item.menuTitle }}</span>
 			</template>
 			<JcMenuItem
@@ -36,8 +38,10 @@ const handleClick = (item: MenuItem) => {
 			:index="`${item.id}`"
 			:class="{ 'is-active': props.currentPath === item.menuPath }"
 			v-else>
-			<template #title>
+			<el-icon :size="18">
 				<span :class="['iconfont', item.menuIcon]"></span>
+			</el-icon>
+			<template #title>
 				<span class="text">{{ item.menuTitle }}</span>
 			</template>
 		</el-menu-item>
@@ -46,7 +50,7 @@ const handleClick = (item: MenuItem) => {
 
 <style scoped lang="less">
 .text {
-	margin-left: 15px;
+	margin-left: 5px;
 }
 .iconfont {
 	font-size: 18px;

@@ -1,7 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div class="layout-header-box"></div>
+	<div class="layout-header-box">
+		<!-- top -->
+
+		<!-- bottom -->
+	</div>
 </template>
 
 <style scoped lang="less">

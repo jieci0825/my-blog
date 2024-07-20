@@ -1,0 +1,40 @@
+.el-menu.el-menu {
+	height: 100%;
+	border-right: none;
+	user-select: none;
+	--el-menu-text-color: var(--text-color) !important;
+	--el-menu-hover-bg-color: var(--text-color) !important;
+
+	.el-sub-menu,
+	.el-menu-item {
+		margin-bottom: 5px;
+		border-radius: 4px;
+		overflow: hidden;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.el-menu-item {
+		&:hover {
+			background-color: var(--el-color-primary-light-8);
+			color: var(--el-color-primary);
+		}
+		&.is-active {
+			background-color: var(--el-color-primary-light-8);
+		}
+	}
+	.el-sub-menu {
+		&.is-active {
+			.el-sub-menu__title {
+				color: var(--el-color-primary) !important;
+			}
+		}
+		.el-sub-menu__title {
+			margin-bottom: 0;
+			&:hover {
+				background-color: var(--el-color-primary-light-8);
+				color: var(--el-color-primary);
+			}
+		}
+	}
+}

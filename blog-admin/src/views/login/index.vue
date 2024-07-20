@@ -67,7 +67,7 @@ async function onSubmit(data: LoginForm) {
 			p {
 				margin-top: 20px;
 				font-size: 20px;
-				color: var(--text-color-3);
+				color: var(--text-color);
 			}
 		}
 	}

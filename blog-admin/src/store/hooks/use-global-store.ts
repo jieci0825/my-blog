@@ -15,8 +15,12 @@ export const useGlobalGetters = () => {
 	// 获取 token
 	const getToken = computed(() => globalStore.token)
 
+	// collapse
+	const getCollapse = computed(() => globalStore.isCollapse)
+
 	return {
-		getToken
+		getToken,
+		getCollapse
 	}
 }
 

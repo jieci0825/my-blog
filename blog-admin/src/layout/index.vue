@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-
 import LayoutHeader from './components/layout-header.vue'
 import LayoutAside from './components/layout-aside.vue'
+import { computed } from 'vue'
+import { useGlobalGetters } from '@/store'
+
+const { getCollapse } = useGlobalGetters()
+
+const asideWidth = computed(() => {
+	return getCollapse.value ? '84px' : '240px'
+})
 </script>
 
 <template>
 	<el-container class="layout-container">
 		<el-aside
-			width="240px"
+			:width="asideWidth"
 			class="layout-aside">
 			<LayoutAside></LayoutAside>
 		</el-aside>
