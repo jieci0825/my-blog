@@ -5,8 +5,8 @@ import { LoginParams } from '@/apis/modules/global/type'
 
 import router from '@/routers'
 import { useUserActions } from './use-user-store'
-import { getLocalCache, registerDynamicRoutes } from '@/utils'
-import { BLOG_ADMIN_CURRENT_MENU_LIST, BLOG_ADMIN_TOKEN } from '@/constants'
+import { getLocalCache, registerDynamicRoutes, removeDynamicRoutes, removeLocalCache } from '@/utils'
+import { BLOG_ADMIN_CURRENT_MENU_LIST, BLOG_ADMIN_HEADER_NAV_LIST, BLOG_ADMIN_TOKEN } from '@/constants'
 import routeDynamic from '@/routers/route-dynamic'
 
 export const useGlobalGetters = () => {
@@ -29,7 +29,7 @@ export const useGlobalActions = () => {
 	const { clearUserInfo, reqGetUserInfo, reqGetUserMenuList, clearUserMenuList } = useUserActions()
 
 	// 登录
-	const login = async (data: LoginParams) => {
+	const login = async (data: LoginParams, path?: string) => {
 		const resp = await globalApi.reqLogin(data)
 		// 存储 token
 		setToken(resp.data.token)
@@ -40,9 +40,9 @@ export const useGlobalActions = () => {
 		const menus = getLocalCache(BLOG_ADMIN_CURRENT_MENU_LIST)
 		registerDynamicRoutes(routeDynamic, menus)
 
-		// 跳转进入首页
-		// todo: 检查是否携带路径参数，携带则跳转携带的参数，没有则是默认的
-		router.push('/')
+		// 检查是否携带路径参数，携带则跳转携带的参数，没有则是默认的
+		const toPath = path || '/'
+		router.push(toPath)
 	}
 
 	// 退出登录
@@ -50,6 +50,13 @@ export const useGlobalActions = () => {
 		clearToken()
 		clearUserInfo()
 		clearUserMenuList()
+		clearNav()
+		router.push('/login').then(removeDynamicRoutes)
+	}
+
+	// 清空 nav
+	function clearNav() {
+		removeLocalCache(BLOG_ADMIN_HEADER_NAV_LIST)
 	}
 
 	// 加载本地数据

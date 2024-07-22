@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import JcForm from '@/components/jc-form'
 import loginFormConfig from './config/login-form'
-import type { LoginForm } from './types'
 import { useGlobalActions } from '@/store'
+import type { LoginForm } from './types'
+
+const route = useRoute()
 
 const { login } = useGlobalActions()
 
 async function onSubmit(data: LoginForm) {
-	await login(data)
+	await login(data, route.query.redirect as string | undefined)
 }
 </script>
 

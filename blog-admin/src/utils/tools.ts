@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import router from '@/routers'
+import routeDynamicConfig from '@/routers/route-dynamic'
 import type { MenuItem } from '@/apis/modules/menu/type'
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -42,6 +43,13 @@ export function registerDynamicRoutes(routes: RouteRecordRaw[], menus: MenuItem[
 	// 添加路由配置
 	routeList.forEach(route => {
 		router.addRoute('layout', route)
+	})
+}
+
+// 移除动态路由
+export function removeDynamicRoutes() {
+	routeDynamicConfig.forEach(route => {
+		router.removeRoute(route.name as string)
 	})
 }
 
