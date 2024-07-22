@@ -28,7 +28,7 @@ const ancestors = computed(() => {
 		:unique-opened="true"
 		:collapse="props.isCollapse"
 		active-text-color="var(--primary-color)"
-		background-color="var(--bg-color)"
+		background-color="var(--aside-bg-color)"
 		class="el-menu-vertical-demo"
 		:default-active="`${route.meta.id}`">
 		<JcMenuItem

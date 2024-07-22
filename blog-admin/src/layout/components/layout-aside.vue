@@ -44,12 +44,5 @@ const showText = computed(() => !getCollapse.value)
 	&::-webkit-scrollbar {
 		width: 0;
 	}
-	:deep(.el-menu--vertical) {
-		.el-menu--popup {
-			.el-menu-item {
-				background-color: red !important;
-			}
-		}
-	}
 }
 </style>

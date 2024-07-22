@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<LayoutLogoProps>(), {
 <template>
 	<div class="logo-box">
 		<div class="logo">
-			<img src="/logo.svg" />
+			<JcLogo />
 		</div>
 		<transition name="el-fade-in">
 			<span
@@ -34,9 +34,10 @@ const props = withDefaults(defineProps<LayoutLogoProps>(), {
 	.logo {
 		width: 1.4em;
 		height: 1.4em;
-		img {
+		svg {
 			width: 100%;
 			height: 100%;
+			fill: var(--el-color-primary);
 		}
 	}
 	.text {

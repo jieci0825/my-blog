@@ -4,4 +4,8 @@
 	<h1>blog-publish</h1>
 </template>
 
-<style scoped></style>
+<style scoped>
+.mb-4 {
+	margin-top: 20px;
+}
+</style>

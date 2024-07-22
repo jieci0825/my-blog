@@ -2,12 +2,14 @@
 	// 版心宽度
 	--center-width: 1280px;
 	/* 主题 */
+	// --primary-color: #5149e4;
 	--primary-color: var(--el-color-primary);
 	/* 头部 高度 */
 	--header-height: 60px;
 	/* 背景颜色 */
 	--bg-color: #fff;
 	--bg-color-1: #f9faff;
+	--aside-bg-color: var(--bg-color);
 	/* 阴影 */
 	--base-box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
 		rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
@@ -35,6 +37,14 @@
 	/* el */
 	--el-menu-item-height: 45px !important;
 	--el-font-size-base: 16px !important;
+}
+
+html.dark {
+	--bg-color: #000;
+	--bg-color-1: #000101;
+	--text-color: #e5e3fa;
+	--aside-bg-color: #141414;
+	--border-color: #414243;
 }
 
 // 媒体查询

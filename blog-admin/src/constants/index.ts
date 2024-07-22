@@ -4,6 +4,10 @@ export const BLOG_ADMIN_TOKEN = 'BLOG_ADMIN_TOKEN'
 export const BLOG_ADMIN_CURRENT_MENU_LIST = 'BLOG_ADMIN_CURRENT_MENU_LIST'
 // 头部的 nav 列表
 export const BLOG_ADMIN_HEADER_NAV_LIST = 'BLOG_ADMIN_HEADER_NAV_LIST'
+// 主题
+export const BLOG_ADMIN_THEME = 'BLOG_ADMIN_THEME'
+// 主题色
+export const BLOG_ADMIN_PRIMARY_COLOR = 'BLOG_ADMIN_PRIMARY_COLOR'
 
 // cos 的路径前缀
 export const COS_FILE_PREFIX = 'coderjc-blog'

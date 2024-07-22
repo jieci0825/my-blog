@@ -142,3 +142,14 @@ img {
 .el-tooltip__trigger:focus-visible {
 	outline: unset;
 }
+
+// 清除默认动画
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+}
+
+// 层级原因，需要调整过渡到暗色模式时 ::view-transition-old(root) 的层级
+.dark::view-transition-old(root) {
+	z-index: 100;
+}

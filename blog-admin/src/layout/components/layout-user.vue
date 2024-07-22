@@ -38,7 +38,7 @@ const { logout } = useGlobalActions()
 
 <style scoped lang="less">
 .layout-user-box {
-	margin-left: auto;
+	margin-left: 25px;
 	display: flex;
 	align-items: center;
 	cursor: pointer;

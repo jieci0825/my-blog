@@ -53,6 +53,7 @@ declare module 'vue' {
     JcDialog: typeof import('./src/components/jc-dialog/src/jc-dialog.vue')['default']
     JcDrawer: typeof import('./src/components/jc-drawer/src/jc-drawer.vue')['default']
     JcForm: typeof import('./src/components/jc-form/src/jc-form.vue')['default']
+    JcLogo: typeof import('./src/components/jc-logo/src/jc-logo.vue')['default']
     JcMenu: typeof import('./src/components/jc-menu/src/jc-menu.vue')['default']
     JcMenuItem: typeof import('./src/components/jc-menu/src/jc-menu-item.vue')['default']
     JcOneUpload: typeof import('./src/components/jc-upload/src/jc-one-upload.vue')['default']

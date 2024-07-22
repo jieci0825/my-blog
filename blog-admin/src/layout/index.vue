@@ -50,11 +50,11 @@ const asideWidth = computed(() => {
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
-		background-color: var(--bg-color);
 		box-shadow: 2px 0 12px #1d23290d;
 		border-right: none;
 		z-index: 1;
 		transition: width 0.3s;
+		background-color: var(--aside-bg-color);
 	}
 
 	.layout-header {
