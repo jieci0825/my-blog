@@ -1,15 +1,15 @@
 import { ref } from 'vue'
-import type { UserInfo } from './type'
 import { defineStore } from 'pinia'
-import { MenuItem } from '@/apis/modules/menu/type'
 import { getLocalCache, removeLocalCache, setLocalCache } from '@/utils'
 import { BLOG_ADMIN_CURRENT_MENU_LIST } from '@/constants'
+import type { MenuItem } from '@/apis/modules/menu/type'
+import type { UserItem } from '@/apis/modules/user/type'
 
 export const piniaUserStore = defineStore('user', () => {
 	// 当前登录的用户信息
-	const userInfo = ref<UserInfo | null>(null)
+	const userInfo = ref<UserItem | null>(null)
 	// 设置用户信息
-	const setUserInfo = (data: UserInfo) => {
+	const setUserInfo = (data: UserItem) => {
 		userInfo.value = data
 	}
 	// 清除用户信息
