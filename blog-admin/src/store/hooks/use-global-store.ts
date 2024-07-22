@@ -18,14 +18,18 @@ export const useGlobalGetters = () => {
 	// collapse
 	const getCollapse = computed(() => globalStore.isCollapse)
 
+	// isRefresj
+	const getRefresh = computed(() => globalStore.refresh)
+
 	return {
 		getToken,
-		getCollapse
+		getCollapse,
+		getRefresh
 	}
 }
 
 export const useGlobalActions = () => {
-	const { setToken, clearToken, toggleCollapse } = piniaGlobalStore()
+	const { setToken, clearToken, toggleCollapse, handleRefresh } = piniaGlobalStore()
 	const { clearUserInfo, reqGetUserInfo, reqGetUserMenuList, clearUserMenuList } = useUserActions()
 
 	// 登录
@@ -77,6 +81,7 @@ export const useGlobalActions = () => {
 		setToken,
 		logout,
 		loadLocal,
-		toggleCollapse
+		toggleCollapse,
+		handleRefresh
 	}
 }

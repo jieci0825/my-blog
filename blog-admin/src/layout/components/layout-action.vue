@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { useTheme } from '@/hooks'
+import { useGlobalActions } from '@/store'
 import { RefreshRight, Sunny, Moon } from '@element-plus/icons-vue'
 
 const size = 25
 const { isDark, switchTheme } = useTheme()
+const { handleRefresh } = useGlobalActions()
 </script>
 
 <template>
 	<div class="layout-action-box">
 		<div class="action-item">
-			<el-icon :size="size">
+			<el-icon
+				:size="size"
+				@click="handleRefresh">
 				<RefreshRight />
 			</el-icon>
 		</div>

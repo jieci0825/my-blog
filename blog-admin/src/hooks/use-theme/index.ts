@@ -5,6 +5,7 @@ import type { ThemeType, ColorType } from './type'
 
 const NAME_PREFIX = '--el-color'
 const DARK = 'dark'
+const DEFAULT_PRIMARY_COLOR = '#637dff'
 
 const theme = ref(getLocalCache(BLOG_ADMIN_THEME) || '')
 const isDark = computed(() => theme.value === DARK)
@@ -23,7 +24,7 @@ export const useTheme = () => {
 	}
 
 	const setPrimaryColor = (color?: string) => {
-		color = color || getLocalCache(BLOG_ADMIN_PRIMARY_COLOR) || '#5149e4'
+		color = color || getLocalCache(BLOG_ADMIN_PRIMARY_COLOR) || DEFAULT_PRIMARY_COLOR
 		setLocalCache(BLOG_ADMIN_PRIMARY_COLOR, color!)
 
 		// * 默认生成 light

@@ -21,11 +21,17 @@ export const piniaGlobalStore = defineStore('global', () => {
 		isCollapse.value = value === undefined || !isCollapse.value
 	}
 
+	// refresh
+	const refresh = ref(true)
+	const handleRefresh = () => (refresh.value = !refresh.value)
+
 	return {
 		token,
 		setToken,
 		clearToken,
 		isCollapse,
-		toggleCollapse
+		toggleCollapse,
+		refresh,
+		handleRefresh
 	}
 })

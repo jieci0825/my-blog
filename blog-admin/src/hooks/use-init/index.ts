@@ -6,5 +6,5 @@ export const useInit = async () => {
 	loadLocal()
 	const { setPrimaryColor, switchTheme } = useTheme()
 	switchTheme()
-	setPrimaryColor('#637dff')
+	setPrimaryColor()
 }

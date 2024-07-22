@@ -2,14 +2,25 @@
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import LayoutHeader from './components/layout-header.vue'
 import LayoutAside from './components/layout-aside.vue'
-import { computed } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useGlobalGetters } from '@/store'
 
-const { getCollapse } = useGlobalGetters()
+const { getCollapse, getRefresh } = useGlobalGetters()
 
 const asideWidth = computed(() => {
 	return getCollapse.value ? '84px' : '240px'
 })
+
+const refresh = ref(true)
+watch(
+	() => getRefresh.value,
+	() => {
+		refresh.value = false
+		nextTick(() => {
+			refresh.value = true
+		})
+	}
+)
 </script>
 
 <template>
@@ -32,7 +43,8 @@ const asideWidth = computed(() => {
 							<Component :is="Component" />
 						</keep-alive>
 					</router-view> -->
-					<router-view></router-view>
+
+					<router-view v-if="refresh"></router-view>
 				</el-config-provider>
 			</el-main>
 		</el-container>
