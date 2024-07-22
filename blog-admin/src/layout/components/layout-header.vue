@@ -2,6 +2,7 @@
 import LayoutFlex from './layout-flex.vue'
 import LayoutBreadcrumb from './layout-breadcrumb.vue'
 import LayoutNav from './layout-nav.vue'
+import LayoutUser from './layout-user.vue'
 </script>
 
 <template>
@@ -12,6 +13,9 @@ import LayoutNav from './layout-nav.vue'
 			<LayoutFlex></LayoutFlex>
 			<!-- 面包屑 or 菜单 -->
 			<LayoutBreadcrumb />
+			<!-- action -->
+			<!-- user -->
+			<LayoutUser />
 		</div>
 
 		<!-- bottom -->

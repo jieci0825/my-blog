@@ -34,6 +34,9 @@ export const useGlobalActions = () => {
 		// 存储 token
 		setToken(resp.data.token)
 
+		// 获取用户信息
+		await reqGetUserInfo()
+
 		// 获取用户菜单列表
 		await reqGetUserMenuList()
 		// 注册路由
