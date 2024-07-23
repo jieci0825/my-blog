@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { reactive, ref, toRefs, watch } from 'vue'
 import { getLocalCache, removeLocalCache, setLocalCache } from '@/utils'
 import { BLOG_ADMIN_GLOBAL_CONFIG, BLOG_ADMIN_TOKEN } from '@/constants'
-import type { GlobalConfig } from './type'
+import type { GlobalConfig, LayoutModeType } from './type'
 
 export const piniaGlobalStore = defineStore('global', () => {
 	// token
@@ -27,7 +27,8 @@ export const piniaGlobalStore = defineStore('global', () => {
 		routeAnimation: 'fade',
 		asideWidth: 240,
 		grayMode: false,
-		colorWeakness: false
+		colorWeakness: false,
+		layoutMode: 'vertical'
 	}
 	const globalConfig = reactive<GlobalConfig>(
 		Object.assign(defaultGlobalConfig, getLocalCache(BLOG_ADMIN_GLOBAL_CONFIG) || {})
@@ -44,6 +45,7 @@ export const piniaGlobalStore = defineStore('global', () => {
 	}
 	const setRouteAnimation = (value: string) => (globalConfig.routeAnimation = value)
 	const setMenuWidth = (value: number) => (globalConfig.asideWidth = value)
+	const setLayoutMode = (value: LayoutModeType) => (globalConfig.layoutMode = value)
 
 	watch(
 		() => globalConfig,
@@ -73,6 +75,7 @@ export const piniaGlobalStore = defineStore('global', () => {
 		toggleCollapse,
 		toggleAccordion,
 		toggleColorWeakness,
-		setRouteAnimation
+		setRouteAnimation,
+		setLayoutMode
 	}
 })

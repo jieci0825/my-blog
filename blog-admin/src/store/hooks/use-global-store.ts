@@ -27,6 +27,8 @@ export const useGlobalGetters = () => {
 	const getGrayMode = computed(() => globalStore.grayMode)
 	// 色弱模式
 	const getColorWeakness = computed(() => globalStore.colorWeakness)
+	// 布局模式
+	const getLayoutMode = computed(() => globalStore.layoutMode)
 
 	// isRefresj
 	const getRefresh = computed(() => globalStore.refresh)
@@ -38,6 +40,7 @@ export const useGlobalGetters = () => {
 		getAccordion,
 		getAsideWidth,
 		getGrayMode,
+		getLayoutMode,
 		getColorWeakness,
 		getRouteAnimation
 	}
@@ -53,7 +56,8 @@ export const useGlobalActions = () => {
 		toggleColorWeakness,
 		setRouteAnimation,
 		setMenuWidth,
-		handleRefresh
+		handleRefresh,
+		setLayoutMode
 	} = piniaGlobalStore()
 	const { clearUserInfo, reqGetUserInfo, reqGetUserMenuList, clearUserMenuList } = useUserActions()
 
@@ -112,6 +116,7 @@ export const useGlobalActions = () => {
 		toggleGrayMode,
 		toggleColorWeakness,
 		setRouteAnimation,
-		setMenuWidth
+		setMenuWidth,
+		setLayoutMode
 	}
 }

@@ -1,3 +1,5 @@
+export type LayoutModeType = 'vertical' | 'horizontal'
+
 export interface GlobalConfig {
 	isCollapse: boolean
 	isAccordion: boolean
@@ -5,4 +7,5 @@ export interface GlobalConfig {
 	asideWidth: number
 	grayMode: boolean
 	colorWeakness: boolean
+	layoutMode: LayoutModeType
 }
