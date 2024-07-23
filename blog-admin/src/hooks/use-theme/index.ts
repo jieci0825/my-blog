@@ -9,6 +9,7 @@ const DEFAULT_PRIMARY_COLOR = '#637dff'
 
 const theme = ref(getLocalCache(BLOG_ADMIN_THEME) || '')
 const isDark = computed(() => theme.value === DARK)
+const curPrimaryColor = ref(getLocalCache(BLOG_ADMIN_PRIMARY_COLOR) || DEFAULT_PRIMARY_COLOR)
 
 export const useTheme = () => {
 	const switchTheme = (_theme?: ThemeType, isanimation: boolean = false) => {
@@ -24,17 +25,18 @@ export const useTheme = () => {
 	}
 
 	const setPrimaryColor = (color?: string) => {
-		color = color || getLocalCache(BLOG_ADMIN_PRIMARY_COLOR) || DEFAULT_PRIMARY_COLOR
-		setLocalCache(BLOG_ADMIN_PRIMARY_COLOR, color!)
+		curPrimaryColor.value = color || getLocalCache(BLOG_ADMIN_PRIMARY_COLOR) || DEFAULT_PRIMARY_COLOR
+		setLocalCache(BLOG_ADMIN_PRIMARY_COLOR, curPrimaryColor.value!)
 
 		// * 默认生成 light
-		genSecondaryColor(color!, 'primary')
+		genSecondaryColor(curPrimaryColor.value!, 'primary')
 	}
 
 	return {
 		isDark,
 		switchTheme,
-		setPrimaryColor
+		setPrimaryColor,
+		curPrimaryColor
 	}
 }
 

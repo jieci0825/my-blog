@@ -103,88 +103,93 @@ const handleAssignRole = async () => {
 </script>
 
 <template>
-	<PageContent
-		@actCreate="handleCreateUser"
-		:ref="setRef('pageContentRef')"
-		:use-page-content="{ request: userApi.reqGetUserList }"
-		:form-config="userSearchFormConfig"
-		:tableConfig="userTableConfig"
-		:paginator-config="{}">
-		<template #avatarUrl="{ row }">
-			<div
-				class="img-box"
-				@click="previewImage({ urlList: [row.avatarUrl] })">
-				<el-image
-					fit="cover"
-					style="width: 100%; height: 100%"
-					:src="row.avatarUrl" />
-			</div>
-		</template>
-		<template #roleNickname="{ row }">
-			<el-tag v-if="row.roleNickname">{{ row.roleNickname }}</el-tag>
-		</template>
-		<template #operate="{ row }">
-			<el-button
-				@click="openRoleAssignPanel(row)"
-				type="primary"
-				:icon="Postcard"
-				plain
-				size="small"
-				>分配角色</el-button
-			>
-			<el-button
-				@click="handleTableEdit(row)"
-				type="primary"
-				:icon="Edit"
-				plain
-				size="small"
-				>编辑</el-button
-			>
-			<el-button
-				@click="handleTableLogoff(row)"
-				type="danger"
-				:icon="Aim"
-				plain
-				size="small"
-				>注销</el-button
-			>
-		</template>
-	</PageContent>
+	<div class="user-contaier container">
+		<PageContent
+			@actCreate="handleCreateUser"
+			:ref="setRef('pageContentRef')"
+			:use-page-content="{ request: userApi.reqGetUserList }"
+			:form-config="userSearchFormConfig"
+			:tableConfig="userTableConfig"
+			:paginator-config="{}">
+			<template #avatarUrl="{ row }">
+				<div
+					class="img-box"
+					@click="previewImage({ urlList: [row.avatarUrl] })">
+					<el-image
+						fit="cover"
+						style="width: 100%; height: 100%"
+						:src="row.avatarUrl" />
+				</div>
+			</template>
+			<template #roleNickname="{ row }">
+				<el-tag v-if="row.roleNickname">{{ row.roleNickname }}</el-tag>
+			</template>
+			<template #operate="{ row }">
+				<el-button
+					@click="openRoleAssignPanel(row)"
+					type="primary"
+					:icon="Postcard"
+					plain
+					size="small"
+					>分配角色</el-button
+				>
+				<el-button
+					@click="handleTableEdit(row)"
+					type="primary"
+					:icon="Edit"
+					plain
+					size="small"
+					>编辑</el-button
+				>
+				<el-button
+					@click="handleTableLogoff(row)"
+					type="danger"
+					:icon="Aim"
+					plain
+					size="small"
+					>注销</el-button
+				>
+			</template>
+		</PageContent>
 
-	<!-- 抽屉 -->
-	<JcDrawer
-		v-model="drawerVisable"
-		size="500px"
-		:title="drawerTitle">
-		<JcForm
-			v-model="curUserInfo"
-			v-bind="userFormConfig"
-			@submit="handleSubmit"></JcForm>
-	</JcDrawer>
+		<!-- 抽屉 -->
+		<JcDrawer
+			v-model="drawerVisable"
+			size="500px"
+			:title="drawerTitle">
+			<JcForm
+				v-model="curUserInfo"
+				v-bind="userFormConfig"
+				@submit="handleSubmit"></JcForm>
+		</JcDrawer>
 
-	<JcDialog
-		v-model="dialogVisable"
-		title="分配角色">
-		<el-radio-group v-model="selectRole">
-			<el-radio
-				:value="role.id"
-				v-for="role in getRoleList"
-				:key="role.id"
-				>{{ role.roleNickname }}</el-radio
-			>
-		</el-radio-group>
-		<template #footer>
-			<el-button @click="dialogVisable = false">取消</el-button>
-			<el-button
-				@click="handleAssignRole"
-				type="primary"
-				>确定</el-button
-			>
-		</template>
-	</JcDialog>
+		<JcDialog
+			v-model="dialogVisable"
+			title="分配角色">
+			<el-radio-group v-model="selectRole">
+				<el-radio
+					:value="role.id"
+					v-for="role in getRoleList"
+					:key="role.id"
+					>{{ role.roleNickname }}</el-radio
+				>
+			</el-radio-group>
+			<template #footer>
+				<el-button @click="dialogVisable = false">取消</el-button>
+				<el-button
+					@click="handleAssignRole"
+					type="primary"
+					>确定</el-button
+				>
+			</template>
+		</JcDialog>
+	</div>
 </template>
 
 <style scoped lang="less">
+.user-container {
+	width: 100%;
+}
 .img-box {
 	margin: auto;
 	width: 40px;

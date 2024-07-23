@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useEventListener, useTheme } from '@/hooks'
 import { useGlobalActions } from '@/store'
 import { RefreshRight, Sunny, Moon, FullScreen, Setting, Close } from '@element-plus/icons-vue'
+import GlobalSetting from '@/components/global-setting'
 
 const size = 22
 const { isDark, switchTheme } = useTheme()
@@ -21,6 +22,8 @@ const switchFullScreen = () => {
 useEventListener(document, 'fullscreenchange', () => {
 	isFullScreen.value = !!document.fullscreenElement
 })
+
+const settingVisible = ref(true)
 </script>
 
 <template>
@@ -55,11 +58,21 @@ useEventListener(document, 'fullscreenchange', () => {
 		</div>
 		<!-- setting -->
 		<div class="action-item">
-			<el-icon :size="size">
+			<el-icon
+				:size="size"
+				@click="settingVisible = true">
 				<Setting />
 			</el-icon>
 		</div>
 	</div>
+
+	<!-- 设置面板 -->
+	<JcDialog
+		v-model="settingVisible"
+		width="640px"
+		title="全局设置">
+		<GlobalSetting></GlobalSetting>
+	</JcDialog>
 </template>
 
 <style scoped lang="less">

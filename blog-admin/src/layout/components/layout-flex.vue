@@ -10,7 +10,7 @@ const { toggleCollapse } = useGlobalActions()
 	<div class="flex-box">
 		<el-icon
 			:size="20"
-			@click="toggleCollapse"
+			@click="() => toggleCollapse()"
 			class="layout-flex-icon">
 			<component :is="getCollapse ? Expand : Fold"></component>
 		</el-icon>

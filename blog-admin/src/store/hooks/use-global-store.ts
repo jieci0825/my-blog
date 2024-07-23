@@ -17,6 +17,16 @@ export const useGlobalGetters = () => {
 
 	// collapse
 	const getCollapse = computed(() => globalStore.isCollapse)
+	// accordion
+	const getAccordion = computed(() => globalStore.isAccordion)
+	// route-animation
+	const getRouteAnimation = computed(() => globalStore.routeAnimation)
+	// menu-width
+	const getAsideWidth = computed(() => globalStore.asideWidth)
+	// 灰色模式
+	const getGrayMode = computed(() => globalStore.grayMode)
+	// 色弱模式
+	const getColorWeakness = computed(() => globalStore.colorWeakness)
 
 	// isRefresj
 	const getRefresh = computed(() => globalStore.refresh)
@@ -24,12 +34,27 @@ export const useGlobalGetters = () => {
 	return {
 		getToken,
 		getCollapse,
-		getRefresh
+		getRefresh,
+		getAccordion,
+		getAsideWidth,
+		getGrayMode,
+		getColorWeakness,
+		getRouteAnimation
 	}
 }
 
 export const useGlobalActions = () => {
-	const { setToken, clearToken, toggleCollapse, handleRefresh } = piniaGlobalStore()
+	const {
+		setToken,
+		clearToken,
+		toggleCollapse,
+		toggleAccordion,
+		toggleGrayMode,
+		toggleColorWeakness,
+		setRouteAnimation,
+		setMenuWidth,
+		handleRefresh
+	} = piniaGlobalStore()
 	const { clearUserInfo, reqGetUserInfo, reqGetUserMenuList, clearUserMenuList } = useUserActions()
 
 	// 登录
@@ -82,6 +107,11 @@ export const useGlobalActions = () => {
 		logout,
 		loadLocal,
 		toggleCollapse,
-		handleRefresh
+		handleRefresh,
+		toggleAccordion,
+		toggleGrayMode,
+		toggleColorWeakness,
+		setRouteAnimation,
+		setMenuWidth
 	}
 }

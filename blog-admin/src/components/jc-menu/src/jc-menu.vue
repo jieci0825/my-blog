@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import JcMenuItem from './jc-menu-item.vue'
 import { getAncestorNodes } from '@/utils'
-import { useUserGetters } from '@/store'
+import { useGlobalGetters, useUserGetters } from '@/store'
 
 defineOptions({ name: 'JcMenu' })
 const route = useRoute()
@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<JcMenuProps>(), {
 const currentPath = computed(() => route.path)
 
 const { getUserMenuList } = useUserGetters()
+const { getAccordion } = useGlobalGetters()
 
 const ancestors = computed(() => {
 	const result = getAncestorNodes(getUserMenuList.value, route.meta.name, 'menuName')
@@ -25,7 +26,7 @@ const ancestors = computed(() => {
 
 <template>
 	<el-menu
-		:unique-opened="true"
+		:unique-opened="getAccordion"
 		:collapse="props.isCollapse"
 		active-text-color="var(--primary-color)"
 		background-color="var(--aside-bg-color)"

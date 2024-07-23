@@ -77,7 +77,7 @@ getAllMenuList()
 </script>
 
 <template>
-	<div class="role-container">
+	<div class="role-container container">
 		<div class="actions">
 			<el-button
 				@click="setRoleInfo(null, ActionType.CREATE)"
@@ -123,29 +123,31 @@ getAllMenuList()
 				>
 			</template>
 		</JcTable>
-	</div>
 
-	<JcDrawer
-		v-model="drawerVisable"
-		:title="drawerTitle">
-		<template v-if="curAction === ActionType.ASSIGN">
-			<RoleAssign
-				@submit="handleSubmit"
-				:all-menu-list="allMenuList"
-				:cur-role-info="curRoleInfo!"></RoleAssign>
-		</template>
-		<template v-else>
-			<JcForm
-				v-bind="roleFormConfig"
-				v-model="curRoleInfo"
-				@submit="handleSubmit"></JcForm>
-		</template>
-	</JcDrawer>
+		<JcDrawer
+			v-model="drawerVisable"
+			:title="drawerTitle">
+			<template v-if="curAction === ActionType.ASSIGN">
+				<RoleAssign
+					@submit="handleSubmit"
+					:all-menu-list="allMenuList"
+					:cur-role-info="curRoleInfo!"></RoleAssign>
+			</template>
+			<template v-else>
+				<JcForm
+					v-bind="roleFormConfig"
+					v-model="curRoleInfo"
+					@submit="handleSubmit"></JcForm>
+			</template>
+		</JcDrawer>
+	</div>
 </template>
 
 <style scoped lang="less">
 .role-container {
 	width: 100%;
+	display: flex;
+	flex-direction: column;
 	.actions {
 		margin-bottom: 20px;
 	}

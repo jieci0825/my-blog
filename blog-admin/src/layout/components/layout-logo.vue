@@ -41,6 +41,8 @@ const props = withDefaults(defineProps<LayoutLogoProps>(), {
 		}
 	}
 	.text {
+		white-space: nowrap;
+		overflow: hidden;
 		font-family: 'hanyiqingzhouxing';
 		font-weight: 500;
 		margin-left: 10px;

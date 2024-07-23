@@ -47,6 +47,17 @@ body {
 	overflow: hidden;
 }
 
+// 色弱
+body.color-weakness {
+	filter: invert(80%);
+	-webkit-filter: invert(80%);
+}
+// 灰色
+body.gray-mode {
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+}
+
 input {
 	font-family: @beautifyFont;
 }
@@ -76,6 +87,15 @@ a {
 
 .card {
 	box-shadow: var(--base-box-shadow);
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	border-radius: var(--base-b-r);
+	background-color: var(--bg-color);
+	border: 1px solid var(--border-color);
 }
 
 .highlight-keyword {

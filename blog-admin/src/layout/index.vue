@@ -5,10 +5,10 @@ import LayoutAside from './components/layout-aside.vue'
 import { computed, nextTick, ref, watch } from 'vue'
 import { useGlobalGetters } from '@/store'
 
-const { getCollapse, getRefresh } = useGlobalGetters()
+const { getCollapse, getRefresh, getRouteAnimation, getAsideWidth } = useGlobalGetters()
 
 const asideWidth = computed(() => {
-	return getCollapse.value ? '84px' : '240px'
+	return getCollapse.value ? '84px' : `${getAsideWidth.value}px`
 })
 
 const refresh = ref(true)
@@ -34,19 +34,19 @@ watch(
 			<el-header class="layout-header">
 				<LayoutHeader></LayoutHeader>
 			</el-header>
-			<el-main class="layout-main">
-				<el-config-provider :locale="zhCn">
-					<!-- <router-view
-						v-if="true"
+			<el-config-provider :locale="zhCn">
+				<el-main class="layout-main">
+					<router-view
+						v-if="refresh"
 						v-slot="{ Component }">
-						<keep-alive include="PublishDucument">
+						<Transition
+							:name="getRouteAnimation"
+							mode="out-in">
 							<Component :is="Component" />
-						</keep-alive>
-					</router-view> -->
-
-					<router-view v-if="refresh"></router-view>
-				</el-config-provider>
-			</el-main>
+						</Transition>
+					</router-view>
+				</el-main>
+			</el-config-provider>
 		</el-container>
 	</el-container>
 </template>
@@ -77,10 +77,13 @@ watch(
 
 	.layout-main {
 		margin: 10px;
-		border-radius: var(--base-b-r);
-		background-color: var(--bg-color);
-		border: 1px solid var(--border-color);
 		overflow: hidden;
+		padding: 0;
+		.main-wrapper {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
 	}
 }
 </style>

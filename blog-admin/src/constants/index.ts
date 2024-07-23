@@ -8,6 +8,8 @@ export const BLOG_ADMIN_HEADER_NAV_LIST = 'BLOG_ADMIN_HEADER_NAV_LIST'
 export const BLOG_ADMIN_THEME = 'BLOG_ADMIN_THEME'
 // 主题色
 export const BLOG_ADMIN_PRIMARY_COLOR = 'BLOG_ADMIN_PRIMARY_COLOR'
+// 全局配置
+export const BLOG_ADMIN_GLOBAL_CONFIG = 'BLOG_ADMIN_GLOBAL_CONFIG'
 
 // cos 的路径前缀
 export const COS_FILE_PREFIX = 'coderjc-blog'
