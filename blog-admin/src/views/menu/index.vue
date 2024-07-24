@@ -4,8 +4,8 @@ import menuCreateEditFormFn from './config/menu-create-edit-form.config'
 import { h, ref } from 'vue'
 import { menuApi } from '@/apis'
 import { ActionType } from './types'
-import type { MenuItem } from '@/apis/modules/menu/type'
 import { useRefs } from '@/hooks/use-refs'
+import type { MenuItem } from '@/apis/modules/menu/type'
 
 // 打平的菜单列表
 const flatMenuList = ref<MenuItem[]>([])
