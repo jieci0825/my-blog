@@ -9,12 +9,19 @@ export type FormItemType =
 	| 'file'
 	| 'number'
 	| 'radio'
+	| 'select'
 	| 'search-select'
+
+interface FormatProps {
+	label?: string
+	value?: any
+}
 
 export interface JcFormItem {
 	label: string
 	field: string
 	type: FormItemType
+	isNumber?: boolean
 	multiple?: boolean
 	disabled?: boolean
 	placeholder?: string
@@ -24,7 +31,8 @@ export interface JcFormItem {
 	slotName?: string // 如果这个表单项内容需要使用插槽，则配置对应的插槽名
 	otherElConfig?: any // 其他配置项
 	model?: 'one' | 'more' // type 为 file 时可用
-	fileConfig?: JcUploadConfig
+	fileConfig?: JcUploadConfig // 文件上传配置
+	formatProps?: FormatProps // 用于格式化 label 和 value 字段名
 }
 
 interface RowConfig {

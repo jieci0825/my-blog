@@ -1,6 +1,6 @@
-import type { JcFormProps } from '@/components/jc-form'
 import { ActionType } from '../types'
 import { addAtIndex } from '@/utils'
+import type { JcFormProps } from '@/components/jc-form'
 
 const userFormConfig: JcFormProps = {
 	formItems: [

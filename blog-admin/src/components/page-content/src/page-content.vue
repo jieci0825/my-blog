@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { PageConteEmits, PageContentProps } from './page-content'
 import { usePageContent } from '@/hooks'
 import JcTable from '@/components/jc-table'
@@ -16,9 +16,13 @@ props.formConfig?.formItems.forEach(item => {
 })
 const formData = ref<{ [key: string]: any }>(initFormData)
 
+const queryParams = computed(() => {
+	return Object.assign({}, formData.value, props.usePageContent?.queryParams || {})
+})
 const { onPageChange, onSizeChange, data, pagination, fetchData, search } = usePageContent({
 	request: props.usePageContent?.request,
-	queryParams: formData
+	queryParams,
+	isPage: !!props.paginatorConfig
 })
 
 const onSubmit = () => {
@@ -76,33 +80,30 @@ defineExpose({
 						v-bind="scope"></slot>
 				</template>
 				<template #operate="scope">
-					<slot
-						name="operate"
-						:row="scope">
-						<el-button
-							@click="handleTableEdit(scope)"
-							type="primary"
-							:icon="Edit"
-							plain
-							size="small"
-							>编辑</el-button
-						>
-						<el-button
-							@click="handleTableDelete(scope)"
-							type="danger"
-							:icon="Delete"
-							plain
-							size="small"
-							>删除</el-button
-						>
-					</slot>
+					<el-button
+						@click="handleTableEdit(scope.row)"
+						type="primary"
+						:icon="Edit"
+						plain
+						size="small"
+						>编辑</el-button
+					>
+					<el-button
+						@click="handleTableDelete(scope.row)"
+						type="danger"
+						:icon="Delete"
+						plain
+						size="small"
+						>删除</el-button
+					>
 				</template>
 			</JcTable>
 		</div>
 		<!-- paginator -->
-		<div class="paginator-wrapper">
+		<div
+			class="paginator-wrapper"
+			v-if="props.paginatorConfig">
 			<JcPaginator
-				v-if="props.paginatorConfig"
 				@page-change="onPageChange"
 				@size-change="onSizeChange"
 				:total="pagination.total"></JcPaginator>

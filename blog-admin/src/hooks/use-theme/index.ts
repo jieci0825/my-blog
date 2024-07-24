@@ -40,10 +40,11 @@ export const useTheme = () => {
 }
 
 function switchClass() {
+	const container = document.documentElement
 	if (theme.value === DARK) {
-		document.documentElement.classList.add(DARK)
+		container.classList.add(DARK)
 	} else {
-		document.documentElement.classList.remove(DARK)
+		container.classList.remove(DARK)
 	}
 }
 
@@ -157,7 +158,12 @@ function rgbToHex(r: any, g: any, b: any) {
 	if (!reg.test(r) || !reg.test(g) || !reg.test(b)) return
 
 	// 不足两位，使用 0 补足
-	const hexs = [r.toString(16).padStart(2, '0'), g.toString(16).padStart(2, '0'), b.toString(16).padStart(2, '0')]
+	const hexs = [padZero(r.toString(16)), padZero(g.toString(16)), padZero(b.toString(16))]
 
 	return `#${hexs.join('')}`
+}
+
+// 补零
+function padZero(value: number | string, pad: number = 2) {
+	return value.toString().padStart(pad, '0')
 }

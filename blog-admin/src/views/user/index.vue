@@ -1,21 +1,35 @@
 <script setup lang="ts">
-import { userApi } from '@/apis'
 import userTableConfig from './config/user-table.config'
 import userSearchFormConfig from './config/user-search-form.config'
 import userFormFn from './config/user-form.config'
+import { userApi } from '@/apis'
 import { Postcard, Edit, Aim } from '@element-plus/icons-vue'
 import { h, ref } from 'vue'
-import { UserItem } from '@/apis/modules/user/type'
 import { ActionType } from './types'
 import { uploadFile } from '@/cos'
 import { useRefs } from '@/hooks/use-refs'
 import { previewImage } from '@/utils'
 import { useRoleActions, useRoleGetters } from '@/store'
+import type { UserItem } from '@/apis/modules/user/type'
 
 const drawerTitle = ref('')
 const curAction = ref<ActionType>(ActionType.EDIT)
 const drawerVisable = ref(false)
 const curUserInfo = ref<UserItem>()
+
+const modeTitleMap = {
+	[ActionType.CREATE]: '创建用户',
+	[ActionType.EDIT]: '编辑用户信息'
+}
+// 表单配置
+let userFormConfig = userFormFn(ActionType.CREATE)
+function setInfo(row: UserItem | null, mode: ActionType, isVisable: boolean = true) {
+	userFormConfig = userFormFn(mode)
+	curUserInfo.value = row ? { ...row } : ({} as UserItem)
+	curAction.value = mode
+	drawerTitle.value = modeTitleMap[mode]
+	drawerVisable.value = isVisable
+}
 
 // 编辑用户信息
 const handleTableEdit = (row: UserItem) => {
@@ -33,22 +47,8 @@ const handleTableLogoff = async (row: UserItem) => {
 		})
 		const resp = await userApi.reqLogoffUser(row.id)
 		ElMessage.success(resp.msg)
-		refs.pageContentRef?.search()
+		refs.userPageContentRef?.search()
 	} catch (error) {}
-}
-
-const modeTitleMap = {
-	[ActionType.CREATE]: '创建用户',
-	[ActionType.EDIT]: '编辑用户信息'
-}
-// 表单配置
-let userFormConfig = userFormFn(ActionType.CREATE)
-function setInfo(row: UserItem | null, mode: ActionType, isVisable: boolean = true) {
-	userFormConfig = userFormFn(mode)
-	curUserInfo.value = row ? { ...row } : ({} as UserItem)
-	curAction.value = mode
-	drawerTitle.value = modeTitleMap[mode]
-	drawerVisable.value = isVisable
 }
 
 const { refs, setRef } = useRefs()
@@ -69,7 +69,7 @@ const handleSubmit = async (data: UserItem) => {
 	}
 	ElMessage.success(resp.msg)
 	drawerVisable.value = false
-	refs.pageContentRef?.search()
+	refs.userPageContentRef?.search()
 }
 
 // 创建用户
@@ -97,7 +97,7 @@ const handleAssignRole = async () => {
 		})
 		ElMessage.success(resp.msg)
 	}
-	refs.pageContentRef?.fetchData()
+	refs.userPageContentRef?.fetchData()
 	dialogVisable.value = false
 }
 </script>
@@ -106,7 +106,7 @@ const handleAssignRole = async () => {
 	<div class="user-contaier container">
 		<PageContent
 			@actCreate="handleCreateUser"
-			:ref="setRef('pageContentRef')"
+			:ref="setRef('userPageContentRef')"
 			:use-page-content="{ request: userApi.reqGetUserList }"
 			:form-config="userSearchFormConfig"
 			:tableConfig="userTableConfig"

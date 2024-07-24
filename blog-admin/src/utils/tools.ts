@@ -144,3 +144,18 @@ export function addAtIndex<T>(arr: T[], index: number, item: T): T[] {
 
 	return [...arr.slice(0, index), item, ...arr.slice(index)]
 }
+
+interface SetAtIndex<T> {
+	value: any // 进行设置的新值
+	prop: keyof T // 要进行设置的属性
+	field: keyof T // 用于查找的属性
+	target: any // 用于查找的目标值
+}
+
+/**
+ * 设置数组中某一项的值
+ */
+export function setAtIndex<T>(arr: T[], options: SetAtIndex<T>): void {
+	const item = arr.find(item => item[options.field] === options.target)
+	if (item) item[options.prop] = options.value
+}

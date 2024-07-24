@@ -8,10 +8,11 @@ export interface IPageContent {
 	request?: (params: any) => Promise<any> // 请求数据的 api
 	formatRespData?: (data: any) => any // 格式化请求到数据的函数
 	respCallback?: (data: any) => void // 请求成功后的回调函数
-	immediate?: true
-	listField?: string
-	totalField?: string
-	queryParams?: object
+	immediate?: true // 是否立即执行一次请求
+	listField?: string // list字段名
+	totalField?: string // 总数字段名
+	queryParams?: object // 表单的查询参数
+	isPage?: boolean // 是否需要添加分页参数
 }
 
 // 初始分页信息
@@ -26,7 +27,8 @@ export const usePageContent = (options: IPageContent) => {
 		{
 			immediate: true,
 			listField: 'list',
-			totalField: 'total'
+			totalField: 'total',
+			isPage: true
 		},
 		options
 	)
@@ -62,7 +64,7 @@ export const usePageContent = (options: IPageContent) => {
 	async function fetchData() {
 		if (!config.request) return
 		// 合并传递的查询参数与分页数据为查询条件
-		Object.assign(state.condition, _isRef(config.queryParams), pageParams.value)
+		Object.assign(state.condition, _isRef(config.queryParams), config.isPage ? pageParams.value : {})
 		// 如果存在传递的查询参数，则将其保存
 		config.queryParams && (state.initQueryParams = _isRef(config.queryParams))
 
@@ -77,8 +79,12 @@ export const usePageContent = (options: IPageContent) => {
 			result = config.formatRespData(resp)
 		}
 		// 赋值
-		state.data = result[config.listField]
-		state.pagination.total = result[config.totalField]
+		if (config.isPage) {
+			state.data = result[config.listField]
+			state.pagination.total = result[config.totalField]
+		} else {
+			state.data = result
+		}
 
 		// 请求完成的任务
 		if (config.respCallback) {

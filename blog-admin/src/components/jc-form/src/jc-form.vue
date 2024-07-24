@@ -104,23 +104,60 @@ const handleReset = (formEl: FormInstance | undefined) => {
 						:label="item.label">
 						<!-- 文本框 | 密码框 -->
 						<template v-if="item.type === 'text' || item.type === 'password'">
-							<el-input
-								:disabled="item.disabled"
-								auto-complete="new-password"
-								autocomplete="off"
-								:type="item.type"
-								:show-password="item.type === 'password'"
+							<template v-if="item.isNumber">
+								<el-input
+									v-model.number="formData[item.field]"
+									auto-complete="new-password"
+									autocomplete="off"
+									:disabled="item.disabled"
+									:type="item.type"
+									:show-password="item.type === 'password'"
+									:placeholder="item.placeholder">
+								</el-input>
+							</template>
+							<template v-else>
+								<el-input
+									v-model="formData[item.field]"
+									auto-complete="new-password"
+									autocomplete="off"
+									:disabled="item.disabled"
+									:type="item.type"
+									:show-password="item.type === 'password'"
+									:placeholder="item.placeholder">
+								</el-input>
+							</template>
+						</template>
+						<!-- 下拉选择 -->
+						<template v-else-if="item.type === 'select'">
+							<el-select
 								v-model="formData[item.field]"
+								v-bind="item.otherElConfig"
+								:disabled="item.disabled"
 								:placeholder="item.placeholder">
-							</el-input>
+								<el-option
+									v-for="it in item.options"
+									:key="it.id"
+									:label="it[item.formatProps?.label || 'label']"
+									:value="it[item.formatProps?.value || 'value']" />
+							</el-select>
+						</template>
+						<template v-else-if="item.type === 'radio'">
+							<el-radio-group v-model="formData[item.field]">
+								<el-radio
+									v-for="(it, index) in item.options"
+									:key="index"
+									:value="it[item.formatProps?.value || 'value']"
+									>{{ it[item.formatProps?.label || 'label'] }}</el-radio
+								>
+							</el-radio-group>
 						</template>
 						<!-- 文本域 -->
 						<template v-else-if="item.type === 'textarea'">
 							<el-input
-								:placeholder="item.placeholder"
 								v-model="formData[item.field]"
 								v-bind="item.otherElConfig"
-								type="textarea" />
+								type="textarea"
+								:placeholder="item.placeholder" />
 						</template>
 						<!-- 文件上传 -->
 						<template v-else-if="item.type === 'file'">

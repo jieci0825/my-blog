@@ -3,7 +3,7 @@ import nprogress from 'nprogress'
 
 import routePublic from './route-public'
 import setTitle from '@/utils/set-title'
-import { useGlobalGetters } from '@/store'
+import { useGlobalActions, useGlobalGetters } from '@/store'
 
 // 关闭进度条加载器
 nprogress.configure({ showSpinner: false })
@@ -37,7 +37,8 @@ router.beforeEach((to, from, next) => {
 		if (to.path === '/login') {
 			next()
 		} else {
-			next({ path: '/login', query: { redirect: to.fullPath } })
+			const { logout } = useGlobalActions()
+			logout()
 		}
 	}
 })
