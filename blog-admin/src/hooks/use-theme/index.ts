@@ -28,7 +28,6 @@ export const useTheme = () => {
 		curPrimaryColor.value = color || getLocalCache(BLOG_ADMIN_PRIMARY_COLOR) || DEFAULT_PRIMARY_COLOR
 		setLocalCache(BLOG_ADMIN_PRIMARY_COLOR, curPrimaryColor.value!)
 
-		// * 默认生成 light
 		genSecondaryColor(curPrimaryColor.value!, 'primary')
 	}
 
