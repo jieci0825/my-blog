@@ -26,6 +26,7 @@ defineOptions({ name: 'GlobalSetting' })
 			</div>
 		</el-divider>
 		<LayoutBox />
+
 		<!-- other -->
 		<el-divider>
 			<div class="divider-box">

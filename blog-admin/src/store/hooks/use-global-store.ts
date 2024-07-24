@@ -87,7 +87,7 @@ export const useGlobalActions = () => {
 		clearUserInfo()
 		clearUserMenuList()
 		clearNav()
-		router.push('/login').then(removeDynamicRoutes)
+		router.push({ path: '/login' }).then(removeDynamicRoutes)
 	}
 
 	// 清空 nav

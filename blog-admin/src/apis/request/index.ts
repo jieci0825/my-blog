@@ -3,7 +3,6 @@ import { BASE_URL, TIME_OUT } from './config'
 import { getLocalCache } from '@/utils'
 import { BLOG_ADMIN_TOKEN } from '@/constants'
 import { useGlobalActions } from '@/store'
-import router from '@/routers'
 
 const jcRequest: JcRequest = new JcRequest({
 	baseURL: BASE_URL,
@@ -23,11 +22,10 @@ const jcRequest: JcRequest = new JcRequest({
 		async responseInterceptorsCatch(error) {
 			const errInfo = error.response?.data
 			console.log('🚢 ~ 当前打印的内容 ~ errInfo:', errInfo)
-			if (errInfo.errorCode === 9999) {
+			if (errInfo?.errorCode === 9999) {
 				const { logout } = useGlobalActions()
 				logout()
 				ElMessage.error(errInfo.msg)
-				router.push('/login')
 			}
 			return Promise.reject(error) // 抛出错误，让调用者处理
 		}
