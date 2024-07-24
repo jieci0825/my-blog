@@ -59,6 +59,11 @@ const routeDynamic: RouteRecordRaw[] = [
 		path: '/about',
 		name: 'about',
 		component: () => import(/* webpackChunkName: "about" */ '@/views/about/index.vue')
+	},
+	{
+		path: '/my-center',
+		name: 'my-center',
+		component: () => import(/* webpackChunkName: "my-center" */ '@/views/my-center/index.vue')
 	}
 ]
 

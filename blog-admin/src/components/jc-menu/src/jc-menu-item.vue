@@ -37,7 +37,7 @@ const handleClick = (item: MenuItem) => {
 			@click="handleClick(item)"
 			:index="`${item.id}`"
 			:class="{ 'is-active': props.currentPath === item.menuPath }"
-			v-else>
+			v-else-if="!item.children && item.menuStatus === 1">
 			<el-icon :size="18">
 				<span :class="['iconfont', item.menuIcon]"></span>
 			</el-icon>

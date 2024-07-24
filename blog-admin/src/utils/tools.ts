@@ -24,10 +24,11 @@ export function getDynamicRoutes(routes: RouteRecordRaw[], menus: MenuItem[], ro
 		if (route) {
 			route.meta = {
 				...route.meta,
+				id: menu.id,
+				hidden: menu.menuStatus,
 				title: menu.menuTitle,
 				icon: menu.menuIcon,
-				name: menu.menuName,
-				id: menu.id
+				name: menu.menuName
 			}
 			routeList.push(route)
 		}
