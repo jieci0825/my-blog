@@ -5,7 +5,7 @@ const createMenuRule = {
 		.isString()
 		.required()
 		.min(1)
-		.pattern(/^[A-Za-z]+$/),
+		.pattern(/^[a-zA-Z\/\-]+$/),
 	menuTitle: new Rule().isString().required().min(1),
 	menuPath: new Rule()
 		.isString()

@@ -12,6 +12,10 @@ User.init(
 			autoIncrement: true,
 			comment: '用户id'
 		},
+		email: {
+			type: DataTypes.STRING,
+			comment: '邮箱'
+		},
 		account: {
 			type: DataTypes.STRING,
 			unique: true,
