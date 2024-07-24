@@ -186,6 +186,28 @@ function toTree(data, pid = 0, options) {
 	return getTree(data, pid)
 }
 
+/**
+ * 对树形数据进行排序
+ * @param {array} treeData 属性数据
+ * @param {string} sortField
+ * @returns
+ */
+function sortTree(treeData, sortField) {
+	const sortData = JSON.parse(JSON.stringify(treeData))
+
+	function deepSort(list) {
+		list.sort((a, b) => {
+			if (a.children && a.children.length > 0) {
+				deepSort(a.children)
+			}
+			return a[sortField] - b[sortField]
+		})
+	}
+	deepSort(sortData)
+
+	return sortData
+}
+
 module.exports = {
 	formatTime,
 	generateRandomString,
@@ -198,5 +220,6 @@ module.exports = {
 	toCamelCase,
 	toCamelCaseForObj,
 	hasOwnProp,
-	toTree
+	toTree,
+	sortTree
 }

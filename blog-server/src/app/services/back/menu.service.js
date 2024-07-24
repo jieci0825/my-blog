@@ -1,6 +1,6 @@
 const { Menu } = require('@/app/models/menu.model')
 const { Collide } = require('@/core/error-type')
-const { toTree, toCamelCaseForObj } = require('@/utils')
+const { toTree, toCamelCaseForObj, sortTree } = require('@/utils')
 
 /**
  * 创建菜单
@@ -51,7 +51,8 @@ async function getMenuList(condition) {
 	})
 	let result = menuList.map(item => toCamelCaseForObj(item.dataValues))
 	if (condition.type === 'tree') {
-		result = toTree(result, 0, { childEmpty: null, parentField: 'menuPid' })
+		const tree = toTree(result, 0, { childEmpty: null, parentField: 'menuPid' })
+		result = sortTree(tree, 'menuSort')
 	}
 	return result
 }

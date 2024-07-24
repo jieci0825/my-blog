@@ -1,7 +1,7 @@
 const { Menu } = require('@/app/models/menu.model')
 const { RoleMenu } = require('@/app/models/role-menu.model')
 const { Role } = require('@/app/models/role.model')
-const { toTree, toCamelCaseForObj } = require('@/utils')
+const { toTree, toCamelCaseForObj, sortTree } = require('@/utils')
 const { User } = require('@/app/models/user.model')
 const { sequelize } = require('@/core/db')
 const { Collide, Forbidden } = require('@/core/error-type')
@@ -114,7 +114,7 @@ async function getMenuListByRoleId(roleId) {
 		0,
 		{ childEmpty: null, parentField: 'menuPid' }
 	)
-	return treeMenu || []
+	return treeMenu ? sortTree(treeMenu, 'menuSort') : []
 }
 
 module.exports = {
