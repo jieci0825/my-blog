@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LayoutFlex from './layout-flex.vue'
 import LayoutBreadcrumb from './layout-breadcrumb.vue'
 import LayoutNav from './layout-nav.vue'
 import LayoutAction from './layout-action.vue'
@@ -10,16 +9,16 @@ import LayoutUser from './layout-user.vue'
 	<div class="layout-header-wrapper">
 		<!-- top -->
 		<div class="header-top">
-			<!-- flex -->
-			<LayoutFlex></LayoutFlex>
-			<!-- 面包屑 or 菜单 -->
-			<LayoutBreadcrumb />
+			<slot name="logo"></slot>
+			<slot name="collapse"></slot>
+			<slot name="menu">
+				<LayoutBreadcrumb />
+			</slot>
 			<!-- action -->
 			<LayoutAction />
 			<!-- user -->
 			<LayoutUser />
 		</div>
-
 		<!-- bottom -->
 		<div class="header-bootom">
 			<LayoutNav></LayoutNav>
@@ -44,6 +43,11 @@ import LayoutUser from './layout-user.vue'
 		align-items: center;
 		border-bottom: 1px solid var(--border-color);
 		flex-shrink: 0;
+		:deep(.el-menu) {
+			flex: 1;
+			overflow: hidden;
+			margin-right: 30px;
+		}
 	}
 	.header-bootom {
 		width: 100%;

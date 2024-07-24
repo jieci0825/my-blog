@@ -11,6 +11,12 @@ export const BLOG_ADMIN_PRIMARY_COLOR = 'BLOG_ADMIN_PRIMARY_COLOR'
 // 全局配置
 export const BLOG_ADMIN_GLOBAL_CONFIG = 'BLOG_ADMIN_GLOBAL_CONFIG'
 
+// 布局模式
+export const LAYOUT_MODE = {
+	VERTICAL: 'vertical',
+	HORIZONTAL: 'horizontal'
+} as const
+
 // cos 的路径前缀
 export const COS_FILE_PREFIX = 'coderjc-blog'
 // cos 访问前缀

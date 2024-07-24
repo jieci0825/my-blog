@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { LAYOUT_MODE } from '@/constants'
 import { useTheme } from '@/hooks'
 import { useGlobalActions, useGlobalGetters } from '@/store'
 import { Notification, Ship, Setting, CircleCheckFilled } from '@element-plus/icons-vue'
@@ -38,6 +39,7 @@ const routerAnimation = [
 
 <template>
 	<div class="global-setting-wrapper">
+		<!-- primary -->
 		<el-divider>
 			<div class="divider-box">
 				<el-icon><Ship /></el-icon>
@@ -63,6 +65,7 @@ const routerAnimation = [
 				</div>
 			</div>
 		</div>
+		<!-- layout -->
 		<el-divider>
 			<div class="divider-box">
 				<el-icon><Notification /></el-icon>
@@ -74,8 +77,8 @@ const routerAnimation = [
 				placement="top"
 				content="纵向">
 				<div
-					@click="setLayoutMode('vertical')"
-					:class="['layout-item', getLayoutMode === 'vertical' ? 'is-active' : '']">
+					@click="setLayoutMode(LAYOUT_MODE.VERTICAL)"
+					:class="['layout-item', getLayoutMode === LAYOUT_MODE.VERTICAL ? 'is-active' : '']">
 					<div class="layout-horizontal">
 						<div class="layout-aside light"></div>
 						<div class="layout-vertical">
@@ -92,8 +95,8 @@ const routerAnimation = [
 				placement="top"
 				content="横向">
 				<div
-					@click="setLayoutMode('horizontal')"
-					:class="['layout-item', getLayoutMode === 'horizontal' ? 'is-active' : '']">
+					@click="setLayoutMode(LAYOUT_MODE.HORIZONTAL)"
+					:class="['layout-item', getLayoutMode === LAYOUT_MODE.HORIZONTAL ? 'is-active' : '']">
 					<div class="layout-vertical">
 						<div class="layout-header dark"></div>
 						<div class="layout-main"></div>
@@ -104,6 +107,7 @@ const routerAnimation = [
 				</div>
 			</el-tooltip>
 		</div>
+		<!-- other -->
 		<el-divider>
 			<div class="divider-box">
 				<el-icon><Setting /></el-icon>

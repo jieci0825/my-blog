@@ -3,7 +3,7 @@
 	border-right: none;
 	user-select: none;
 	--el-menu-text-color: var(--text-color) !important;
-	--el-menu-hover-bg-color: var(--text-color) !important;
+	--el-menu-hover-bg-color: var(--el-color-primary-light-8) !important;
 
 	.el-sub-menu,
 	.el-menu-item {
@@ -16,7 +16,6 @@
 	}
 	.el-menu-item {
 		&:hover {
-			background-color: var(--el-color-primary-light-8);
 			color: var(--el-color-primary);
 		}
 		&.is-active {
@@ -26,15 +25,30 @@
 	.el-sub-menu {
 		&.is-active {
 			.el-sub-menu__title {
-				color: var(--el-color-primary) !important;
+				color: var(--el-color-primary);
 			}
 		}
 		.el-sub-menu__title {
 			margin-bottom: 0;
 			&:hover {
-				background-color: var(--el-color-primary-light-8);
 				color: var(--el-color-primary);
 			}
+		}
+	}
+	&.el-menu--horizontal {
+		display: flex;
+		align-items: center;
+		.el-sub-menu,
+		.el-menu-item {
+			border-radius: 0;
+			min-width: fit-content;
+			margin-bottom: 0;
+		}
+	}
+	&.el-menu--popup {
+		.el-sub-menu,
+		.el-menu-item {
+			border-radius: 0;
 		}
 	}
 }

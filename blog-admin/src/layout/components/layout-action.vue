@@ -23,7 +23,7 @@ useEventListener(document, 'fullscreenchange', () => {
 	isFullScreen.value = !!document.fullscreenElement
 })
 
-const settingVisible = ref(true)
+const settingVisible = ref(false)
 </script>
 
 <template>
@@ -77,6 +77,7 @@ const settingVisible = ref(true)
 
 <style scoped lang="less">
 .layout-action-box {
+	flex-shrink: 0;
 	margin-left: auto;
 	display: flex;
 	align-items: center;

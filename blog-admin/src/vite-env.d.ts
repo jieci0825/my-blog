@@ -2,6 +2,8 @@
 
 declare module 'nprogress'
 
+declare module 'resize-observer-polyfill'
+
 declare module 'element-plus/dist/locale/zh-cn.mjs'
 
 declare module '*.vue' {

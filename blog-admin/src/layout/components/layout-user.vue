@@ -38,6 +38,7 @@ const { logout } = useGlobalActions()
 
 <style scoped lang="less">
 .layout-user-box {
+	flex-shrink: 0;
 	margin-left: 25px;
 	display: flex;
 	align-items: center;

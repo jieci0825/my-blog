@@ -1,4 +1,6 @@
-export type LayoutModeType = 'vertical' | 'horizontal'
+import { LAYOUT_MODE } from '@/constants'
+
+export type LayoutModeType = (typeof LAYOUT_MODE)[keyof typeof LAYOUT_MODE]
 
 export interface GlobalConfig {
 	isCollapse: boolean
