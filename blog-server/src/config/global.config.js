@@ -1,17 +1,26 @@
+const fs = require('fs')
+const path = require('path')
+
+// 私钥
+const PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, '../keys/private.key'))
+// 公钥
+const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, '../keys/public.key'))
+
 module.exports = {
 	environment: 'development',
 	database: {
-		dbName: 'your_database_name',
+		dbName: 'blog',
 		host: 'localhost',
 		port: 3306,
 		user: 'root',
-		password: 'your_password'
+		password: 'qwer0825.'
 	},
 	TokenConfig: {
-		key: 'your_secret_key',
+		PRIVATE_KEY,
+		PUBLIC_KEY,
 		expiresIn: '1d'
 	},
-	adminName: 'your_admin_name',
-	adminAccount: 'your_admin_account',
+	adminName: 'SuperAdmin',
+	adminAccount: 'coderjc',
 	port: 9527
 }

@@ -83,7 +83,7 @@ function createEnums(enums) {
  * @returns {string}
  */
 function generateToken(info, secretKey, expiresIn) {
-	const token = jwt.sign(info, secretKey, { expiresIn })
+	const token = jwt.sign(info, secretKey, { expiresIn, algorithm: 'RS256' })
 	return token
 }
 

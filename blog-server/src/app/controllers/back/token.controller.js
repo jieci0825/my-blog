@@ -25,7 +25,7 @@ async function token(ctx) {
 	const tokenData = { id, account, roleId: role_id }
 
 	const { TokenConfig } = global.config
-	const token = generateToken(tokenData, TokenConfig.key, TokenConfig.expiresIn)
+	const token = generateToken(tokenData, TokenConfig.PRIVATE_KEY, TokenConfig.expiresIn)
 	throw new DataSuccess({ token })
 }
 

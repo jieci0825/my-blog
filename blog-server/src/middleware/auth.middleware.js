@@ -10,7 +10,7 @@ const verifyToken = async (ctx, next) => {
 	const token = authorization.replace('Bearer ', '')
 	const { TokenConfig } = global.config
 	try {
-		const decode = jwt.verify(token, TokenConfig.key)
+		const decode = jwt.verify(token, TokenConfig.PUBLIC_KEY, { algorithms: ['RS256'] })
 		ctx.decode = decode
 		await next()
 	} catch (error) {
