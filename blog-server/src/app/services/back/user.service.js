@@ -1,6 +1,7 @@
+const bcrypt = require('bcryptjs')
 const { Role } = require('@/app/models/role.model')
 const { User } = require('@/app/models/user.model')
-const { Collide } = require('@/core/error-type')
+const { Collide, AuthFailed } = require('@/core/error-type')
 const { Op } = require('sequelize')
 const roleService = require('@ser-back/role.service')
 
@@ -131,7 +132,11 @@ async function modifyUserPassword(data) {
 	if (!userInfo) {
 		throw new Collide('当前用户不存在')
 	}
-	await User.update({ password: data.password }, { where: { id: data.userId } })
+
+	const correct = bcrypt.compareSync(data.oldPassword, userInfo.password)
+	if (!correct) throw new AuthFailed('旧密码错误')
+
+	await User.update({ password: data.newPassword }, { where: { id: data.userId } })
 }
 
 module.exports = {

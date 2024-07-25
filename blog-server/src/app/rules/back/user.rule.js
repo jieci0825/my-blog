@@ -45,12 +45,13 @@ const assignRoleRules = {
 }
 
 const modifyUserPasswordRules = {
-	password: new Rule()
+	oldPassword: new Rule()
 		.isString()
 		.required()
 		.min(6)
 		.max(16)
-		.pattern(/^[a-zA-Z0-9\/\-]+$/)
+		.pattern(/^[a-zA-Z0-9\/\-]+$/),
+	newPassword: new Rule().and('oldPassword')
 }
 
 module.exports = {

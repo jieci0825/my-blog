@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize')
 const { sequelize } = require('@/core/db')
-const { md5password } = require('@/utils')
+const bcrypt = require('bcryptjs')
 
 class User extends Model {}
 
@@ -29,7 +29,10 @@ User.init(
 		password: {
 			type: DataTypes.STRING,
 			set(val) {
-				this.setDataValue('password', md5password(val))
+				const salt = bcrypt.genSaltSync(10)
+				// 获取加密后的密码
+				const pwd = bcrypt.hashSync(val, salt)
+				this.setDataValue('password', pwd)
 			},
 			allowNull: false,
 			comment: '密码'
