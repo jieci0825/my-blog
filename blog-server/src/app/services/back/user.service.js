@@ -122,6 +122,18 @@ async function editUser(data) {
 	await User.update(updateData, { where: { id: data.id } })
 }
 
+/**
+ * 修改用户密码
+ * @param {object} data
+ */
+async function modifyUserPassword(data) {
+	const userInfo = await User.findOne({ where: { id: data.userId } })
+	if (!userInfo) {
+		throw new Collide('当前用户不存在')
+	}
+	await User.update({ password: data.password }, { where: { id: data.userId } })
+}
+
 module.exports = {
 	createUser,
 	getUserInfo,
@@ -129,5 +141,6 @@ module.exports = {
 	logoffUser,
 	assignRole,
 	getLoginUserMenuList,
-	editUser
+	editUser,
+	modifyUserPassword
 }

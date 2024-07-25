@@ -1,7 +1,13 @@
 const { Validator } = require('@/validator')
 const { Success, DataSuccess } = require('@/core/error-type')
 const userService = require('@ser-back/user.service')
-const { createUserRules, getUserListRules, assignRoleRules, editUserRules } = require('@/app/rules/back/user.rule')
+const {
+	createUserRules,
+	getUserListRules,
+	assignRoleRules,
+	editUserRules,
+	modifyUserPasswordRules
+} = require('@/app/rules/back/user.rule')
 
 /**
  * 创建用户
@@ -58,12 +64,22 @@ async function getLoginUserMenuList(ctx) {
 }
 
 /**
- *
+ * 编辑用户信息
  */
 async function editUser(ctx) {
 	const { data } = new Validator().validate(ctx, editUserRules)
 	await userService.editUser(data)
 	throw new Success('编辑用户成功')
+}
+
+/**
+ * 修改用户密码
+ */
+async function modifyUserPassword(ctx) {
+	const { data } = new Validator().validate(ctx, modifyUserPasswordRules)
+	data.userId = ctx.decode.id
+	await userService.modifyUserPassword(data)
+	throw new Success('密码修改成功')
 }
 
 module.exports = {
@@ -73,5 +89,6 @@ module.exports = {
 	logoffUser,
 	assignRole,
 	getLoginUserMenuList,
-	editUser
+	editUser,
+	modifyUserPassword
 }

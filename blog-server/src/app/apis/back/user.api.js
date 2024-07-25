@@ -8,7 +8,8 @@ const {
 	logoffUser,
 	assignRole,
 	getLoginUserMenuList,
-	editUser
+	editUser,
+	modifyUserPassword
 } = require('@con-back/user.controller')
 const { verifyToken, verifySuperAdmin } = require('@/middleware/auth.middleware')
 const { parsePageInfo } = require('@/middleware/parse.middleware')
@@ -33,5 +34,8 @@ router.get('/menus', verifyToken, getLoginUserMenuList)
 
 // 编辑用户信息
 router.put('/', verifyToken, verifySuperAdmin, editUser)
+
+// 修改用户密码
+router.post('/modify-password', verifyToken, modifyUserPassword)
 
 module.exports = router

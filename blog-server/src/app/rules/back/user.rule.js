@@ -12,7 +12,7 @@ const createUserRules = {
 		.required()
 		.min(6)
 		.max(16)
-		.pattern(/^[a-zA-Z0-9]+$/), // 字母和数字
+		.pattern(/^[a-zA-Z0-9\/\-]+$/),
 	nickname: new Rule().isString().required().min(2).max(10),
 	avatarUrl: new Rule().isString(),
 	sign: new Rule().isString().min(0).max(100),
@@ -44,9 +44,19 @@ const assignRoleRules = {
 	userId: new Rule().and('roleId')
 }
 
+const modifyUserPasswordRules = {
+	password: new Rule()
+		.isString()
+		.required()
+		.min(6)
+		.max(16)
+		.pattern(/^[a-zA-Z0-9\/\-]+$/)
+}
+
 module.exports = {
 	createUserRules,
 	getUserListRules,
 	assignRoleRules,
-	editUserRules
+	editUserRules,
+	modifyUserPasswordRules
 }
