@@ -1,17 +1,17 @@
 module.exports = {
 	environment: 'development',
 	database: {
-		dbName: 'blog',
+		dbName: 'your_database_name',
 		host: 'localhost',
 		port: 3306,
 		user: 'root',
-		password: 'qwer0825.'
+		password: 'your_password'
 	},
 	TokenConfig: {
-		key: 'Ks9Xz2Yp7Qr3Uv8Wt6Sm5Nd4Lc2Jb9Ag3Hf7Ei5Dc9Xw2Yt3Uz8',
+		key: 'your_secret_key',
 		expiresIn: '1d'
 	},
-	adminName: 'SuperAdmin',
-	adminAccount: 'coderjc',
+	adminName: 'your_admin_name',
+	adminAccount: 'your_admin_account',
 	port: 9527
 }
