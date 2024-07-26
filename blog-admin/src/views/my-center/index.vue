@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import BoxWrap from './components/box-wrap.vue'
 import JcUpload from '@/components/jc-upload/src/jc-upload.vue'
-import { useUserActions, useUserGetters } from '@/store'
+import modifyPasswordFormConfig from './config/modify-password-form'
 import { ref } from 'vue'
 import { userApi } from '@/apis'
 import { uploadFile } from '@/cos'
-import type { BoxItem } from './types'
+import { useGlobalActions, useUserActions, useUserGetters } from '@/store'
+import type { BoxItem, ModifyPassword } from './types'
 import type { UserItem } from '@/apis/modules/user/type'
+import { encrypt } from '@/utils'
 
 const { getUserInfo } = useUserGetters()
 const { reqGetUserInfo } = useUserActions()
 
+// 修改头像
 const avatarVisable = ref(false)
 const avatarData = ref()
 let curAvatarUrl = ''
@@ -25,10 +28,21 @@ const confirmUpdateAvatar = async () => {
 	await reqEditUserInfo(data)
 }
 
-const handlePassword = (row: BoxItem) => {
-	console.log(row)
+// 修改密码
+const passwordVisable = ref(false)
+const handlePassword = () => {
+	passwordVisable.value = true
+}
+const { logout } = useGlobalActions()
+const confirmModifyPassword = async (data: ModifyPassword) => {
+	const payload = { oldPassword: encrypt(data.oldPassword), newPassword: encrypt(data.newPassword) }
+	const resp = await userApi.reqModifyUserPassword(payload)
+	ElMessage.success(resp.msg)
+	passwordVisable.value = false
+	logout()
 }
 
+// 保存
 const handleSave = async (content: string, row: BoxItem, done?: Function) => {
 	const data = Object.assign({}, getUserInfo.value, { [row.key]: content })
 	await reqEditUserInfo(data)
@@ -105,6 +119,14 @@ const accountInfoList: BoxItem[] = [
 			</div>
 		</JcDialog>
 		<!-- 修改密码 -->
+		<JcDialog
+			v-model="passwordVisable"
+			width="500"
+			title="修改密码">
+			<JcForm
+				v-bind="modifyPasswordFormConfig"
+				@submit="confirmModifyPassword"></JcForm>
+		</JcDialog>
 	</div>
 </template>
 

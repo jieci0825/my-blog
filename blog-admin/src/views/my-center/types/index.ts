@@ -29,3 +29,8 @@ export interface BoxWrapEmits {
 	(e: 'save', content: any, data: any, done: Function): void
 	(e: 'cancel', data: any): void
 }
+
+export interface ModifyPassword {
+	oldPassword: string
+	newPassword: string
+}
