@@ -10,6 +10,7 @@ declare module 'vue' {
     Comment: typeof import('./src/components/comment/src/comment.vue')['default']
     Dosearch: typeof import('./src/components/dosearch/src/dosearch.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']

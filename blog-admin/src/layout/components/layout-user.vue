@@ -22,7 +22,7 @@ const { logout } = useGlobalActions()
 			</div>
 			<template #dropdown>
 				<el-dropdown-item
-					@click="router.push('/my')"
+					@click="router.push('/my-center')"
 					:icon="User"
 					>个人中心</el-dropdown-item
 				>

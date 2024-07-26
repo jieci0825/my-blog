@@ -51,3 +51,10 @@ export function reqLogoffUser(id: string | number) {
 export function reqAssignRole(data: { userId: string | number; roleId: string }) {
 	return request.post<IBaseType<string>>({ url: '/user/assign-role', data })
 }
+
+/**
+ * 修改用户密码
+ */
+export function reqModifyUserPassword(data: { oldPassword: string; newPassword: string }) {
+	return request.put<IBaseType<string>>({ url: '/user/modify-password', data })
+}

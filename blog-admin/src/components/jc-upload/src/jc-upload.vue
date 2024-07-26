@@ -6,6 +6,7 @@ import JcOneUpload from './jc-one-upload.vue'
 
 defineOptions({ name: 'JcUpload' })
 
+const modelValue = defineModel()
 const props = withDefaults(defineProps<JcUploadProps>(), {
 	model: 'one',
 	oneStyle: () => {
@@ -16,7 +17,6 @@ const props = withDefaults(defineProps<JcUploadProps>(), {
 	oneTip: '建议上传 3m 以内的图片',
 	initPreviewImage: ''
 })
-const modelValue = defineModel()
 
 function setModelValue(payload: File | File[] | null) {
 	modelValue.value = payload

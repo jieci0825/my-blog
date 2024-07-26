@@ -1,13 +1,13 @@
+import router from '@/routers'
+import routeDynamic from '@/routers/route-dynamic'
 import { computed } from 'vue'
 import { piniaGlobalStore } from '../modules/global'
 import { globalApi } from '@/apis'
+import { encrypt } from '@/utils'
 import { LoginParams } from '@/apis/modules/global/type'
-
-import router from '@/routers'
 import { useUserActions } from './use-user-store'
 import { getLocalCache, registerDynamicRoutes, removeDynamicRoutes, removeLocalCache } from '@/utils'
 import { BLOG_ADMIN_CURRENT_MENU_LIST, BLOG_ADMIN_HEADER_NAV_LIST, BLOG_ADMIN_TOKEN } from '@/constants'
-import routeDynamic from '@/routers/route-dynamic'
 
 export const useGlobalGetters = () => {
 	const globalStore = piniaGlobalStore()
@@ -63,7 +63,8 @@ export const useGlobalActions = () => {
 
 	// 登录
 	const login = async (data: LoginParams, path?: string) => {
-		const resp = await globalApi.reqLogin(data)
+		const payload = Object.assign({}, data, { password: encrypt(data.password) })
+		const resp = await globalApi.reqLogin(payload)
 		// 存储 token
 		setToken(resp.data.token)
 

@@ -9,3 +9,7 @@ export function isArray(value: any): boolean {
 export function isBoolean(value: any): boolean {
 	return typeof value === 'boolean'
 }
+
+export function isString(value: any): boolean {
+	return typeof value === 'string'
+}
