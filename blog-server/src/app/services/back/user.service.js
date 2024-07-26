@@ -139,7 +139,7 @@ async function modifyUserPassword(data) {
 	const correct = bcrypt.compareSync(originalPassword, userInfo.password)
 	if (!correct) throw new AuthFailed('旧密码错误')
 
-	await User.update({ password: data.newPassword }, { where: { id: data.userId } })
+	await User.update({ password: decrypt(data.newPassword) }, { where: { id: data.userId } })
 }
 
 module.exports = {
