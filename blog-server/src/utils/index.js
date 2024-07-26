@@ -1,6 +1,7 @@
 const dayjs = require('dayjs')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const CryptoJS = require('crypto-js')
 
 /**
  * md5加密方法
@@ -208,6 +209,16 @@ function sortTree(treeData, sortField) {
 	return sortData
 }
 
+/**
+ * 解密
+ * @param {string} encryptedMessage 加密的字符串
+ * @returns {string} 解密后的字符串
+ */
+function decrypt(encryptedMessage) {
+	const bytes = CryptoJS.AES.decrypt(encryptedMessage, global.config.aesKey)
+	return bytes.toString(CryptoJS.enc.Utf8)
+}
+
 module.exports = {
 	formatTime,
 	generateRandomString,
@@ -221,5 +232,6 @@ module.exports = {
 	toCamelCaseForObj,
 	hasOwnProp,
 	toTree,
-	sortTree
+	sortTree,
+	decrypt
 }

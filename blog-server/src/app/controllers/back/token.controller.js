@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const { User } = require('@/app/models/user.model')
 const { tokenRules } = require('@/app/rules/back/token.rule')
 const { DataSuccess, ParamsError, AuthFailed } = require('@/core/error-type')
-const { generateToken, md5password } = require('@/utils')
+const { generateToken, decrypt } = require('@/utils')
 const { Validator } = require('@/validator')
 
 /**
@@ -16,8 +16,10 @@ async function token(ctx) {
 
 	const { id, account, password, role_id } = userInfo.dataValues
 
+	const originalPassword = decrypt(data.password)
+
 	// 校验密码
-	const correct = bcrypt.compareSync(data.password, password)
+	const correct = bcrypt.compareSync(originalPassword, password)
 	if (!correct) {
 		throw new AuthFailed('密码错误')
 	}

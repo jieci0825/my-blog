@@ -7,12 +7,7 @@ const createUserRules = {
 		.min(6)
 		.max(12)
 		.pattern(/^[a-zA-Z0-9]+$/), // 字母和数字
-	password: new Rule()
-		.isString()
-		.required()
-		.min(6)
-		.max(16)
-		.pattern(/^[a-zA-Z0-9\/\-]+$/),
+	password: new Rule().isString().required(),
 	nickname: new Rule().isString().required().min(2).max(10),
 	avatarUrl: new Rule().isString(),
 	sign: new Rule().isString().min(0).max(100),
@@ -45,12 +40,7 @@ const assignRoleRules = {
 }
 
 const modifyUserPasswordRules = {
-	oldPassword: new Rule()
-		.isString()
-		.required()
-		.min(6)
-		.max(16)
-		.pattern(/^[a-zA-Z0-9\/\-]+$/),
+	oldPassword: new Rule().isString().required(),
 	newPassword: new Rule().and('oldPassword')
 }
 

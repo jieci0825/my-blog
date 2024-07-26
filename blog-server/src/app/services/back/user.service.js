@@ -4,6 +4,7 @@ const { User } = require('@/app/models/user.model')
 const { Collide, AuthFailed } = require('@/core/error-type')
 const { Op } = require('sequelize')
 const roleService = require('@ser-back/role.service')
+const { decrypt } = require('@/utils')
 
 /**
  * 创建用户
@@ -133,7 +134,9 @@ async function modifyUserPassword(data) {
 		throw new Collide('当前用户不存在')
 	}
 
-	const correct = bcrypt.compareSync(data.oldPassword, userInfo.password)
+	const originalPassword = decrypt(data.oldPassword)
+
+	const correct = bcrypt.compareSync(originalPassword, userInfo.password)
 	if (!correct) throw new AuthFailed('旧密码错误')
 
 	await User.update({ password: data.newPassword }, { where: { id: data.userId } })

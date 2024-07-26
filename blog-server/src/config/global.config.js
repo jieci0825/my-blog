@@ -16,10 +16,11 @@ module.exports = {
 		password: 'qwer0825.'
 	},
 	TokenConfig: {
-		PRIVATE_KEY,
-		PUBLIC_KEY,
+		PRIVATE_KEY: PRIVATE_KEY.toString(),
+		PUBLIC_KEY: PRIVATE_KEY.toString(),
 		expiresIn: '1d'
 	},
+	aesKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuz6GNWWL12awIfZ3HD8Q',
 	adminName: 'SuperAdmin',
 	adminAccount: 'coderjc',
 	port: 9527
