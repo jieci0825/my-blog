@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import GlobalSetting from '@/components/global-setting'
 import { ref } from 'vue'
 import { useEventListener, useTheme } from '@/hooks'
 import { useGlobalActions } from '@/store'
 import { RefreshRight, Sunny, Moon, FullScreen, Setting, Close } from '@element-plus/icons-vue'
-import GlobalSetting from '@/components/global-setting'
 
 const size = 22
 const { isDark, switchTheme } = useTheme()

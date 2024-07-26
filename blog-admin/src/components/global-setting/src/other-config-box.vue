@@ -44,7 +44,7 @@ const { toggleCollapse, toggleAccordion, toggleColorWeakness, toggleGrayMode, se
 				<el-select
 					@change="setRouteAnimation"
 					:model-value="getRouteAnimation"
-					placeholder="Select"
+					placeholder="选择路由动画"
 					style="width: 180px">
 					<el-option
 						v-for="item in routerAnimation"
