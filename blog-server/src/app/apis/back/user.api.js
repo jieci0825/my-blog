@@ -36,6 +36,6 @@ router.get('/menus', verifyToken, getLoginUserMenuList)
 router.put('/', verifyToken, verifySuperAdmin, editUser)
 
 // 修改用户密码
-router.post('/modify-password', verifyToken, modifyUserPassword)
+router.put('/modify-password', verifyToken, modifyUserPassword)
 
 module.exports = router
