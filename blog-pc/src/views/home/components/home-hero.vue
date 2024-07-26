@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import TextErasure from '@/components/text-erasure'
+
 const actionList = [
 	{
 		name: '快速开始',
@@ -16,10 +18,19 @@ const actionList = [
 <template>
 	<div class="home-hero">
 		<div class="container">
+			<div class="image-wrap">
+				<JcLogo />
+			</div>
 			<div class="main">
-				<h1 class="name">劫辞の树洞</h1>
-				<p class="text">见字如面，愿君不啻微茫，造炬成阳</p>
-				<p class="tagline">山林不向四季起誓，荣枯随缘</p>
+				<TextErasure
+					text="劫辞の树洞"
+					class="name"></TextErasure>
+				<TextErasure
+					text="见字如面，愿君不啻微茫，造炬成阳"
+					class="text"></TextErasure>
+				<TextErasure
+					text="山林不向四季起誓，荣枯随缘"
+					class="tagline"></TextErasure>
 
 				<div class="actions">
 					<el-button
@@ -32,9 +43,6 @@ const actionList = [
 						{{ item.name }}
 					</el-button>
 				</div>
-			</div>
-			<div class="image-wrap">
-				<img src="/icon.svg" />
 			</div>
 		</div>
 	</div>
@@ -50,22 +58,27 @@ const actionList = [
 	.container {
 		margin: 0 auto;
 		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		max-width: var(--home-max-width);
 		padding: 0 8px;
 		@media (max-width: @size-sm) {
 			padding: 0;
 		}
 		.main {
-			padding-right: var(--home-padding);
+			margin-top: 30px;
+			text-align: center;
 			letter-spacing: -0.4px;
 			.name {
 				font-size: 50px;
 				color: var(--primary-color);
+				font-weight: 600;
 			}
 			.text {
 				font-size: 42px;
-				margin-top: 10px;
 				color: var(--text-color-2);
+				margin-top: 10px;
 			}
 			.tagline {
 				margin-top: 15px;
@@ -75,6 +88,7 @@ const actionList = [
 			.actions {
 				margin-top: 30px;
 				display: flex;
+				justify-content: center;
 				flex-wrap: wrap;
 				a {
 					text-decoration: none;
@@ -85,31 +99,21 @@ const actionList = [
 			width: 240px;
 			height: 240px;
 			overflow: hidden;
-			img {
+			svg {
 				width: 100%;
+				height: 100%;
+				fill: var(--primary-color);
 			}
 		}
 		@media (max-width: @size-md) {
 			position: relative;
 			flex-direction: column;
-			.main {
-				padding-right: 0;
-				margin-top: 250px;
-				text-align: center;
-				.actions {
-					justify-content: center;
-				}
-			}
-			.image-wrap {
-				position: absolute;
-				top: 0;
-				left: 50%;
-				transform: translateX(-50%);
-			}
 		}
 		@media (max-width: @size-xs) {
+			.image-wrap {
+				margin-top: 50px;
+			}
 			.main {
-				margin-top: 180px;
 				.name {
 					font-size: 28px;
 				}

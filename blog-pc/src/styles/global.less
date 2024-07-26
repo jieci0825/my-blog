@@ -27,6 +27,17 @@
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+// 色弱
+body.color-weakness {
+	filter: invert(80%);
+	-webkit-filter: invert(80%);
+}
+// 灰色
+body.gray-mode {
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+}
+
 @defalutFont: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑',
 	Arial, sans-serif;
 @beautifyFont: 'FiraCode-Regular', 'FZKai-Z03s';
@@ -131,4 +142,15 @@ img {
 // 清除el下拉菜单黑框
 .el-tooltip__trigger:focus-visible {
 	outline: unset;
+}
+
+// 清除默认动画
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+}
+
+// 层级原因，需要调整过渡到暗色模式时 ::view-transition-old(root) 的层级
+.dark::view-transition-old(root) {
+	z-index: 100;
 }

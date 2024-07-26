@@ -210,6 +210,7 @@ const footerTips = ref<IFooterTips[]>([
 					class="content-wrap"
 					ref="refContent">
 					<div
+						v-if="formatHtmlQueryBlogList.length"
 						@click="handleClickItem(item)"
 						class="item"
 						:class="{ active: selectItem === item }"
@@ -218,6 +219,12 @@ const footerTips = ref<IFooterTips[]>([
 						<div
 							class="text"
 							v-html="item.title"></div>
+					</div>
+					<div v-else>
+						<div class="tip-wrap">
+							<span v-if="keyword">没有找到相关内容哦</span>
+							<span v-else>请输入关键词尝试搜索一下吧</span>
+						</div>
 					</div>
 				</div>
 				<div class="footer-wrap">
@@ -343,6 +350,18 @@ const footerTips = ref<IFooterTips[]>([
 						color: var(--text-color-3);
 					}
 				}
+			}
+		}
+		.tip-wrap {
+			width: 100%;
+			display: flex;
+			margin-top: 50px;
+			align-items: center;
+			justify-content: center;
+			font-size: 20px;
+			color: var(--text-color-5);
+			span {
+				border-bottom: 1px solid var(--text-color-5);
 			}
 		}
 	}

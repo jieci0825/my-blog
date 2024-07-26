@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import Dosearch from '@/components/dosearch'
 import Navbar from '@/components/navbar'
 import { useEventListener } from '@/hooks'
+import { useGlobalGetters } from '@/store'
 
 const visibleDosearch = ref(false)
 
@@ -12,6 +13,8 @@ useEventListener(document, 'keydown', (evt: KeyboardEvent) => {
 		visibleDosearch.value = true
 	}
 })
+
+const { getRouteAnimation } = useGlobalGetters()
 </script>
 
 <template>
@@ -20,7 +23,13 @@ useEventListener(document, 'keydown', (evt: KeyboardEvent) => {
 			<Navbar @open-dosearch="visibleDosearch = true"></Navbar>
 		</div>
 		<div class="main-area">
-			<router-view></router-view>
+			<router-view v-slot="{ Component }">
+				<Transition
+					:name="getRouteAnimation"
+					mode="out-in">
+					<Component :is="Component" />
+				</Transition>
+			</router-view>
 		</div>
 	</div>
 

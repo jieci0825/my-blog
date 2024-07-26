@@ -19,7 +19,6 @@ const getDetail = async () => {
 		url: `https://s.coder-helper.coderjc.cn/api/front/document/detail/${$route.params.id}`
 	})
 	blogInfo.value = data.data
-	console.log('🚢 ~ 当前打印的内容 ~ data.data:', data.data)
 
 	nextTick(() => {
 		highlight()

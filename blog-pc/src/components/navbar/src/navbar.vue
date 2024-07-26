@@ -65,7 +65,7 @@ useEventListener(window, 'resize', onSize)
 				<div
 					class="title"
 					@click="jumpPage('/home')">
-					<img src="/icon.svg" />
+					<JcLogo />
 					<span>劫辞</span>
 				</div>
 				<!-- search -->
@@ -138,9 +138,10 @@ useEventListener(window, 'resize', onSize)
 				@media (max-width: @size-xs) {
 					font-size: 18px;
 				}
-				img {
+				svg {
 					width: 1.2em;
 					height: 1.2em;
+					fill: var(--primary-color);
 				}
 				span {
 					color: var(--primary-color);

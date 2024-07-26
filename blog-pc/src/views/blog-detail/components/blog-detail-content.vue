@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { formatTime } from '@/utils'
 import type { BlogDetailContentProps } from '../types'
 
 const props = defineProps<BlogDetailContentProps>()
@@ -9,8 +10,15 @@ const props = defineProps<BlogDetailContentProps>()
 		<div class="header">
 			<h1 class="title">{{ props.blogInfo.title }}</h1>
 			<div class="info">
-				<span class="author">coderjc</span>
-				<span class="date">{{ props.blogInfo.date }}</span>
+				<span class="author">劫辞</span>
+				<div class="show-item">
+					<span class="iconfont icon-time"></span>
+					<span class="value">{{ formatTime(props.blogInfo.date) }}</span>
+				</div>
+				<div class="show-item">
+					<span class="iconfont icon-view"></span>
+					<span class="value">{{ props.blogInfo.lookNums }}</span>
+				</div>
 			</div>
 		</div>
 		<div
@@ -46,6 +54,20 @@ const props = defineProps<BlogDetailContentProps>()
 		margin-bottom: 30px;
 		.title {
 			margin-bottom: 10px;
+		}
+		.info {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+			color: var(--text-color-5);
+			gap: 10px;
+			font-size: 16px;
+			.show-item {
+				font-size: 14px;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+			}
 		}
 	}
 }

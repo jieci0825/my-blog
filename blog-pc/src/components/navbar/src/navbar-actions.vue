@@ -1,25 +1,54 @@
 <script setup lang="ts">
-import { useChangeFont } from '@/hooks'
+import GlobalSetting from '@/components/global-setting'
+import { ref } from 'vue'
+import { Setting, Sunny, Moon } from '@element-plus/icons-vue'
+import { useTheme } from '@/hooks/use-theme'
+import { useGlobalActions } from '@/store'
 
-const { isFontBeautify } = useChangeFont()
+const size = 22
+const settingVisible = ref(false)
+
+const { isDark, switchTheme } = useTheme()
+const { toggleTheme } = useGlobalActions()
+
+const handleTheme = () => {
+	const _theme = isDark.value ? 'light' : 'dark'
+	switchTheme(_theme, true)
+	toggleTheme(_theme)
+}
 </script>
 
 <template>
 	<div class="actions">
+		<!-- theme -->
 		<div class="action-item">
-			<el-switch
-				v-model="isFontBeautify"
-				inline-prompt
-				active-text="Font"
-				inactive-text="Font" />
-			<el-tooltip>
-				<template #content>
-					如果您的设备使用美化字体导致不清晰或者不喜欢当前字体，您可以关闭它，使用系统默认字体</template
-				>
-				<span class="iconfont icon-help"></span>
-			</el-tooltip>
+			<el-icon :size="size">
+				<Sunny
+					@click="handleTheme"
+					v-if="!isDark" />
+				<Moon
+					@click="handleTheme"
+					v-else />
+			</el-icon>
+		</div>
+
+		<!-- setting -->
+		<div class="action-item">
+			<el-icon
+				:size="size"
+				@click="settingVisible = true">
+				<Setting />
+			</el-icon>
 		</div>
 	</div>
+
+	<!-- 设置面板 -->
+	<JcDialog
+		v-model="settingVisible"
+		width="640px"
+		title="全局设置">
+		<GlobalSetting></GlobalSetting>
+	</JcDialog>
 </template>
 
 <style scoped lang="less">
@@ -30,6 +59,7 @@ const { isFontBeautify } = useChangeFont()
 	height: 40%;
 	display: flex;
 	align-items: center;
+	gap: 20px;
 	@media (max-width: @size-sm) {
 		margin-left: 0;
 		padding-left: 10px;

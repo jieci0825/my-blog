@@ -1,6 +1,7 @@
+@import './element/components.less';
+@import './element/dark.scss';
 @import './var.less';
 @import './global.less';
-@import 'element-plus/theme-chalk/el-message-box.css';
 @import 'nprogress/nprogress.css';
 @import './markdown.css';
 @import './animations.less';

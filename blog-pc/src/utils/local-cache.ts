@@ -1,3 +1,5 @@
+import { isEmpty } from './tools'
+
 export function getLocalCache(key: string) {
 	let result = undefined
 
@@ -10,15 +12,14 @@ export function getLocalCache(key: string) {
 	return result
 }
 
-export function setLocalCache(key: string, value: string) {
-	if (value === '') return
+export function setLocalCache(key: string, value: string | object) {
+	if (isEmpty(value)) return
 
 	if (typeof value === 'string') {
 		localStorage.setItem(key, value)
 	} else {
 		localStorage.setItem(key, JSON.stringify(value))
 	}
-	localStorage.setItem(key, value)
 }
 
 export function removeLocalCache(key: string) {

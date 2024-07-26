@@ -66,7 +66,7 @@ const handleClick = (evt: MouseEvent) => {
 		font-weight: 400;
 		transition: color 0.25s ease-in, font-weight 0.1s;
 		&:hover {
-			font-weight: 600;
+			color: var(--primary-color);
 		}
 		&.active {
 			color: var(--primary-color);

@@ -2,7 +2,7 @@
 	// 版心宽度
 	--center-width: 1280px;
 	/* 主题 */
-	--primary-color: #37a6a6;
+	--primary-color: var(--el-color-primary);
 	/* 头部 高度 */
 	--header-height: 60px;
 	/* 背景颜色 */
@@ -13,13 +13,8 @@
 		rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
 	/* 圆角 */
 	--base-b-r: 4px;
-	/* 文档主要字体色 */
-	--text-color-1: #252933;
-	/* 灰色 */
-	--text-color-2: #3c3c43;
-	--text-color-3: #515767;
-	--text-color-4: #a4b0be;
-	--text-color-5: #8a919f;
+	/* text */
+	--text-color: var(--el-color-info);
 	// 边框
 	--border-color: #e4e7ed;
 	// 滚动条
@@ -41,6 +36,13 @@
 
 	/* el */
 	--el-font-family: 'FiraCode-Regular', 'FZKai-Z03s';
+}
+
+html.dark {
+	--bg-color: #121212;
+	--bg-color-1: #000101;
+	--text-color: #e5e3fa;
+	--border-color: #414243;
 }
 
 // 媒体查询
