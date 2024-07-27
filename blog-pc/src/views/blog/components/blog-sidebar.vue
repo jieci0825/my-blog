@@ -213,7 +213,12 @@ getHotBlogList()
 					font-size: 14px;
 					color: var(--el-text-color-placeholder);
 					span {
-						background: linear-gradient(to right, #f2fbfa, #d5f2ef, #aae5df);
+						background: linear-gradient(
+							to right,
+							var(--el-color-primary-light-8),
+							var(--el-color-primary-light-7),
+							var(--el-color-primary-light-5)
+						);
 						background-size: 0 1px;
 						background-repeat: no-repeat;
 						// 设置默认为右，退出的时候位置就会靠右

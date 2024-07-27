@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import axios from 'axios'
-import { nextTick, ref } from 'vue'
-import { useRoute } from 'vue-router'
 import BlogDetailContent from './components/blog-detail-content.vue'
 import BlogDetailSidebar from './components/blog-detail-sidebar.vue'
+import { nextTick, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { codeToHtml } from 'shiki'
-import { useGlobalGetters } from '@/store'
 
 const $route = useRoute()
-const {} = useGlobalGetters()
 
 const blogInfo = ref({})
 const titleList = ref<Element[]>([])

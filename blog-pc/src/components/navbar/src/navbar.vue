@@ -17,8 +17,8 @@ const navbarMenu: NavbarMenuItem[] = [
 		path: '/blog'
 	},
 	{
-		label: '友人链',
-		path: '/message'
+		label: '友情链接',
+		path: '/friend-chain'
 	},
 	{
 		label: '关于我',
