@@ -28,9 +28,6 @@ const actionList = [
 				<TextErasure
 					text="见字如面，愿君不啻微茫，造炬成阳"
 					class="text"></TextErasure>
-				<TextErasure
-					text="山林不向四季起誓，荣枯随缘"
-					class="tagline"></TextErasure>
 
 				<div class="actions">
 					<el-button
@@ -77,13 +74,8 @@ const actionList = [
 			}
 			.text {
 				font-size: 42px;
-				color: var(--text-color-2);
+				color: var(--el-color-primary-light-3);
 				margin-top: 10px;
-			}
-			.tagline {
-				margin-top: 15px;
-				font-size: 20px;
-				color: var(--text-color-5);
 			}
 			.actions {
 				margin-top: 30px;

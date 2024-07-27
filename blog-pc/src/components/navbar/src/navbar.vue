@@ -157,7 +157,7 @@ useEventListener(window, 'resize', onSize)
 			.search {
 				cursor: pointer;
 				margin: 0 20px;
-				color: var(--text-color-5);
+				color: var(--el-text-color-regular);
 				display: flex;
 				align-items: center;
 				gap: 10px;
@@ -201,7 +201,7 @@ useEventListener(window, 'resize', onSize)
 					.line {
 						width: 25px;
 						height: 3px;
-						background-color: var(--text-color-5);
+						background-color: var(--el-text-color-regular);
 						border-radius: 6px;
 						margin: 3px 0;
 						transition: all 0.25s ease-in-out;
@@ -242,7 +242,7 @@ useEventListener(window, 'resize', onSize)
 						align-items: center;
 						font-weight: 600;
 						position: relative;
-						color: var(--text-color-2);
+						color: var(--el-text-color-regular);
 						font-size: 16px;
 						&.active {
 							color: var(--primary-color);

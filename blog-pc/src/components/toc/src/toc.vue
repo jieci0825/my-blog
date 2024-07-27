@@ -171,7 +171,7 @@ provide(TocKey, {
 	.toc-title {
 		font-weight: 600;
 		margin-bottom: 10px;
-		color: var(--text-color-2);
+		color: var(--el-text-color-primary);
 		border-bottom: 1px solid var(--border-color);
 		padding-bottom: 5px;
 		font-size: 18px;

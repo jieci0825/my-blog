@@ -207,11 +207,11 @@ getHotBlogList()
 				}
 				.sign {
 					font-size: 16px;
-					color: var(--text-color-3);
+					color: var(--el-text-color-regular);
 				}
 				.description {
 					font-size: 14px;
-					color: var(--text-color-5);
+					color: var(--el-text-color-placeholder);
 					span {
 						background: linear-gradient(to right, #f2fbfa, #d5f2ef, #aae5df);
 						background-size: 0 1px;
@@ -234,7 +234,7 @@ getHotBlogList()
 			.title {
 				font-size: 18px;
 				font-weight: bold;
-				color: var(--text-color-2);
+				color: var(--el-text-color-primary);
 				border-bottom: 1px solid var(--border-color);
 				padding-bottom: 5px;
 			}
@@ -245,7 +245,7 @@ getHotBlogList()
 					font-size: 15px;
 					line-height: 24px;
 					.one-omit();
-					color: var(--text-color-3);
+					color: var(--el-text-color-regular);
 					&:hover {
 						cursor: pointer;
 						color: var(--primary-color);

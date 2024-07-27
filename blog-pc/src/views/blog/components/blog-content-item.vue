@@ -131,7 +131,7 @@ const props = defineProps<{ itemData: any }>()
 			display: flex;
 			align-items: center;
 			gap: 5px;
-			color: var(--text-color-5);
+			color: var(--el-text-color-placeholder);
 			font-size: 14px;
 			.iconfont {
 				font-size: 18px;
@@ -147,18 +147,18 @@ const props = defineProps<{ itemData: any }>()
 				width: 100%;
 				font-size: 16px;
 				.more-omit(2);
-				color: var(--text-color-3);
+				color: var(--el-text-color-regular);
 			}
 			.read-more {
 				margin: 15px 0;
 				font-weight: bold;
 				cursor: pointer;
 				span {
-					color: var(--text-color-5);
+					color: var(--el-text-color-placeholder);
 					transition: color 0.25s ease-in;
 				}
 				& span:hover {
-					color: var(--text-color-3);
+					color: var(--el-text-color-regular);
 				}
 			}
 			.tags {

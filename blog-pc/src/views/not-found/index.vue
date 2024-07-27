@@ -32,7 +32,7 @@ const router = useRouter()
 	width: 100vw;
 	height: 100vh;
 	font-family: '阿里妈妈东方大楷 Regular';
-	color: var(--text-color-2);
+	color: var(--el-text-color-primary);
 	span {
 		font-family: '阿里妈妈东方大楷 Regular';
 	}

@@ -58,7 +58,7 @@ const handleClick = (evt: MouseEvent) => {
 		line-height: 24px;
 		font-size: 15px;
 		width: 100%;
-		color: var(--text-color-3);
+		color: var(--el-text-color-regular);
 		align-items: center;
 		.one-omit();
 		cursor: pointer;

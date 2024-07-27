@@ -59,7 +59,7 @@ const props = defineProps<BlogDetailContentProps>()
 			display: flex;
 			align-items: center;
 			margin-bottom: 10px;
-			color: var(--text-color-5);
+			color: var(--el-text-color-placeholder);
 			gap: 10px;
 			font-size: 16px;
 			.show-item {

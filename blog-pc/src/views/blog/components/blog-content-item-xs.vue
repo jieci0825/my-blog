@@ -82,7 +82,7 @@ const toBlogDetail = () => {
 				display: flex;
 				align-items: center;
 				gap: 5px;
-				color: var(--text-color-5);
+				color: var(--el-text-color-placeholder);
 				font-size: 14px;
 				letter-spacing: -0.4px;
 				.iconfont {
@@ -92,7 +92,7 @@ const toBlogDetail = () => {
 		}
 		.description {
 			font-size: 15px;
-			color: var(--text-color-3);
+			color: var(--el-text-color-regular);
 			margin-bottom: 10px;
 			.text {
 				width: 100%;

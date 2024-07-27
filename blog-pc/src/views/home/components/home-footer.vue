@@ -51,7 +51,7 @@ useEventListener(anaRef, 'click', () => {
 	flex-shrink: 0;
 	padding: 20px 0;
 	text-align: center;
-	color: var(--text-color-5);
+	color: var(--el-color-info);
 	line-height: 20px;
 	font-size: 14px;
 }

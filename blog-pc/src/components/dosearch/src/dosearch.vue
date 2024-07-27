@@ -272,7 +272,7 @@ const footerTips = ref<IFooterTips[]>([
 			padding: 0 12px;
 			display: flex;
 			align-items: center;
-			color: var(--text-color-5);
+			color: var(--el-text-color-placeholder);
 			.input-wrap {
 				flex: 1;
 				margin: 0 12px;
@@ -282,10 +282,10 @@ const footerTips = ref<IFooterTips[]>([
 					border: none;
 					outline: none;
 					background-color: transparent;
-					color: var(--text-color-2);
+					color: var(--el-text-color-primary);
 					font-size: 16px;
 					&::placeholder {
-						color: var(--text-color-5);
+						color: var(--el-text-color-placeholder);
 					}
 				}
 			}
@@ -301,11 +301,12 @@ const footerTips = ref<IFooterTips[]>([
 			padding: 8px;
 			overflow: hidden auto;
 			.item {
-				color: var(--text-color-3);
+				color: var(--el-text-color-primary);
 				border-radius: var(--base-b-r);
 				width: 100%;
 				transition: all 0.25s;
 				.text {
+					font-size: 18px;
 					.one-omit();
 				}
 				&.active {
@@ -342,12 +343,12 @@ const footerTips = ref<IFooterTips[]>([
 					.iconfont {
 						font-size: 16px;
 						font-weight: bold;
-						color: var(--text-color-4);
+						color: var(--el-text-color-placeholder);
 					}
 					.text {
 						margin-left: 5px;
 						font-size: 13px;
-						color: var(--text-color-3);
+						color: var(--el-text-color-regular);
 					}
 				}
 			}
@@ -359,9 +360,9 @@ const footerTips = ref<IFooterTips[]>([
 			align-items: center;
 			justify-content: center;
 			font-size: 20px;
-			color: var(--text-color-5);
+			color: var(--el-text-color-placeholder);
 			span {
-				border-bottom: 1px solid var(--text-color-5);
+				border-bottom: 1px solid var(--el-text-color-placeholder);
 			}
 		}
 	}

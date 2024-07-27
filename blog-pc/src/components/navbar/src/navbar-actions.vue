@@ -70,7 +70,7 @@ const handleTheme = () => {
 		.iconfont {
 			margin-left: 5px;
 			font-size: 20px;
-			color: var(--text-color-5);
+			color: var(--el-text-color-placeholder);
 			@media (max-width: @size-xs) {
 				display: none;
 			}
