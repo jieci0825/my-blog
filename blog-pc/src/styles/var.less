@@ -9,14 +9,16 @@
 	--bg-color: #fff;
 	--bg-color-1: #f6f6f7;
 	/* 阴影 */
-	--base-box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-		rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+	--bbs: rgba(0, 0, 0, 0);
+	--bbs-1: rgba(0, 0, 0, 0.1);
+	--base-box-shadow: var(--bbs) 0px 0px 0px 0px, var(--bbs) 0px 0px 0px 0px, var(--bbs-1) 0px 1px 3px 0px,
+		var(--bbs-1) 0px 1px 2px -1px;
 	/* 圆角 */
 	--base-b-r: 4px;
 	/* text */
 	--text-color: var(--el-color-info);
 	// 边框
-	--border-color: #e4e7ed;
+	--border-color: var(--el-border-color);
 	// 滚动条
 	--scroll-color: #ccc;
 	// 蒙层
@@ -40,7 +42,11 @@ html.dark {
 	--bg-color: #121212;
 	--bg-color-1: #000101;
 	--text-color: #e5e3fa;
-	--border-color: #414243;
+	/* 阴影 */
+	--bbs: rgba(255, 255, 255, 0);
+	--bbs-1: rgba(255, 255, 255, 0.1);
+	--base-box-shadow: var(--bbs) 0px 0px 0px 0px, var(--bbs) 0px 0px 0px 0px, var(--bbs-1) 0px 1px 3px 0px,
+		var(--bbs-1) 0px 1px 2px -1px;
 }
 
 // 媒体查询

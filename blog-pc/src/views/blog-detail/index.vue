@@ -89,6 +89,9 @@ const jumpTo = (id?: string, e?: Event) => {
 		max-width: var(--center-width);
 		margin: 0 auto;
 		display: flex;
+		@media (max-width: @size-md) {
+			display: block;
+		}
 	}
 }
 </style>

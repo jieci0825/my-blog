@@ -10,7 +10,6 @@ const props = defineProps<BlogDetailContentProps>()
 		<div class="header">
 			<h1 class="title">{{ props.blogInfo.title }}</h1>
 			<div class="info">
-				<span class="author">劫辞</span>
 				<div class="show-item">
 					<span class="iconfont icon-time"></span>
 					<span class="value">{{ formatTime(props.blogInfo.date) }}</span>
@@ -31,7 +30,7 @@ const props = defineProps<BlogDetailContentProps>()
 .content-wrap {
 	padding: 20px;
 	flex: 1;
-	max-width: 720px;
+	max-width: 820px;
 	border: 1px solid var(--border-color);
 	border-radius: var(--base-b-r);
 	margin-left: auto;
