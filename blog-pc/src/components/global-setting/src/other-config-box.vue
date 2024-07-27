@@ -77,6 +77,9 @@ const { toggleGrayMode, toggleColorWeakness, setRouteAnimation, toggleFontBeauti
 		width: calc((100% - 20px) / 2);
 		display: flex;
 		align-items: center;
+		@media (max-width: @size-sm) {
+			width: calc((100% - 20px));
+		}
 		.label {
 			width: 100px;
 			font-size: 16px;

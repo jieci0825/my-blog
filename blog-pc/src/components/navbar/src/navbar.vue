@@ -128,6 +128,11 @@ useEventListener(window, 'resize', onSize)
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			@media (max-width: @size-sm) {
+				:deep(.el-dialog) {
+					width: 90vw !important;
+				}
+			}
 			.title {
 				user-select: none;
 				height: 100%;
