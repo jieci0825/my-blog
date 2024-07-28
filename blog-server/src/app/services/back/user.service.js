@@ -131,7 +131,11 @@ async function editUser(data) {
  * @param {object} data
  */
 async function editMyInfo(data) {
+	const isAccount = await User.findOne({ where: { account: data.account } })
+	if (isAccount) throw new Collide('当前账号已经存在')
+
 	const updateData = {
+		account: data.account,
 		nickname: data.nickname,
 		avatar_url: data.avatarUrl,
 		sign: data.sign,
