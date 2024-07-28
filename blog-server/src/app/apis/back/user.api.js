@@ -11,7 +11,7 @@ const {
 	editUser,
 	modifyUserPassword
 } = require('@con-back/user.controller')
-const { verifyToken, verifySuperAdmin } = require('@/middleware/auth.middleware')
+const { verifyToken, verifySuperAdmin, verifyCode } = require('@/middleware/auth.middleware')
 const { parsePageInfo } = require('@/middleware/parse.middleware')
 
 // 创建用户
@@ -36,6 +36,6 @@ router.get('/menus', verifyToken, getLoginUserMenuList)
 router.put('/', verifyToken, verifySuperAdmin, editUser)
 
 // 修改用户密码
-router.put('/modify-password', verifyToken, modifyUserPassword)
+router.put('/modify-password', verifyToken, verifyCode, modifyUserPassword)
 
 module.exports = router

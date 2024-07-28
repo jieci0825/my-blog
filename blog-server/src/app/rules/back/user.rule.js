@@ -1,6 +1,10 @@
 const { Rule } = require('@/validator')
 
 const createUserRules = {
+	email: new Rule()
+		.isString()
+		.required([''])
+		.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
 	account: new Rule()
 		.isString()
 		.required()
@@ -15,17 +19,8 @@ const createUserRules = {
 }
 
 const editUserRules = {
-	id: new Rule().isNumber().isInteger().required(),
-	account: new Rule()
-		.isString()
-		.required()
-		.min(6)
-		.max(12)
-		.pattern(/^[a-zA-Z0-9]+$/), // 字母和数字
-	nickname: new Rule().isString().required().min(2).max(10),
-	avatarUrl: new Rule().isString(),
-	sign: new Rule().isString().min(0).max(100),
-	description: new Rule().isString().min(0).max(200)
+	...createUserRules,
+	id: new Rule().isNumber().isInteger().required()
 }
 
 const getUserListRules = {
@@ -40,6 +35,12 @@ const assignRoleRules = {
 }
 
 const modifyUserPasswordRules = {
+	account: new Rule().isString().required(),
+	email: new Rule()
+		.isString()
+		.required([''])
+		.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+	code: new Rule().isString().required(),
 	oldPassword: new Rule().isString().required(),
 	newPassword: new Rule().and('oldPassword')
 }

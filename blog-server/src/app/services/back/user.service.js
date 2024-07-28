@@ -11,12 +11,14 @@ const { decrypt } = require('@/utils')
  * @param {object} data
  */
 async function createUser(data) {
-	const userInfo = await User.findOne({ where: { account: data.account } })
-	if (userInfo) {
-		throw new Collide('当前账号已经存在')
-	}
+	const isAccount = await User.findOne({ where: { account: data.account } })
+	if (isAccount) throw new Collide('当前账号已经存在')
+
+	const isEmail = await User.findOne({ where: { email: data.email } })
+	if (isEmail) throw new Collide('当前邮箱已被绑定')
 
 	const insertData = {
+		email: data.email,
 		account: data.account,
 		password: data.password,
 		nickname: data.nickname,
@@ -110,10 +112,10 @@ async function getLoginUserMenuList(userId) {
  */
 async function editUser(data) {
 	const userInfo = await User.findOne({ where: { id: data.id } })
-	if (!userInfo) {
-		throw new Collide('当前用户不存在')
-	}
+	if (!userInfo) throw new Collide('当前用户不存在')
+
 	const updateData = {
+		email: data.email,
 		account: data.account,
 		nickname: data.nickname,
 		avatar_url: data.avatarUrl,

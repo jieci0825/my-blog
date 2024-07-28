@@ -7,6 +7,6 @@ const { token, getVerifyCode } = require('@con-back/token.controller')
 router.post('/', token)
 
 // 获取验证码
-router.get('/verify-code', getVerifyCode)
+router.get('/captcha', getVerifyCode)
 
 module.exports = router

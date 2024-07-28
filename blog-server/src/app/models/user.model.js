@@ -14,6 +14,8 @@ User.init(
 		},
 		email: {
 			type: DataTypes.STRING,
+			unique: true,
+			allowNull: false,
 			comment: '邮箱'
 		},
 		account: {
