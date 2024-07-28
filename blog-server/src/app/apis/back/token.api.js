@@ -1,9 +1,12 @@
 const Router = require('koa-router')
 const { genBackPrefix } = require('@/utils')
 const router = new Router({ prefix: genBackPrefix('token') })
-const { token } = require('@con-back/token.controller')
+const { token, getVerifyCode } = require('@con-back/token.controller')
 
 // 获取token
 router.post('/', token)
+
+// 获取验证码
+router.get('/verify-code', getVerifyCode)
 
 module.exports = router

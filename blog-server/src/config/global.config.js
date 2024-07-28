@@ -23,5 +23,7 @@ module.exports = {
 	aesKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuz6GNWWL12awIfZ3HD8Q',
 	adminName: 'SuperAdmin',
 	adminAccount: 'coderjc',
-	port: 9527
+	port: 9527,
+	captchaExpiresIn: 1000 * 60 * 5 // 验证码有效时长
+	// captchaExpiresIn: 1000 * 10 // 测试时间-验证码有效时长
 }

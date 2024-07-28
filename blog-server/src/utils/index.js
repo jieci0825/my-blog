@@ -219,6 +219,32 @@ function decrypt(encryptedMessage) {
 	return bytes.toString(CryptoJS.enc.Utf8)
 }
 
+const _generateNumberCode = (len = 6) => {
+	let code = ''
+	for (let i = 0; i < len; i++) {
+		code += Math.floor(Math.random() * 10) // 生成 0 到 9 之间的随机数字
+	}
+	return code
+}
+
+/**
+ * 生成数字验证码
+ */
+const genNumberCode = async (model, len = 6) => {
+	let result = ''
+	async function _deep() {
+		const code = _generateNumberCode(len)
+		const info = await model.findOne({ where: { code } })
+		if (info) {
+			await _deep()
+		} else {
+			result = code
+		}
+	}
+	await _deep()
+	return result
+}
+
 module.exports = {
 	formatTime,
 	generateRandomString,
@@ -233,5 +259,6 @@ module.exports = {
 	hasOwnProp,
 	toTree,
 	sortTree,
-	decrypt
+	decrypt,
+	genNumberCode
 }

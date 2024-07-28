@@ -13,6 +13,7 @@ dist-ssr
 *.local
 credential.config.js
 global.config.js
+mail.yaml
 keys
 
 # Editor directories and files

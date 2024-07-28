@@ -7,6 +7,12 @@ const LoginType = createEnums({
 	USER_EMAIL: 3 // 邮箱
 })
 
+// 验证码类型
+const VerifyCodeType = createEnums({
+	EMAIL: 100 // 邮箱
+})
+
 module.exports = {
-	LoginType
+	LoginType,
+	VerifyCodeType
 }
