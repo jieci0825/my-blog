@@ -10,3 +10,8 @@ export interface LoginParamsResp {
 export interface GetCaptchaResp {
 	captcha: string
 }
+
+export interface GetCaptchaParams {
+	account: string
+	email: string
+}

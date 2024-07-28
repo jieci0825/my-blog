@@ -1,22 +1,17 @@
 import request from '@/apis/request'
 import type { IBaseType } from '../types'
-import type { LoginParams, LoginParamsResp } from './type.ts'
+import type { LoginParams, LoginParamsResp, GetCaptchaParams, GetCaptchaResp } from './type.ts'
 
 /**
  * 登录
  */
 export function reqLogin(data: LoginParams) {
-	return request.post<IBaseType<LoginParamsResp>>({
-		url: '/token',
-		data
-	})
+	return request.post<IBaseType<LoginParamsResp>>({ url: '/token', data })
 }
 
 /**
  * 获取验证码
  */
-export function reqGetCaptcha() {
-	return request.get<IBaseType<string>>({
-		url: '/token/captcha'
-	})
+export function reqGetCaptcha(params: GetCaptchaParams) {
+	return request.get<IBaseType<GetCaptchaResp>>({ url: '/token/captcha', params })
 }

@@ -3,8 +3,8 @@ import BoxWrap from './components/box-wrap.vue'
 import JcUpload from '@/components/jc-upload/src/jc-upload.vue'
 import modifyPasswordFormConfig from './config/modify-password-form'
 import GetVerifyCode from '@/components/get-verify-code'
-import { ref } from 'vue'
-import { userApi } from '@/apis'
+import { computed, ref } from 'vue'
+import { globalApi, userApi } from '@/apis'
 import { uploadFile } from '@/cos'
 import { useGlobalActions, useUserActions, useUserGetters } from '@/store'
 import { encrypt } from '@/utils'
@@ -38,6 +38,10 @@ const modifyPasswordDate = ref({
 	oldPassword: '',
 	newPassword: ''
 })
+// 是否可以获取修改密码的验证码
+const isGetCaptchaPassword = computed(() => {
+	return !!modifyPasswordDate.value.email && !!modifyPasswordDate.value.account
+})
 const handlePassword = () => {
 	passwordVisable.value = true
 }
@@ -57,6 +61,7 @@ const handleSave = async (content: string, row: BoxItem, done?: Function) => {
 	done && done()
 }
 
+// 发送编辑个人信息请求
 async function reqEditUserInfo(data: UserItem) {
 	const resp = await userApi.reqEditLoginUserInfo(data)
 	ElMessage.success(resp.msg)
@@ -87,8 +92,13 @@ const accountInfoList: BoxItem[] = [
 	}
 ]
 
-const getVerifyCode = () => {
-	console.log('获取验证码')
+const getVerifyCode = async () => {
+	const { email, account } = modifyPasswordDate.value
+	if (!email) return ElMessage.error('请输入邮箱')
+	if (!account) return ElMessage.error('请输入账号')
+
+	const resp = await globalApi.reqGetCaptcha({ email, account })
+	ElMessage.success(resp.msg)
 }
 </script>
 
@@ -141,7 +151,7 @@ const getVerifyCode = () => {
 				@submit="confirmModifyPassword">
 				<template #codeAppend>
 					<GetVerifyCode
-						:is-click="false"
+						:is-click="isGetCaptchaPassword"
 						style="width: 110px"
 						@click="getVerifyCode" />
 				</template>
