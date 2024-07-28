@@ -76,7 +76,7 @@ async function editUser(ctx) {
  * 修改当前登录用户的个人信息
  */
 async function editMyInfo(ctx) {
-	const { data } = new Validator().validate(ctx)
+	const { data } = new Validator().validate(ctx, editMyInfo)
 	data.userId = ctx.decode.id
 	await userService.editMyInfo(data)
 	throw new Success('修改个人信息成功')
