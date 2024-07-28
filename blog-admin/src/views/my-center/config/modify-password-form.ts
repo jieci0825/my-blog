@@ -3,6 +3,19 @@ import type { JcFormProps } from '@/components/jc-form'
 const modifyPasswordFormConfig: JcFormProps = {
 	formItems: [
 		{
+			label: '邮箱',
+			field: 'email',
+			type: 'text',
+			placeholder: '输入邮箱'
+		},
+		{
+			label: '邮箱',
+			field: 'code',
+			type: 'text',
+			placeholder: '输入验证码',
+			appendSlot: 'codeAppend'
+		},
+		{
 			label: '旧密码',
 			field: 'oldPassword',
 			type: 'password',
@@ -16,6 +29,8 @@ const modifyPasswordFormConfig: JcFormProps = {
 		}
 	],
 	rules: {
+		email: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
+		code: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
 		oldPassword: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
 		newPassword: [{ required: true, message: '该项不能为空', trigger: 'blur' }]
 	},

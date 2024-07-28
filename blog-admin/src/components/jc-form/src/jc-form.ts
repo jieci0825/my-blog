@@ -33,6 +33,8 @@ export interface JcFormItem {
 	model?: 'one' | 'more' // type 为 file 时可用
 	fileConfig?: JcUploadConfig // 文件上传配置
 	formatProps?: FormatProps // 用于格式化 label 和 value 字段名
+	prependSlot?: string
+	appendSlot?: string
 }
 
 interface RowConfig {

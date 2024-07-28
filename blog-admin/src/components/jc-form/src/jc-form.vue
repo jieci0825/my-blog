@@ -124,6 +124,12 @@ const handleReset = (formEl: FormInstance | undefined) => {
 									:type="item.type"
 									:show-password="item.type === 'password'"
 									:placeholder="item.placeholder">
+									<template v-if="item.prependSlot" #prepend>
+										<slot :name="item.prependSlot"></slot>
+									</template>
+									<template v-if="item.appendSlot" #append>
+										<slot :name="item.appendSlot"></slot>
+									</template>
 								</el-input>
 							</template>
 						</template>

@@ -2,13 +2,14 @@
 import BoxWrap from './components/box-wrap.vue'
 import JcUpload from '@/components/jc-upload/src/jc-upload.vue'
 import modifyPasswordFormConfig from './config/modify-password-form'
+import GetVerifyCode from '@/components/get-verify-code'
 import { ref } from 'vue'
 import { userApi } from '@/apis'
 import { uploadFile } from '@/cos'
 import { useGlobalActions, useUserActions, useUserGetters } from '@/store'
+import { encrypt } from '@/utils'
 import type { BoxItem, ModifyPassword } from './types'
 import type { UserItem } from '@/apis/modules/user/type'
-import { encrypt } from '@/utils'
 
 const { getUserInfo } = useUserGetters()
 const { reqGetUserInfo } = useUserActions()
@@ -78,6 +79,10 @@ const accountInfoList: BoxItem[] = [
 		operateText: { editText: '修改密码' }
 	}
 ]
+
+const getVerifyCode = () => {
+	console.log('获取验证码')
+}
 </script>
 
 <template>
@@ -125,7 +130,13 @@ const accountInfoList: BoxItem[] = [
 			title="修改密码">
 			<JcForm
 				v-bind="modifyPasswordFormConfig"
-				@submit="confirmModifyPassword"></JcForm>
+				@submit="confirmModifyPassword">
+				<template #codeAppend>
+					<GetVerifyCode
+						style="width: 110px"
+						@click="getVerifyCode" />
+				</template>
+			</JcForm>
 		</JcDialog>
 	</div>
 </template>

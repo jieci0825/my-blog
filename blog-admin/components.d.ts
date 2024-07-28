@@ -56,6 +56,7 @@ declare module 'vue' {
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Footer: typeof import('./src/components/footer/src/footer.vue')['default']
+    GetVerifyCode: typeof import('./src/components/get-verify-code/src/get-verify-code.vue')['default']
     GlobalSetting: typeof import('./src/components/global-setting/src/global-setting.vue')['default']
     JcDialog: typeof import('./src/components/jc-dialog/src/jc-dialog.vue')['default']
     JcDrawer: typeof import('./src/components/jc-drawer/src/jc-drawer.vue')['default']
