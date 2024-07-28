@@ -73,6 +73,16 @@ async function editUser(ctx) {
 }
 
 /**
+ * 修改当前登录用户的个人信息
+ */
+async function editMyInfo(ctx) {
+	const { data } = new Validator().validate(ctx)
+	data.userId = ctx.decode.id
+	await userService.editMyInfo(data)
+	throw new Success('修改个人信息成功')
+}
+
+/**
  * 修改用户密码
  */
 async function modifyUserPassword(ctx) {
@@ -90,5 +100,6 @@ module.exports = {
 	assignRole,
 	getLoginUserMenuList,
 	editUser,
+	editMyInfo,
 	modifyUserPassword
 }

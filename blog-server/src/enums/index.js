@@ -8,11 +8,11 @@ const LoginType = createEnums({
 })
 
 // 验证码类型
-const VerifyCodeType = createEnums({
+const CaptchaType = createEnums({
 	EMAIL: 100 // 邮箱
 })
 
 module.exports = {
 	LoginType,
-	VerifyCodeType
+	CaptchaType
 }

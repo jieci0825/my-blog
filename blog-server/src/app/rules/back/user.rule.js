@@ -40,7 +40,7 @@ const modifyUserPasswordRules = {
 		.isString()
 		.required([''])
 		.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
-	code: new Rule().isString().required(),
+	captcha: new Rule().isString().required(),
 	oldPassword: new Rule().isString().required(),
 	newPassword: new Rule().and('oldPassword')
 }

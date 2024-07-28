@@ -9,9 +9,10 @@ const {
 	assignRole,
 	getLoginUserMenuList,
 	editUser,
+	editMyInfo,
 	modifyUserPassword
 } = require('@con-back/user.controller')
-const { verifyToken, verifySuperAdmin, verifyCode } = require('@/middleware/auth.middleware')
+const { verifyToken, verifySuperAdmin, verifyCaptcha } = require('@/middleware/auth.middleware')
 const { parsePageInfo } = require('@/middleware/parse.middleware')
 
 // 创建用户
@@ -35,7 +36,12 @@ router.get('/menus', verifyToken, getLoginUserMenuList)
 // 编辑用户信息
 router.put('/', verifyToken, verifySuperAdmin, editUser)
 
+// 编辑当前登录用户的个人信息
+router.put('/my', verifyToken, editMyInfo)
+
 // 修改用户密码
-router.put('/modify-password', verifyToken, verifyCode, modifyUserPassword)
+router.put('/modify-password', verifyToken, verifyCaptcha, modifyUserPassword)
+
+// 换绑邮箱
 
 module.exports = router

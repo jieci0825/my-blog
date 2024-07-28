@@ -1,16 +1,16 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('@/core/db')
 
-class VerifyCode extends Model {}
+class Captcha extends Model {}
 
-VerifyCode.init(
+Captcha.init(
 	{
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true, // 设置为主键
 			autoIncrement: true // id 自增
 		},
-		code: {
+		captcha: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			comment: '验证码'
@@ -47,7 +47,7 @@ VerifyCode.init(
 			comment: '接收此条验证码的邮箱'
 		}
 	},
-	{ sequelize, tableName: 'verify_codes' }
+	{ sequelize, tableName: 'Captchas' }
 )
 
-module.exports = { VerifyCode }
+module.exports = { Captcha }

@@ -220,11 +220,11 @@ function decrypt(encryptedMessage) {
 }
 
 const _generateNumberCode = (len = 6) => {
-	let code = ''
+	let captcha = ''
 	for (let i = 0; i < len; i++) {
-		code += Math.floor(Math.random() * 10) // 生成 0 到 9 之间的随机数字
+		captcha += Math.floor(Math.random() * 10) // 生成 0 到 9 之间的随机数字
 	}
-	return code
+	return captcha
 }
 
 /**
@@ -233,12 +233,12 @@ const _generateNumberCode = (len = 6) => {
 const genNumberCode = async (model, len = 6) => {
 	let result = ''
 	async function _deep() {
-		const code = _generateNumberCode(len)
-		const info = await model.findOne({ where: { code } })
+		const captcha = _generateNumberCode(len)
+		const info = await model.findOne({ where: { captcha } })
 		if (info) {
 			await _deep()
 		} else {
-			result = code
+			result = captcha
 		}
 	}
 	await _deep()

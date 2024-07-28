@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const { AuthFailed, Forbidden } = require('@/core/error-type')
 const { Role } = require('@/app/models/role.model')
-const { VerifyCode } = require('@model/verify-code.model')
+const { Captcha } = require('@model/captcha.model')
 const { Validator } = require('@/validator')
 
 /**
@@ -46,10 +46,10 @@ const verifySuperAdmin = async (ctx, next) => {
 /**
  * 检验验证码
  */
-const verifyCode = async (ctx, next) => {
+const verifyCaptcha = async (ctx, next) => {
 	const { data } = new Validator().validate(ctx)
-	const { code, account } = data
-	const codeInfo = await VerifyCode.findOne({ where: { account, code } })
+	const { captcha, account } = data
+	const codeInfo = await Captcha.findOne({ where: { account, captcha } })
 	if (!codeInfo) {
 		throw new AuthFailed('验证码错误或者不存在')
 	}
@@ -61,4 +61,4 @@ const verifyCode = async (ctx, next) => {
 	await next()
 }
 
-module.exports = { verifyToken, verifySuperAdmin, verifyCode }
+module.exports = { verifyToken, verifySuperAdmin, verifyCaptcha }

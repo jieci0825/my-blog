@@ -5,8 +5,8 @@ const { tokenRules, getVerifyTokenRules } = require('@/app/rules/back/token.rule
 const { DataSuccess, ParamsError, AuthFailed } = require('@/core/error-type')
 const { generateToken, decrypt, genNumberCode } = require('@/utils')
 const { Validator } = require('@/validator')
-const { VerifyCode } = require('@model/verify-code.model')
-const { VerifyCodeType } = require('@/enums')
+const { Captcha } = require('@model/captcha.model')
+const { CaptchaType } = require('@/enums')
 const { sendMail } = require('@/utils/email')
 
 /**
@@ -38,20 +38,20 @@ async function token(ctx) {
 /**
  * 获取验证码
  */
-async function getVerifyCode(cxt) {
+async function getCaptcha(cxt) {
 	const { data } = new Validator().validate(cxt, getVerifyTokenRules)
-	const code = await genNumberCode(VerifyCode)
+	const captcha = await genNumberCode(Captcha)
 	const insertData = {
-		code,
-		type: VerifyCodeType.EMAIL,
+		captcha,
+		type: CaptchaType.EMAIL,
 		account: data.account,
 		email: data.email
 	}
-	await tokenService.createVerifyCode(insertData)
+	await tokenService.createCaptcha(insertData)
 
-	sendMail(data.email, code)
+	sendMail(data.email, captcha)
 
-	throw new DataSuccess({ code })
+	throw new DataSuccess({ captcha })
 }
 
 /**
@@ -64,5 +64,5 @@ async function verify(ctx) {
 module.exports = {
 	token,
 	verify,
-	getVerifyCode
+	getCaptcha
 }

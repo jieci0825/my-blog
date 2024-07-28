@@ -127,6 +127,20 @@ async function editUser(data) {
 }
 
 /**
+ * 修改当前登录用户的个人信息
+ * @param {object} data
+ */
+async function editMyInfo(data) {
+	const updateData = {
+		nickname: data.nickname,
+		avatar_url: data.avatarUrl,
+		sign: data.sign,
+		description: data.description
+	}
+	await User.update(updateData, { where: { id: data.userId } })
+}
+
+/**
  * 修改用户密码
  * @param {object} data
  */
@@ -152,5 +166,6 @@ module.exports = {
 	assignRole,
 	getLoginUserMenuList,
 	editUser,
+	editMyInfo,
 	modifyUserPassword
 }

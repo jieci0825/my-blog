@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 })
 
 const m = captchaExpiresIn / (1000 * 60)
-function sendMail(email, code) {
+function sendMail(email, captcha) {
 	transporter.sendMail({
 		to: email, // 收件人
 		from: mailInfo.user, // 发件人
@@ -31,7 +31,7 @@ function sendMail(email, code) {
     <strong>《${mailInfo.subject}》</strong> 操作验证码</div>
   <div style="color: #6e6e6e; font-size: 15px; padding: 20px 30px; background-color: #f3fbfa;">
     <div style="margin-bottom: 20px;">尊敬的用户您好！</div>
-    <div>您的验证码是：<strong style="color: #37a6a6">${code}</strong>，请在 <span style="color: #37a6a6">${m}</span> 分钟内进行验证。如果该验证码不为您本人申请，请无视。</div>
+    <div>您的验证码是：<strong style="color: #37a6a6">${captcha}</strong>，请在 <span style="color: #37a6a6">${m}</span> 分钟内进行验证。如果该验证码不为您本人申请，请无视。</div>
   </div>
 </div>
 </div>` // 内容
