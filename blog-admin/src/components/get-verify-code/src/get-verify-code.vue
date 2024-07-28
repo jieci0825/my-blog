@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { getLocalCache, isEmpty, removeLocalCache, setLocalCache } from '@/utils'
 import type { GetVerifyCodeProps, GetVerifyCodeEmits } from './get-verify-code'
 
 defineOptions({ name: 'GetVerifyCode' })
 
 const props = withDefaults(defineProps<GetVerifyCodeProps>(), {
-	countDown: 10
+	countDown: 60
 })
 const emits = defineEmits<GetVerifyCodeEmits>()
 
@@ -17,16 +17,18 @@ function getInitState(): boolean {
 }
 
 function getCountDown(): number {
-	console.log(isEmpty(getLocalCache(BLOG_ADMIN_COUNT_DOWN)))
 	return isEmpty(getLocalCache(BLOG_ADMIN_COUNT_DOWN)) ? props.countDown : getLocalCache(BLOG_ADMIN_COUNT_DOWN)
 }
 
-const isClick = ref(getInitState())
+const isState = ref(getInitState())
 const count = ref(getCountDown())
-console.log('🚢 ~ 当前打印的内容 ~ count:', count.value)
+
+const isDisabled = computed(() => {
+	return !props.isClick || !isState.value
+})
 
 const handleClick = () => {
-	isClick.value = false
+	isState.value = false
 	startCountDown()
 	emits('click')
 }
@@ -37,7 +39,7 @@ function startCountDown() {
 	timer = setInterval(() => {
 		count.value--
 		if (count.value <= 0) {
-			isClick.value = true
+			isState.value = true
 			count.value = props.countDown
 			clearInterval(timer)
 			removeLocalCache(BLOG_ADMIN_COUNT_DOWN)
@@ -47,16 +49,17 @@ function startCountDown() {
 		setLocalCache(BLOG_ADMIN_COUNT_DOWN, `${count.value}`)
 	}, 1000)
 }
-if (!isClick.value) {
+if (!isState.value) {
 	startCountDown()
 }
 </script>
 
 <template>
 	<el-button
+		:disabled="isDisabled"
 		v-bind="$attrs"
 		@click="handleClick"
-		>{{ isClick ? '获取验证码' : `${count} s` }}</el-button
+		>{{ isState ? '获取验证码' : `${count} s` }}</el-button
 	>
 </template>
 

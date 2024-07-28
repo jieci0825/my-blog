@@ -5,6 +5,12 @@ import type { JcFormProps } from '@/components/jc-form'
 const userFormConfig: JcFormProps = {
 	formItems: [
 		{
+			label: '邮箱',
+			field: 'email',
+			type: 'text',
+			placeholder: '邮箱'
+		},
+		{
 			label: '登录账号',
 			field: 'account',
 			type: 'text',
@@ -49,6 +55,7 @@ const userFormConfig: JcFormProps = {
 		}
 	],
 	rules: {
+		email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
 		account: [
 			{ required: true, message: '请输入用户账号', trigger: 'blur' },
 			{ min: 6, max: 12, message: '用户账号长度在 6 到 12 个字符', trigger: 'blur' }

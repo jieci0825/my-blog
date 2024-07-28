@@ -11,3 +11,12 @@ export function reqLogin(data: LoginParams) {
 		data
 	})
 }
+
+/**
+ * 获取验证码
+ */
+export function reqGetCaptcha() {
+	return request.get<IBaseType<string>>({
+		url: '/token/captcha'
+	})
+}

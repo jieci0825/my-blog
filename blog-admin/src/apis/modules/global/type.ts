@@ -6,3 +6,7 @@ export interface LoginParams {
 export interface LoginParamsResp {
 	token: string
 }
+
+export interface GetCaptchaResp {
+	captcha: string
+}

@@ -106,6 +106,7 @@ const handleReset = (formEl: FormInstance | undefined) => {
 						<template v-if="item.type === 'text' || item.type === 'password'">
 							<template v-if="item.isNumber">
 								<el-input
+									spellcheck="false"
 									v-model.number="formData[item.field]"
 									auto-complete="new-password"
 									autocomplete="off"
@@ -117,6 +118,7 @@ const handleReset = (formEl: FormInstance | undefined) => {
 							</template>
 							<template v-else>
 								<el-input
+									spellcheck="false"
 									v-model="formData[item.field]"
 									auto-complete="new-password"
 									autocomplete="off"
@@ -124,10 +126,14 @@ const handleReset = (formEl: FormInstance | undefined) => {
 									:type="item.type"
 									:show-password="item.type === 'password'"
 									:placeholder="item.placeholder">
-									<template v-if="item.prependSlot" #prepend>
+									<template
+										v-if="item.prependSlot"
+										#prepend>
 										<slot :name="item.prependSlot"></slot>
 									</template>
-									<template v-if="item.appendSlot" #append>
+									<template
+										v-if="item.appendSlot"
+										#append>
 										<slot :name="item.appendSlot"></slot>
 									</template>
 								</el-input>

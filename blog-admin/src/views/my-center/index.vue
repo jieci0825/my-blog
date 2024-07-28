@@ -8,8 +8,8 @@ import { userApi } from '@/apis'
 import { uploadFile } from '@/cos'
 import { useGlobalActions, useUserActions, useUserGetters } from '@/store'
 import { encrypt } from '@/utils'
-import type { BoxItem, ModifyPassword } from './types'
-import type { UserItem } from '@/apis/modules/user/type'
+import type { BoxItem } from './types'
+import type { UserItem, ModifyUserPasswordParams } from '@/apis/modules/user/type'
 
 const { getUserInfo } = useUserGetters()
 const { reqGetUserInfo } = useUserActions()
@@ -31,12 +31,19 @@ const confirmUpdateAvatar = async () => {
 
 // 修改密码
 const passwordVisable = ref(false)
+const modifyPasswordDate = ref({
+	account: getUserInfo.value?.account || '',
+	email: getUserInfo.value?.email || '',
+	captcha: '',
+	oldPassword: '',
+	newPassword: ''
+})
 const handlePassword = () => {
 	passwordVisable.value = true
 }
 const { logout } = useGlobalActions()
-const confirmModifyPassword = async (data: ModifyPassword) => {
-	const payload = { oldPassword: encrypt(data.oldPassword), newPassword: encrypt(data.newPassword) }
+const confirmModifyPassword = async (data: ModifyUserPasswordParams) => {
+	const payload = { ...data, oldPassword: encrypt(data.oldPassword), newPassword: encrypt(data.newPassword) }
 	const resp = await userApi.reqModifyUserPassword(payload)
 	ElMessage.success(resp.msg)
 	passwordVisable.value = false
@@ -129,10 +136,12 @@ const getVerifyCode = () => {
 			width="500"
 			title="修改密码">
 			<JcForm
+				v-model="modifyPasswordDate"
 				v-bind="modifyPasswordFormConfig"
 				@submit="confirmModifyPassword">
 				<template #codeAppend>
 					<GetVerifyCode
+						:is-click="false"
 						style="width: 110px"
 						@click="getVerifyCode" />
 				</template>

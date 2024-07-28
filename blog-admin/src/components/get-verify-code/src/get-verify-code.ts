@@ -1,4 +1,5 @@
 export interface GetVerifyCodeProps {
+	isClick: boolean
 	countDown?: number
 }
 

@@ -1,6 +1,6 @@
 import request from '@/apis/request'
 import type { IBaseType, IBaseListType } from '../types'
-import type { GetUserListParams, UserItem } from './type'
+import type { GetUserListParams, UserItem, ModifyUserPasswordParams } from './type'
 import type { MenuItem } from '@/apis/modules/menu/type'
 
 /**
@@ -55,6 +55,6 @@ export function reqAssignRole(data: { userId: string | number; roleId: string })
 /**
  * 修改用户密码
  */
-export function reqModifyUserPassword(data: { oldPassword: string; newPassword: string }) {
+export function reqModifyUserPassword(data: ModifyUserPasswordParams) {
 	return request.put<IBaseType<string>>({ url: '/user/modify-password', data })
 }

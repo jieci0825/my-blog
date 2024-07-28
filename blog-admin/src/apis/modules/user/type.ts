@@ -15,3 +15,11 @@ export interface UserItem {
 export interface GetUserListParams extends IPageParams {
 	nickname: string
 }
+
+export interface ModifyUserPasswordParams {
+	email: string
+	code: string
+	account: string
+	oldPassword: string
+	newPassword: string
+}
