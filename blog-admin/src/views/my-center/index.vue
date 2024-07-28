@@ -58,7 +58,7 @@ const handleSave = async (content: string, row: BoxItem, done?: Function) => {
 }
 
 async function reqEditUserInfo(data: UserItem) {
-	const resp = await userApi.reqEditUserInfo(data)
+	const resp = await userApi.reqEditLoginUserInfo(data)
 	ElMessage.success(resp.msg)
 	reqGetUserInfo()
 }

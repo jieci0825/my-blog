@@ -9,7 +9,14 @@ export interface UserItem {
 	sign?: string
 	roleId?: number
 	roleNickname?: string | undefined
-	email?: string
+	email: string
+}
+
+export interface EditLoginUserInfoParams {
+	nickname?: string
+	avatarUrl?: string
+	description?: string
+	sign?: string
 }
 
 export interface GetUserListParams extends IPageParams {
