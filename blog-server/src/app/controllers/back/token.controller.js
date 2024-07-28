@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const tokenService = require('@ser-back/token.service')
 const { User } = require('@/app/models/user.model')
-const { tokenRules, getVerifyTokenRules } = require('@/app/rules/back/token.rule')
+const { tokenRules, getCaptchaRules } = require('@/app/rules/back/token.rule')
 const { DataSuccess, ParamsError, AuthFailed } = require('@/core/error-type')
 const { generateToken, decrypt, genNumberCode } = require('@/utils')
 const { Validator } = require('@/validator')
@@ -39,7 +39,7 @@ async function token(ctx) {
  * 获取验证码
  */
 async function getCaptcha(cxt) {
-	const { data } = new Validator().validate(cxt, getVerifyTokenRules)
+	const { data } = new Validator().validate(cxt, getCaptchaRules)
 	const captcha = await genNumberCode(Captcha)
 	const insertData = {
 		captcha,
@@ -51,7 +51,7 @@ async function getCaptcha(cxt) {
 
 	sendMail(data.email, captcha)
 
-	throw new DataSuccess({ captcha })
+	throw new DataSuccess({ captcha }, '验证码已发送')
 }
 
 /**

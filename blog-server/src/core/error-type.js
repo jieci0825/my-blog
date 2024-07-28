@@ -10,11 +10,11 @@ class ErrorTypeModule extends Error {
 }
 
 class DataSuccess extends ErrorTypeModule {
-	constructor(data) {
+	constructor(data, msg = 'ok', errorCode = 0) {
 		super()
 		this.statusCode = 200
-		this.errorCode = 0
-		this.msg = 'ok'
+		this.errorCode = errorCode
+		this.msg = msg
 		this.data = data
 	}
 }
