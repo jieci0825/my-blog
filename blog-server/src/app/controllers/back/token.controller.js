@@ -51,7 +51,7 @@ async function getCaptcha(cxt) {
 
 	sendMail(data.email, captcha)
 
-	throw new DataSuccess({ captcha }, '验证码已发送')
+	throw new DataSuccess(null, '验证码已发送')
 }
 
 /**

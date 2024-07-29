@@ -10,7 +10,8 @@ const {
 	getLoginUserMenuList,
 	editUser,
 	editMyInfo,
-	modifyUserPassword
+	modifyUserPassword,
+	replaceBindEmail
 } = require('@con-back/user.controller')
 const { verifyToken, verifySuperAdmin, verifyCaptcha } = require('@/middleware/auth.middleware')
 const { parsePageInfo } = require('@/middleware/parse.middleware')
@@ -43,5 +44,6 @@ router.put('/my', verifyToken, editMyInfo)
 router.put('/modify-password', verifyToken, verifyCaptcha, modifyUserPassword)
 
 // 换绑邮箱
+router.put('/replace-email', verifyToken, verifyCaptcha, replaceBindEmail)
 
 module.exports = router

@@ -7,7 +7,8 @@ const {
 	assignRoleRules,
 	editUserRules,
 	editMyInfoRules,
-	modifyUserPasswordRules
+	modifyUserPasswordRules,
+	replaceBindEmailRules
 } = require('@/app/rules/back/user.rule')
 
 /**
@@ -93,6 +94,16 @@ async function modifyUserPassword(ctx) {
 	throw new Success('密码修改成功')
 }
 
+/**
+ * 换绑邮箱
+ */
+async function replaceBindEmail(ctx) {
+	const { data } = new Validator().validate(ctx, replaceBindEmailRules)
+	data.userId = ctx.decode.id
+	await userService.replaceBindEmail(data)
+	throw new Success('邮箱换绑成功')
+}
+
 module.exports = {
 	createUser,
 	getLoginUserInfo,
@@ -102,5 +113,6 @@ module.exports = {
 	getLoginUserMenuList,
 	editUser,
 	editMyInfo,
-	modifyUserPassword
+	modifyUserPassword,
+	replaceBindEmail
 }

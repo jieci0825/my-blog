@@ -149,9 +149,7 @@ async function editMyInfo(data) {
  */
 async function modifyUserPassword(data) {
 	const userInfo = await User.findOne({ where: { id: data.userId } })
-	if (!userInfo) {
-		throw new Collide('当前用户不存在')
-	}
+	if (!userInfo) throw new Collide('当前用户不存在')
 
 	const originalPassword = decrypt(data.oldPassword)
 
@@ -159,6 +157,21 @@ async function modifyUserPassword(data) {
 	if (!correct) throw new AuthFailed('旧密码错误')
 
 	await User.update({ password: decrypt(data.newPassword) }, { where: { id: data.userId } })
+}
+
+/**
+ * 换绑邮箱
+ * @param {object} data
+ */
+async function replaceBindEmail(data) {
+	const userInfo = await User.findOne({ where: { id: data.userId } })
+	if (!userInfo) throw new Collide('当前用户不存在')
+
+	const isEmail = await User.findOne({ where: { email: data.newEmail } })
+	if (isEmail) throw new Collide('当前邮箱已被绑定')
+	if (userInfo.email !== data.oldEmail) throw new Collide('旧邮箱不匹配')
+
+	await User.update({ email: data.newEmail }, { where: { id: data.userId } })
 }
 
 module.exports = {
@@ -170,5 +183,6 @@ module.exports = {
 	getLoginUserMenuList,
 	editUser,
 	editMyInfo,
-	modifyUserPassword
+	modifyUserPassword,
+	replaceBindEmail
 }

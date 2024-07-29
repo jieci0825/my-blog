@@ -58,6 +58,10 @@ const verifyCaptcha = async (ctx, next) => {
 	if (!codeInfo.is_valid || endTime - curTime <= 0) {
 		throw new AuthFailed('无效的验证码')
 	}
+
+	// 验证码通过之后将验证码置为无效
+	await codeInfo.update({ is_valid: false })
+
 	await next()
 }
 

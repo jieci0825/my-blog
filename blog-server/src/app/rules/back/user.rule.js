@@ -52,11 +52,25 @@ const modifyUserPasswordRules = {
 	newPassword: new Rule().and('oldPassword')
 }
 
+const replaceBindEmailRules = {
+	account: new Rule().isString().required(),
+	oldEmail: new Rule()
+		.isString()
+		.required([''])
+		.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+	newEmail: new Rule()
+		.isString()
+		.required([''])
+		.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+	captcha: new Rule().isString().required()
+}
+
 module.exports = {
 	createUserRules,
 	getUserListRules,
 	assignRoleRules,
 	editUserRules,
 	editMyInfoRules,
-	modifyUserPasswordRules
+	modifyUserPasswordRules,
+	replaceBindEmailRules
 }
