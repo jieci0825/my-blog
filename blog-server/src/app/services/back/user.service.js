@@ -135,7 +135,6 @@ async function editMyInfo(data) {
 	if (isAccount) throw new Collide('当前账号已经存在')
 
 	const updateData = {
-		account: data.account,
 		nickname: data.nickname,
 		avatar_url: data.avatarUrl,
 		sign: data.sign,
