@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useUserGetters } from '@/store'
 import type { BoxItemNode, BoxWrapEmits, BoxWrapProps } from '../types'
 
 const props = defineProps<BoxWrapProps>()
 const emits = defineEmits<BoxWrapEmits>()
+
+const { getUserInfo } = useUserGetters()
 
 const renderList = ref<BoxItemNode[]>([])
 for (const item of props.list) {
@@ -16,26 +19,21 @@ const handleEdit = (row: BoxItemNode) => {
 	if (row.operateCallback) {
 		row.operateCallback(row.raw)
 	} else {
-		setCurEditContent(row.content)
 		row.isEdit = true
+		setCurEditContent((getUserInfo.value![row.contentField!] as string) || '')
 	}
 }
 const handleSave = (row: BoxItemNode) => {
-	function done() {
-		row.content = curEditContent.value
-		setCurEditContent('')
-	}
-	emits('save', curEditContent.value, row.raw, done)
+	emits('save', curEditContent.value, row.raw)
 	row.isEdit = false
 }
 const handleCancel = (row: BoxItemNode) => {
-	row.content = row.raw.content
 	row.isEdit = false
 	setCurEditContent('')
 }
 
-function setCurEditContent(content: string) {
-	curEditContent.value = content
+function setCurEditContent(val: string) {
+	curEditContent.value = val
 }
 </script>
 
@@ -53,11 +51,11 @@ function setCurEditContent(content: string) {
 					<slot
 						:name="item.slotOpt.defalutSlot"
 						:row="item">
-						<p>{{ item.content || '这个人很懒，什么都没留下' }}</p>
+						<p>{{ item.contentField ? getUserInfo![item.contentField] : false || '这个人很懒，什么都没留下' }}</p>
 					</slot>
 				</template>
 				<template v-else>
-					<p>{{ item.content || '这个人很懒，什么都没留下' }}</p>
+					<p>{{ item.contentField ? getUserInfo![item.contentField] : false || '这个人很懒，什么都没留下' }}</p>
 				</template>
 			</div>
 			<div

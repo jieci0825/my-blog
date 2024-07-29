@@ -25,8 +25,15 @@ export interface GetUserListParams extends IPageParams {
 
 export interface ModifyUserPasswordParams {
 	email: string
-	code: string
+	captcha: string
 	account: string
 	oldPassword: string
 	newPassword: string
+}
+
+export interface ReplaceBindEmailParams {
+	captcha: string
+	account: string
+	newEmail: string
+	oldEmail: string
 }

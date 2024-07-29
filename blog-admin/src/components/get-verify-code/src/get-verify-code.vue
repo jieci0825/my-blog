@@ -6,11 +6,12 @@ import type { GetVerifyCodeProps, GetVerifyCodeEmits } from './get-verify-code'
 defineOptions({ name: 'GetVerifyCode' })
 
 const props = withDefaults(defineProps<GetVerifyCodeProps>(), {
-	countDown: 60
+	prefix: '',
+	countDown: 30
 })
 const emits = defineEmits<GetVerifyCodeEmits>()
 
-const BLOG_ADMIN_COUNT_DOWN = 'BLOG_ADMIN_COUNT_DOWN'
+const BLOG_ADMIN_COUNT_DOWN = `${props.prefix ? props.prefix.toUpperCase() + '_' : ''}BLOG_ADMIN_COUNT_DOWN`
 
 function getInitState(): boolean {
 	return isEmpty(getLocalCache(BLOG_ADMIN_COUNT_DOWN)) ? true : false

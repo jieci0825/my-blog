@@ -3,7 +3,7 @@ import type { JcFormProps } from '@/components/jc-form'
 const modifyPasswordFormConfig: JcFormProps = {
 	formItems: [
 		{
-			label: '邮箱',
+			label: '账号',
 			field: 'account',
 			type: 'text',
 			disabled: true
@@ -15,7 +15,7 @@ const modifyPasswordFormConfig: JcFormProps = {
 			placeholder: '输入接收验证码的邮箱'
 		},
 		{
-			label: '邮箱',
+			label: '验证码',
 			field: 'captcha',
 			type: 'text',
 			placeholder: '输入验证码，需要先写填写邮箱',
@@ -36,7 +36,10 @@ const modifyPasswordFormConfig: JcFormProps = {
 	],
 	rules: {
 		account: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
-		email: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
+		email: [
+			{ required: true, message: '该项不能为空', trigger: 'blur' },
+			{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+		],
 		captcha: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
 		oldPassword: [{ required: true, message: '该项不能为空', trigger: 'blur' }],
 		newPassword: [{ required: true, message: '该项不能为空', trigger: 'blur' }]

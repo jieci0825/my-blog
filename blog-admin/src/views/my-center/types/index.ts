@@ -1,6 +1,8 @@
+import type { UserItem } from '@/apis/modules/user/type'
+
 export interface BoxItem {
 	label: string
-	content: any
+	contentField?: keyof UserItem
 	key: string
 	slotOpt?: {
 		defalutSlot?: string
@@ -25,7 +27,7 @@ export interface BoxWrapProps {
 }
 
 export interface BoxWrapEmits {
-	(e: 'edit', data: any): void
-	(e: 'save', content: any, data: any, done: Function): void
-	(e: 'cancel', data: any): void
+	(e: 'edit', raw: BoxItem): void
+	(e: 'save', content: any, raw: BoxItem): void
+	(e: 'cancel', raw: BoxItem): void
 }

@@ -1,6 +1,12 @@
 import request from '@/apis/request'
 import type { IBaseType, IBaseListType } from '../types'
-import type { GetUserListParams, UserItem, EditLoginUserInfoParams, ModifyUserPasswordParams } from './type'
+import type {
+	GetUserListParams,
+	UserItem,
+	EditLoginUserInfoParams,
+	ModifyUserPasswordParams,
+	ReplaceBindEmailParams
+} from './type'
 import type { MenuItem } from '@/apis/modules/menu/type'
 
 /**
@@ -64,4 +70,11 @@ export function reqModifyUserPassword(data: ModifyUserPasswordParams) {
  */
 export function reqEditLoginUserInfo(data: EditLoginUserInfoParams) {
 	return request.put<IBaseType<string>>({ url: '/user/my', data })
+}
+
+/**
+ * 换绑邮箱
+ */
+export function reqReplaceBindEmail(data: ReplaceBindEmailParams) {
+	return request.put<IBaseType<string>>({ url: '/user/replace-email', data })
 }
