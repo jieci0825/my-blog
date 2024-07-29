@@ -35,7 +35,7 @@ async function createUser(data) {
  * @param {number} id 用户id
  */
 async function getUserInfo(id) {
-	const userInfo = await User.findOne({ where: { id } })
+	const userInfo = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } })
 	return userInfo
 }
 
@@ -131,9 +131,6 @@ async function editUser(data) {
  * @param {object} data
  */
 async function editMyInfo(data) {
-	const isAccount = await User.findOne({ where: { account: data.account } })
-	if (isAccount) throw new Collide('当前账号已经存在')
-
 	const updateData = {
 		nickname: data.nickname,
 		avatar_url: data.avatarUrl,
