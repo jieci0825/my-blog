@@ -25,6 +25,7 @@ module.exports = {
 		slogan: '见字如面，愿君不啻微茫，造炬成阳',
 		publish: '2023-01-01'
 	},
+	logPath: '/www/wwwlogs/blog.coderjc.cn',
 	aesKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuz6GNWWL12awIfZ3HD8Q',
 	adminName: 'SuperAdmin',
 	adminAccount: 'coderjc',

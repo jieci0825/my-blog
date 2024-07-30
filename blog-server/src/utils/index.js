@@ -245,6 +245,25 @@ const genNumberCode = async (model, len = 6) => {
 	return result
 }
 
+/**
+ * 获取两个日期区间之间的所有日期
+ * @param {string} startDate 开始日期
+ * @param {string} endDate 结束日期
+ * @returns {array}
+ */
+function getDatesBetween(startDate, endDate) {
+	const dates = []
+	let currentDate = dayjs(startDate)
+	const endDateObj = dayjs(endDate)
+
+	while (currentDate.isBefore(endDateObj) || currentDate.isSame(endDateObj)) {
+		dates.push(currentDate.format('YYYY-MM-DD'))
+		currentDate = currentDate.add(1, 'day')
+	}
+
+	return dates
+}
+
 module.exports = {
 	formatTime,
 	generateRandomString,
@@ -260,5 +279,6 @@ module.exports = {
 	toTree,
 	sortTree,
 	decrypt,
-	genNumberCode
+	genNumberCode,
+	getDatesBetween
 }
