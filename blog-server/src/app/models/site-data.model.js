@@ -11,6 +11,11 @@ SiteData.init(
 			autoIncrement: true,
 			comment: 'id'
 		},
+		date: {
+			type: DataTypes.DATEONLY, // DATEONLY 不带时间的日期
+			allowNull: false,
+			comment: '日期'
+		},
 		site_day_access: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0,
