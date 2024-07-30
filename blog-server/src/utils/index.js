@@ -264,6 +264,41 @@ function getDatesBetween(startDate, endDate) {
 	return dates
 }
 
+/**
+ * 根据当前日期获取不同的历史日期区间
+ */
+function getHistoryDateRange(date) {
+	const _dayjs = dayjs(date)
+
+	// 获取昨天的日期
+	const yesterday = _dayjs.subtract(1, 'day').format('YYYY-MM-DD')
+
+	// 获取最近三天的日期
+	const lastThreeDays = []
+	for (let i = 0; i < 3; i++) {
+		lastThreeDays.push(_dayjs.subtract(i, 'day').format('YYYY-MM-DD'))
+	}
+
+	// 获取最近一周的日期
+	const lastWeek = []
+	for (let i = 0; i < 7; i++) {
+		lastWeek.push(_dayjs.subtract(i, 'day').format('YYYY-MM-DD'))
+	}
+
+	// 获取最近30天的日期
+	const lastThirtyDays = []
+	for (let i = 0; i < 30; i++) {
+		lastThirtyDays.push(_dayjs.subtract(i, 'day').format('YYYY-MM-DD'))
+	}
+
+	return {
+		yesterday: [yesterday],
+		lastThreeDays,
+		lastWeek,
+		lastThirtyDays
+	}
+}
+
 module.exports = {
 	formatTime,
 	generateRandomString,
@@ -280,5 +315,6 @@ module.exports = {
 	sortTree,
 	decrypt,
 	genNumberCode,
-	getDatesBetween
+	getDatesBetween,
+	getHistoryDateRange
 }

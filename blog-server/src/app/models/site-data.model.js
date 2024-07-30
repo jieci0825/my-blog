@@ -16,7 +16,7 @@ SiteData.init(
 			allowNull: false,
 			comment: '日期'
 		},
-		site_day_access: {
+		site_day_visits: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0,
 			allowNull: false,
