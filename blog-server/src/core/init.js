@@ -2,6 +2,7 @@ const path = require('path')
 const Router = require('koa-router')
 const requireDirectory = require('require-directory')
 const { sequelize } = require('./db')
+const { createSiteData } = require('@/utils/schedule')
 
 class InitModule {
 	static initMain(app) {
@@ -39,6 +40,7 @@ class InitModule {
 		const modelPath = path.resolve(InitModule.rootPath, 'src/app/models')
 		requireDirectory(module, modelPath)
 		await sequelize.sync()
+		await createSiteData()
 	}
 }
 

@@ -44,7 +44,7 @@ const generateRandomInteger = (min, max) => {
  * @param {string} str 格式化字符串 `YYYY-MM-DD HH:mm:ss`
  * @returns {string}
  */
-const formatTime = (time = new Date(), str = 'YYYY-MM-DD HH:mm:ss') => {
+const formatDateTime = (time = new Date(), str = 'YYYY-MM-DD HH:mm:ss') => {
 	return dayjs(time).format(str)
 }
 
@@ -300,7 +300,7 @@ function getHistoryDateRange(date) {
 }
 
 module.exports = {
-	formatTime,
+	formatDateTime,
 	generateRandomString,
 	generateRandomInteger,
 	md5password,
