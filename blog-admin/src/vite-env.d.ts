@@ -4,6 +4,8 @@ declare module 'nprogress'
 
 declare module 'crypto-js'
 
+declare module 'dayjs'
+
 declare module 'resize-observer-polyfill'
 
 declare module 'element-plus/dist/locale/zh-cn.mjs'

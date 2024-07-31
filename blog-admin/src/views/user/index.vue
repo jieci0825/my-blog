@@ -124,6 +124,9 @@ const handleAssignRole = async () => {
 			<template #roleNickname="{ row }">
 				<el-tag v-if="row.roleNickname">{{ row.roleNickname }}</el-tag>
 			</template>
+			<template #status="{ row }">
+				<el-tag :type="row.status === 1 ? 'success' : 'danger'">{{ row.status === 1 ? '启用' : '停用' }}</el-tag>
+			</template>
 			<template #operate="{ row }">
 				<el-button
 					@click="openRoleAssignPanel(row)"

@@ -1,9 +1,7 @@
 export * as globalApi from './modules/global'
-
 export * as userApi from './modules/user'
-
 export * as roleApi from './modules/role'
-
 export * as fileApi from './modules/file'
-
 export * as menuApi from './modules/menu'
+export * as siteApi from './modules/site'
+export * as logApi from './modules/log'

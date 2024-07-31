@@ -106,7 +106,7 @@ const myInfoList: BoxItem[] = [
 	{ label: '个人简介', key: 'description', contentField: 'description' }
 ]
 const accountInfoList: BoxItem[] = [
-	{ label: '账号', key: 'account', contentField: 'account' },
+	{ label: '账号', key: 'account', contentField: 'account', isOperate: false },
 	{ label: '邮箱', key: 'email', contentField: 'email', slotOpt: { operateSlot: 'emailOperate' } },
 	{
 		label: '密码',

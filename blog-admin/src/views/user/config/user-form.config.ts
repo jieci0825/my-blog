@@ -52,6 +52,16 @@ const userFormConfig: JcFormProps = {
 				minlength: 0,
 				autosize: { minRows: 3, maxRows: 6 }
 			}
+		},
+		{
+			label: '用户状态',
+			field: 'status',
+			type: 'radio',
+			placeholder: '状态',
+			options: [
+				{ label: '启用', value: 1 },
+				{ label: '禁用', value: 0 }
+			]
 		}
 	],
 	rules: {

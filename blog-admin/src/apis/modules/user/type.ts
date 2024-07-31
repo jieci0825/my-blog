@@ -10,6 +10,7 @@ export interface UserItem {
 	roleId?: number
 	roleNickname?: string | undefined
 	email: string
+	status: 0 | 1
 }
 
 export interface EditLoginUserInfoParams {
