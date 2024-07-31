@@ -24,7 +24,8 @@ async function createUser(data) {
 		nickname: data.nickname,
 		avatar_url: data.avatarUrl,
 		sign: data.sign,
-		description: data.description
+		description: data.description,
+		status: 1
 	}
 
 	await User.create(insertData)
@@ -44,9 +45,7 @@ async function getUserInfo(id) {
  * @param {object} condition
  */
 async function getUserList(condition) {
-	const where = {
-		status: 1
-	}
+	const where = {}
 	if (condition.nickname) {
 		where.nickname = { [Op.like]: `%${condition.nickname}%` }
 	}
@@ -120,7 +119,8 @@ async function editUser(data) {
 		nickname: data.nickname,
 		avatar_url: data.avatarUrl,
 		sign: data.sign,
-		description: data.description
+		description: data.description,
+		status: data.status
 	}
 
 	await User.update(updateData, { where: { id: data.id } })
@@ -145,7 +145,7 @@ async function editMyInfo(data) {
  * @param {object} data
  */
 async function modifyUserPassword(data) {
-	const userInfo = await User.findOne({ where: { id: data.userId } })
+	const userInfo = await User.findOne({ where: { id: data.userId, status: 1 } })
 	if (!userInfo) throw new Collide('当前用户不存在')
 
 	const originalPassword = decrypt(data.oldPassword)
@@ -161,7 +161,7 @@ async function modifyUserPassword(data) {
  * @param {object} data
  */
 async function replaceBindEmail(data) {
-	const userInfo = await User.findOne({ where: { id: data.userId } })
+	const userInfo = await User.findOne({ where: { id: data.userId, status: 1 } })
 	if (!userInfo) throw new Collide('当前用户不存在')
 
 	const isEmail = await User.findOne({ where: { email: data.newEmail } })

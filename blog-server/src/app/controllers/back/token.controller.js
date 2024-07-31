@@ -15,7 +15,7 @@ const { sendMail } = require('@/utils/email')
 async function token(ctx) {
 	const { data } = new Validator().validate(ctx, tokenRules)
 
-	const userInfo = await User.findOne({ where: { account: data.account } })
+	const userInfo = await User.findOne({ where: { account: data.account, status: 1 } })
 	if (!userInfo) throw new ParamsError('当前用户不存在')
 
 	const { id, account, password, role_id } = userInfo.dataValues
