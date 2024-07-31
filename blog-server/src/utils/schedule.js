@@ -6,11 +6,15 @@ const { formatDateTime } = require('.')
  * 每天0点给 site_datas 表增加一条数据
  */
 async function createSiteData() {
-	// 每天的 0 点执行
-	schedule.scheduleJob('0 0 0 * * *', async function () {
-		const today = formatDateTime(new Date())
+	const rule = new schedule.RecurrenceRule()
+	rule.hour = 1
+	rule.minute = 11
+	rule.second = 0
+	// 启动任务
+	schedule.scheduleJob(rule, async () => {
+		const today = formatDateTime(new Date(), 'YYYY-MM-DD')
 		// 如果今天的日期存在，则不创建
-		const data = await SiteData.findOne({ date: today })
+		const data = await SiteData.findOne({ where: { date: today } })
 		if (!data) {
 			SiteData.create({ date: today })
 		}
