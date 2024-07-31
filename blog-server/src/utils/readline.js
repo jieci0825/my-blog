@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const readline = require('readline')
-const { getDatesBetween } = require('.')
+const { toCamelCaseForObj } = require('.')
 
 // 日志文件目录
 const logDir = path.resolve(__dirname, '../logs')
@@ -20,6 +20,16 @@ function readLogFile(fileName, deviceCount, offset, limit) {
 			deviceCount.total++
 
 			const logInfo = JSON.parse(lineData)
+
+			// * 处理 request 出现 \u0016\u0003\ 等字符的情况
+			if (logInfo.request) {
+				const regx = new RegExp(
+					/\u0000|\u0001|\u0002|\u0003|\u0004|\u0005|\u0006|\u0007|\u0008|\u0009|\u000a|\u000b|\u000c|\u000d|\u000e|\u000f|\u0010|\u0011|\u0012|\u0013|\u0014|\u0015|\u0016|\u0017|\u0018|\u0019|\u001a|\u001b|\u001c|\u001d|\u001e|\u001f|\u007F/
+				)
+
+				logInfo.request = regx.test(logInfo.request) ? '' : logInfo.request
+			}
+
 			const userAgent = logInfo.http_user_agent
 
 			if (userAgent) {
@@ -35,7 +45,7 @@ function readLogFile(fileName, deviceCount, offset, limit) {
 			}
 
 			if (logs.length < limit && deviceCount.total > offset) {
-				logs.push(logInfo)
+				logs.push(toCamelCaseForObj(logInfo))
 			}
 		})
 
@@ -55,7 +65,9 @@ async function getAccessLog(date, { order = 'DESC', page = 1, pageSize = 10 }) {
 	// 访问设备统计
 	const deviceCount = { total: 0, windowCount: 0, androidCount: 0, iPhoneCount: 0, macOSCount: 0 }
 	const offset = (page - 1) * pageSize
-	const logFileName = `${date}.access.log`
+	// ! 做测试使用，始终返回固定的日志数据
+	// const logFileName = `${date}.access.log`
+	const logFileName = `2024-07-31.access.log`
 
 	// 检测日志文件是否存在
 	if (!fs.existsSync(path.resolve(logDir, logFileName))) {

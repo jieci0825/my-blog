@@ -299,6 +299,16 @@ function getHistoryDateRange(date) {
 	}
 }
 
+/**
+ * 计算两个日期之间的天数差
+ * @param {string} startDate 开始日期
+ * @param {string} endDate 结束日期
+ * @returns {number} 天数差
+ */
+function getDaysDiff(startDate, endDate) {
+	return dayjs(endDate).diff(dayjs(startDate), 'day')
+}
+
 module.exports = {
 	formatDateTime,
 	generateRandomString,
@@ -316,5 +326,6 @@ module.exports = {
 	decrypt,
 	genNumberCode,
 	getDatesBetween,
-	getHistoryDateRange
+	getHistoryDateRange,
+	getDaysDiff
 }

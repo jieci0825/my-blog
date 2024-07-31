@@ -1,6 +1,7 @@
 const { getHistoryDateRange } = require('@/utils')
 const { SiteData } = require('@model/site-data.model')
-const { Sequelize, Op } = require('sequelize')
+const { User } = require('@model/user.model')
+const { Op, where } = require('sequelize')
 
 /**
  * 获取站点访问数据
@@ -23,9 +24,28 @@ async function getSiteVisits() {
 	}
 
 	return {
-		totalVisits: _calcSumVisits(totalVisits),
+		total: _calcSumVisits(totalVisits),
 		...othereVisits
 	}
+}
+
+/**
+ * 获取站点其他统计数据
+ */
+async function getSiteOtherStatistics() {
+	// 总用户数量、点赞数量、评论数量
+	const statisticData = {
+		totalUser: 0,
+		totalLike: 234,
+		totalComment: 128
+	}
+
+	const userCount = await User.findAll({ where: { status: 1 } })
+	statisticData.totalUser = userCount.length
+
+	// todo: 获取点赞数量、评论数量
+
+	return statisticData
 }
 
 function _calcSumVisits(visits) {
@@ -33,5 +53,6 @@ function _calcSumVisits(visits) {
 }
 
 module.exports = {
-	getSiteVisits
+	getSiteVisits,
+	getSiteOtherStatistics
 }
