@@ -104,6 +104,7 @@ defineExpose({
 			class="paginator-wrapper"
 			v-if="props.paginatorConfig">
 			<JcPaginator
+				v-bind="props.paginatorConfig"
 				@page-change="onPageChange"
 				@size-change="onSizeChange"
 				:total="pagination.total"></JcPaginator>

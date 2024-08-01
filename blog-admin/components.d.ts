@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Comment: typeof import('./src/components/comment/src/comment.vue')['default']
     Dosearch: typeof import('./src/components/dosearch/src/dosearch.vue')['default']
+    Editor: typeof import('./src/components/editor/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
@@ -60,6 +61,7 @@ declare module 'vue' {
     GlobalSetting: typeof import('./src/components/global-setting/src/global-setting.vue')['default']
     JcDialog: typeof import('./src/components/jc-dialog/src/jc-dialog.vue')['default']
     JcDrawer: typeof import('./src/components/jc-drawer/src/jc-drawer.vue')['default']
+    JcEditor: typeof import('./src/components/jc-editor/index.vue')['default']
     JcForm: typeof import('./src/components/jc-form/src/jc-form.vue')['default']
     JcLogo: typeof import('./src/components/jc-logo/src/jc-logo.vue')['default']
     JcMenu: typeof import('./src/components/jc-menu/src/jc-menu.vue')['default']
