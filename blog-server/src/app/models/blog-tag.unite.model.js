@@ -1,9 +1,9 @@
 const { DataTypes, Model } = require('sequelize')
 const { sequelize } = require('@/core/db')
 
-class TagBlog extends Model {}
+class BlogTagUnite extends Model {}
 
-TagBlog.init(
+BlogTagUnite.init(
 	{
 		id: {
 			type: DataTypes.INTEGER,
@@ -22,7 +22,7 @@ TagBlog.init(
 			comment: '博客id'
 		}
 	},
-	{ sequelize, tableName: 'tag_blogs' }
+	{ sequelize, tableName: 'blogs_tags_unite' }
 )
 
-module.exports = { TagBlog }
+module.exports = { BlogTagUnite }

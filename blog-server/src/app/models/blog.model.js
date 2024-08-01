@@ -53,7 +53,6 @@ Blog.init(
 		},
 		category_id: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
 			comment: '分类id'
 		},
 		author_id: {
