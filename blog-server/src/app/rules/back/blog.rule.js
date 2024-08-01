@@ -6,7 +6,14 @@ const createBlogRules = {
 	description: new Rule().isString().min(1).max(200).required(),
 	htmlContent: new Rule().isString().required(),
 	status: new Rule().enum([0, 1]).required(),
+	tagIds: new Rule().isArray(),
 	categoryId: new Rule().isNumber().min(1).required()
+}
+
+const getBlogListRules = {
+	page: new Rule().isNumber().min(1).required(),
+	pageSize: new Rule().isNumber().min(1).required(),
+	title: new Rule().isString()
 }
 
 module.exports = {

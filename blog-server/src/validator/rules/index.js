@@ -154,6 +154,19 @@ class Rule {
 		const NumberRule = require('./number-rule')
 		return new NumberRule(this.rules)
 	}
+
+	isArray(options = {}) {
+		options = Object.assign({ message: '必须是一个数组类型' }, options)
+		const validator = (value, field, raw) => {
+			if (checkDataType(value, 'array')) {
+				return true
+			}
+			return false
+		}
+		this.rules.push({ validator, message: options.message })
+		const ArrayRule = require('./array-rule')
+		return new ArrayRule(this.rules)
+	}
 }
 
 module.exports = Rule
