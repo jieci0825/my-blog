@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { SUPER_ADMIN_NAME } from '@/constants'
 import roleTableConfig from './config/role-table.config'
 import roleFormConfig from './config/role-form.config'
+import RoleAssign from './components/role-assign.vue'
+import { SUPER_ADMIN_NAME } from '@/constants'
 import { useRoleActions, useRoleGetters } from '@/store'
 import { Edit, Delete, Plus, Postcard } from '@element-plus/icons-vue'
-import { computed, h, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { roleApi, menuApi } from '@/apis'
 import { ActionType } from './types'
-import RoleAssign from './components/role-assign.vue'
+import { openDeleteMessageBox } from '@/utils'
 import type { MenuItem } from '@/apis/modules/menu/type'
 import type { RoleItem } from '@/apis/modules/role/type'
 
@@ -26,18 +27,10 @@ const drawerTitle = computed(() => modeTitleMap[curAction.value])
 const curRoleInfo = ref<RoleItem>()
 
 const handleTableDelete = async (row: any) => {
-	try {
-		await ElMessageBox({
-			title: '删除角色',
-			message: h('p', { style: { color: 'var(--el-color-danger)' } }, `你确认要删除 ${row.roleNickname} 角色吗？`),
-			showCancelButton: true,
-			confirmButtonText: '确认',
-			cancelButtonText: '取消'
-		})
-		const resp = await roleApi.reqDeleteRole(row.id)
-		ElMessage.success(resp.msg)
-		reqGetRoleList()
-	} catch (error) {}
+	await openDeleteMessageBox()
+	const resp = await roleApi.reqDeleteRole(row.id)
+	ElMessage.success(resp.msg)
+	reqGetRoleList()
 }
 
 function setRoleInfo(row: RoleItem | null, mode: ActionType, isVisable: boolean = true) {

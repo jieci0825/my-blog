@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import menuTableConfig from './config/menu-table.config'
 import menuCreateEditFormFn from './config/menu-create-edit-form.config'
-import { h, ref } from 'vue'
+import { ref } from 'vue'
 import { menuApi } from '@/apis'
 import { ActionType } from './types'
 import { useRefs } from '@/hooks/use-refs'
+import { openDeleteMessageBox } from '@/utils'
 import type { MenuItem } from '@/apis/modules/menu/type'
 
 // 打平的菜单列表
@@ -52,18 +53,10 @@ const handleEditMenu = (row: MenuItem) => {
 	setInfo(row, ActionType.EDIT)
 }
 const handleDeleteMenu = async (row: MenuItem) => {
-	try {
-		await ElMessageBox({
-			title: '删除用户',
-			message: h('p', { style: { color: 'var(--el-color-danger)' } }, `你确认要删除 ${row.menuTitle} 菜单吗？`),
-			showCancelButton: true,
-			confirmButtonText: '确认',
-			cancelButtonText: '取消'
-		})
-		const resp = await menuApi.reqDeleteMenu(row.id)
-		ElMessage.success(resp.msg)
-		refs.menuPageContentRef?.search()
-	} catch (error) {}
+	await openDeleteMessageBox()
+	const resp = await menuApi.reqDeleteMenu(row.id)
+	ElMessage.success(resp.msg)
+	refreshData()
 }
 
 const { refs, setRef } = useRefs()
@@ -78,6 +71,10 @@ const handleSubmit = async (data: MenuItem) => {
 	}
 	ElMessage.success(resp.msg)
 	drawerVisable.value = false
+	refreshData()
+}
+
+function refreshData() {
 	refs.menuPageContentRef?.fetchData()
 }
 

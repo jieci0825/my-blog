@@ -6,8 +6,8 @@ import { blogTagApi } from '@/apis'
 import { ActionType } from './types'
 import { ref } from 'vue'
 import { useRefs } from '@/hooks/use-refs'
-import type { CreateBlogTagParams, BlogTagItem } from '@/apis/modules/blog-tag/type'
 import { openDeleteMessageBox } from '@/utils'
+import type { CreateBlogTagParams, BlogTagItem } from '@/apis/modules/blog-tag/type'
 
 const diaglogTitle = ref('')
 const dialogVisable = ref(false)
@@ -37,7 +37,7 @@ const handleTableDelete = async (row: BlogTagItem) => {
 	await openDeleteMessageBox()
 	const resp = await blogTagApi.reqDeleteBlogTag(row.id)
 	ElMessage.success(resp.msg)
-	refs.tagPageContentRef?.fetchData()
+	refreshData()
 }
 
 const { refs, setRef } = useRefs()
@@ -52,6 +52,10 @@ const handleSubmit = async (data: BlogTagItem) => {
 	}
 	ElMessage.success(resp.msg)
 	dialogVisable.value = false
+	refreshData()
+}
+
+function refreshData() {
 	refs.tagPageContentRef?.fetchData()
 }
 

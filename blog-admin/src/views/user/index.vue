@@ -4,11 +4,11 @@ import userSearchFormConfig from './config/user-search-form.config'
 import userFormFn from './config/user-form.config'
 import { userApi } from '@/apis'
 import { Postcard, Edit, Aim } from '@element-plus/icons-vue'
-import { h, ref } from 'vue'
+import { ref } from 'vue'
 import { ActionType } from './types'
 import { uploadFile } from '@/cos'
 import { useRefs } from '@/hooks/use-refs'
-import { previewImage } from '@/utils'
+import { openDeleteMessageBox, previewImage } from '@/utils'
 import { useRoleActions, useRoleGetters } from '@/store'
 import type { UserItem } from '@/apis/modules/user/type'
 
@@ -37,18 +37,10 @@ const handleTableEdit = (row: UserItem) => {
 }
 // 删除用户
 const handleTableLogoff = async (row: UserItem) => {
-	try {
-		await ElMessageBox({
-			title: '删除用户',
-			message: h('p', { style: { color: 'var(--el-color-danger)' } }, `你确认要注销 ${row.nickname} 用户吗？`),
-			showCancelButton: true,
-			confirmButtonText: '确认',
-			cancelButtonText: '取消'
-		})
-		const resp = await userApi.reqLogoffUser(row.id)
-		ElMessage.success(resp.msg)
-		refs.userPageContentRef?.search()
-	} catch (error) {}
+	await openDeleteMessageBox()
+	const resp = await userApi.reqLogoffUser(row.id)
+	ElMessage.success(resp.msg)
+	refs.userPageContentRef?.search()
 }
 
 const { refs, setRef } = useRefs()
