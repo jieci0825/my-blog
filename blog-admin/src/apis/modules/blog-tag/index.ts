@@ -1,33 +1,33 @@
 import request from '@/apis/request'
 import type { IBaseType, IBaseListType } from '../types'
-import type { TagItem, GetTagListParams, CreateTagParams } from './type.ts'
+import type { BlogTagItem, GetBlogTagListParams, CreateBlogTagParams } from './type.ts'
 
 const PREFIX = '/blog/tag'
 
 /**
  * 获取标签列表
  */
-export const reqGetTagList = (params: GetTagListParams) => {
-	return request.get<IBaseType<IBaseListType<TagItem>>>({ url: PREFIX, params })
+export const reqGetBlogTagList = (params: GetBlogTagListParams) => {
+	return request.get<IBaseType<IBaseListType<BlogTagItem>>>({ url: PREFIX, params })
 }
 
 /**
  * 创建标签
  */
-export const reqCreateTag = (data: CreateTagParams) => {
+export const reqCreateBlogTag = (data: CreateBlogTagParams) => {
 	return request.post<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**
  * 编辑标签
  */
-export const reqEditTag = (data: TagItem) => {
+export const reqEditBlogTag = (data: BlogTagItem) => {
 	return request.put<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**
  * 删除标签
  */
-export const reqDeleteTag = (id: string) => {
+export const reqDeleteBlogTag = (id: number) => {
 	return request.delete<IBaseType<string>>({ url: `${PREFIX}/${id}` })
 }

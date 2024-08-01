@@ -2,23 +2,24 @@
 import tagTableConfig from './config/tag-table.config'
 import tagSearchFormConfig from './config/tag-search-form.config'
 import tagFormConfig from './config/tag-form.config'
-import { tagApi } from '@/apis'
+import { blogTagApi } from '@/apis'
 import { ActionType } from './types'
 import { ref } from 'vue'
 import { useRefs } from '@/hooks/use-refs'
-import type { CreateTagParams, TagItem } from '@/apis/modules/tag/type'
+import type { CreateBlogTagParams, BlogTagItem } from '@/apis/modules/blog-tag/type'
+import { openDeleteMessageBox } from '@/utils'
 
 const diaglogTitle = ref('')
 const dialogVisable = ref(false)
 const curAction = ref<ActionType>(ActionType.CREATE)
-const curTagInfo = ref<TagItem | CreateTagParams>()
+const curTagInfo = ref<BlogTagItem | CreateBlogTagParams>()
 const modeTitleMap = {
 	[ActionType.CREATE]: '创建标签-多标签,隔开',
 	[ActionType.EDIT]: '编辑标签信息'
 }
 
-function setInfo(row: TagItem | null, mode: ActionType, isVisable: boolean = true) {
-	curTagInfo.value = row ? { ...row } : ({} as TagItem)
+function setInfo(row: BlogTagItem | null, mode: ActionType, isVisable: boolean = true) {
+	curTagInfo.value = row ? { ...row } : ({} as BlogTagItem)
 	curAction.value = mode
 	diaglogTitle.value = modeTitleMap[mode]
 	dialogVisable.value = isVisable
@@ -28,19 +29,26 @@ const handleCreateTag = () => {
 	setInfo(null, ActionType.CREATE)
 }
 
-const handleTableEdit = (row: TagItem) => {
+const handleTableEdit = (row: BlogTagItem) => {
 	setInfo(row, ActionType.EDIT)
+}
+
+const handleTableDelete = async (row: BlogTagItem) => {
+	await openDeleteMessageBox()
+	const resp = await blogTagApi.reqDeleteBlogTag(row.id)
+	ElMessage.success(resp.msg)
+	refs.tagPageContentRef?.fetchData()
 }
 
 const { refs, setRef } = useRefs()
 
-const handleSubmit = async (data: TagItem) => {
+const handleSubmit = async (data: BlogTagItem) => {
 	let resp: any = undefined
 	if (curAction.value === ActionType.CREATE) {
 		const tagNames = data.tagName.split(',')
-		resp = await tagApi.reqCreateTag({ tagNames })
+		resp = await blogTagApi.reqCreateBlogTag({ tagNames })
 	} else {
-		resp = await tagApi.reqEditTag(data)
+		resp = await blogTagApi.reqEditBlogTag(data)
 	}
 	ElMessage.success(resp.msg)
 	dialogVisable.value = false
@@ -48,7 +56,7 @@ const handleSubmit = async (data: TagItem) => {
 }
 
 const usePageContent = {
-	request: tagApi.reqGetTagList
+	request: blogTagApi.reqGetBlogTagList
 }
 </script>
 
@@ -57,6 +65,7 @@ const usePageContent = {
 		<PageContent
 			:ref="setRef('tagPageContentRef')"
 			@handleTableEdit="handleTableEdit"
+			@handleTableDelete="handleTableDelete"
 			@actCreate="handleCreateTag"
 			:use-page-content="usePageContent"
 			:form-config="tagSearchFormConfig"
