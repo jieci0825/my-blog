@@ -4,9 +4,9 @@ import tagSearchFormConfig from './config/tag-search-form.config'
 import tagFormConfig from './config/tag-form.config'
 import { tagApi } from '@/apis'
 import { ActionType } from './types'
-import type { CreateTagParams, TagItem } from '@/apis/modules/tag/type'
 import { ref } from 'vue'
 import { useRefs } from '@/hooks/use-refs'
+import type { CreateTagParams, TagItem } from '@/apis/modules/tag/type'
 
 const diaglogTitle = ref('')
 const dialogVisable = ref(false)
@@ -53,7 +53,7 @@ const usePageContent = {
 </script>
 
 <template>
-	<div class="tag-container container">
+	<div class="blog-tag-container container">
 		<PageContent
 			:ref="setRef('tagPageContentRef')"
 			@handleTableEdit="handleTableEdit"

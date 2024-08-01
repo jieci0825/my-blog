@@ -26,19 +26,14 @@ const routeDynamic: RouteRecordRaw[] = [
 		component: () => import(/* webpackChunkName: "menu" */ '@/views/menu/index.vue')
 	},
 	{
-		path: '/tag',
-		name: 'tag',
-		component: () => import(/* webpackChunkName: "tag" */ '@/views/tag/index.vue')
-	},
-	{
 		path: '/blog',
 		name: 'blog',
-		redirect: '/blog/list'
+		redirect: '/blog/article'
 	},
 	{
-		path: '/blog/list',
-		name: 'blog-list',
-		component: () => import(/* webpackChunkName: "blog-list" */ '@/views/blog/blog-list/index.vue')
+		path: '/blog/article',
+		name: 'blog-article',
+		component: () => import(/* webpackChunkName: "blog-article" */ '@/views/blog/blog-article/index.vue')
 	},
 	{
 		path: '/blog/category',
@@ -49,6 +44,11 @@ const routeDynamic: RouteRecordRaw[] = [
 		path: '/blog/publish',
 		name: 'blog-publish',
 		component: () => import(/* webpackChunkName: "blog-publish" */ '@/views/blog/blog-publish/index.vue')
+	},
+	{
+		path: '/blog/tag',
+		name: 'blog-tag',
+		component: () => import(/* webpackChunkName: "blog-tag" */ '@/views/blog/blog-tag/index.vue')
 	},
 	{
 		path: '/friend-chain',
