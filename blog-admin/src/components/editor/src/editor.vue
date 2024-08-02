@@ -2,9 +2,9 @@
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/i18n/zh-cn'
 import Editor from '@toast-ui/editor'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onDeactivated, onUnmounted } from 'vue'
 import { debounce } from '@/utils'
-import { codeToHtml } from 'shiki'
+import { BuiltinLanguage, BuiltinTheme, createHighlighter } from 'shiki'
 import type { EditorEmits, EditorProps, InsertFnType } from './editor-type'
 
 defineOptions({ name: 'Editor' })
@@ -23,6 +23,38 @@ const imageHook = () => {
 	})
 }
 
+const langs: BuiltinLanguage[] = [
+	'sql',
+	'javascript',
+	'css',
+	'vue',
+	'vue-html',
+	'typescript',
+	'java',
+	'python',
+	'bash',
+	'bat',
+	'tsx',
+	'scss',
+	'less',
+	'ruby',
+	'rust',
+	'regexp',
+	'nginx',
+	'php',
+	'json',
+	'jsonc',
+	'ini'
+]
+
+const themes: BuiltinTheme[] = ['night-owl']
+
+let highlighter: any = undefined
+async function createHighlighterInstance() {
+	highlighter = await createHighlighter({ themes, langs })
+}
+createHighlighterInstance()
+
 async function highlight() {
 	const container = document.querySelector('.markdown-body')
 	const preList = Array.from(container!.querySelectorAll('pre'))
@@ -32,7 +64,7 @@ async function highlight() {
 	for (const pre of preList) {
 		const code = pre.querySelector('code') as HTMLElement
 		const lang = code.getAttribute('data-language')
-		const formatCode = await codeToHtml(code.textContent!, {
+		const formatCode = highlighter.codeToHtml(code.textContent!, {
 			lang: lang || 'javascript',
 			theme: 'night-owl'
 		})
@@ -47,6 +79,14 @@ const onChange = () => {
 }
 
 const _dOnChange = debounce(onChange, 300)
+
+onDeactivated(() => {
+	_dOnChange?.cancel()
+})
+
+onUnmounted(() => {
+	_dOnChange?.cancel()
+})
 
 onMounted(() => {
 	editor = new Editor({
@@ -63,10 +103,6 @@ onMounted(() => {
 			indent: 2 // 这里设置代码块的前面缩进为 2 个空格
 		}
 	})
-
-	// 禁用拼写检查
-	const proseMirror = document.querySelector('.markdown-body .ProseMirror')
-	if (proseMirror) proseMirror.setAttribute('spellcheck', 'false')
 
 	imageHook()
 

@@ -10,26 +10,15 @@ const emits = defineEmits<JcFormEmits>()
 const props = withDefaults(defineProps<JcFormProps>(), {
 	rules: () => ({}),
 	rowConfig: () => {
-		return {
-			gutter: 10
-		}
+		return { gutter: 10 }
 	},
 	colLayout: () => {
-		return {
-			xs: 24,
-			sm: 12,
-			md: 8,
-			lg: 8,
-			xl: 6
-		}
+		return { xs: 24, sm: 12, md: 8, lg: 8, xl: 6 }
 	},
 	isFooter: true,
 	labelWidth: 100,
 	footerConfig: () => {
-		return {
-			resetText: '重置',
-			submitText: '提交'
-		}
+		return { resetText: '重置', submitText: '提交' }
 	}
 })
 
@@ -184,6 +173,10 @@ const handleReset = (formEl: FormInstance | undefined) => {
 								v-bind="item.fileConfig"
 								:init-preview-image="formData[item.field]"
 								:model="item.model"></JcUpload>
+						</template>
+						<!-- 自定义 -->
+						<template v-else-if="item.type === 'custom'">
+							<slot :name="item.slotName"></slot>
 						</template>
 					</el-form-item>
 				</el-col>

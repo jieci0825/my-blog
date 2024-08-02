@@ -1,11 +1,16 @@
 import type { BlogStatus } from '@/typings'
 import type { BlogTagItem } from '../blog-tag/type'
+import type { IPageParams } from '../types'
+
+export interface GetBlogListParams extends IPageParams {
+	title?: string
+}
 
 export interface BlogItem {
 	id: number
 	date: string
 	title: string
-	previewUrl?: string
+	previewUrl?: any
 	description?: string
 	htmlContent: string
 	status: BlogStatus
@@ -13,6 +18,7 @@ export interface BlogItem {
 	lookNums: number
 	likeNums: number
 	tags: BlogTagItem[]
+	tagIds?: number[]
 	categoryId?: number | null
 	authorId: number
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Editor from '@/components/editor'
-import publishFormFn from './config/publish-form'
+import publishFormFn from './config/publish-form.config'
 import { reactive, ref } from 'vue'
 import { FullScreen, Close, MessageBox, Position } from '@element-plus/icons-vue'
 import { useEventListener } from '@/hooks'
@@ -192,7 +192,6 @@ function submitIntercept() {
 	.content {
 		border-radius: 4px;
 		flex: 1;
-		border: 1px solid var(--border-color);
 		width: 100%;
 	}
 }

@@ -18,6 +18,7 @@ export interface PageContentProps {
 	tableConfig: JcTableConfig
 	paginatorConfig?: JcPaginatorProps
 	usePageContent?: PageContentConfig
+	isAction?: boolean
 }
 
 export interface PageConteEmits {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import JcForm from '@/components/jc-form'
-import loginFormConfig from './config/login-form'
+import loginFormConfig from './config/login-form.config'
 import { useRoute } from 'vue-router'
 import { useGlobalActions } from '@/store'
 import type { LoginForm } from './types'

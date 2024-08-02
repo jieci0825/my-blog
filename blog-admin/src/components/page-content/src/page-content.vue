@@ -7,7 +7,9 @@ import type { PageConteEmits, PageContentProps } from './page-content'
 
 defineOptions({ name: 'PageContent' })
 
-const props = withDefaults(defineProps<PageContentProps>(), {})
+const props = withDefaults(defineProps<PageContentProps>(), {
+	isAction: true
+})
 const emits = defineEmits<PageConteEmits>()
 
 const initFormData: { [key: string]: any } = {}
@@ -54,7 +56,9 @@ defineExpose({
 				v-bind="props.formConfig"></JcForm>
 		</div>
 		<!-- actions -->
-		<div class="action-wrapper">
+		<div
+			class="action-wrapper"
+			v-if="props.isAction">
 			<slot name="actions">
 				<el-button
 					@click="emits('actCreate')"

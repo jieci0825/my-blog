@@ -1,6 +1,6 @@
 import request from '@/apis/request'
 import type { IBaseType, IBaseListType } from '../types'
-import type { CreateBlogParams, BlogItem } from './type.ts'
+import type { CreateBlogParams, BlogItem, GetBlogListParams } from './type.ts'
 
 const PREFIX = '/blog'
 
@@ -14,8 +14,8 @@ export const reqCreateBlog = (data: CreateBlogParams) => {
 /**
  * 获取博客列表
  */
-export const reqGetBlogList = () => {
-	return request.get<IBaseListType<BlogItem>>({ url: PREFIX })
+export const reqGetBlogList = (params: GetBlogListParams) => {
+	return request.get<IBaseListType<BlogItem>>({ url: PREFIX, params })
 }
 
 /**

@@ -10,7 +10,7 @@ export type FormItemType =
 	| 'number'
 	| 'radio'
 	| 'select'
-	| 'search-select'
+	| 'custom'
 
 interface FormatProps {
 	label?: string
