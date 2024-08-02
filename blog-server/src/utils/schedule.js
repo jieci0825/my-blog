@@ -7,8 +7,8 @@ const { formatDateTime } = require('.')
  */
 async function createSiteData() {
 	const rule = new schedule.RecurrenceRule()
-	rule.hour = 1
-	rule.minute = 11
+	rule.hour = 0
+	rule.minute = 0
 	rule.second = 0
 	// 启动任务
 	schedule.scheduleJob(rule, async () => {

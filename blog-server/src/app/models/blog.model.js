@@ -39,7 +39,7 @@ Blog.init(
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			defaultValue: 1,
-			comment: '状态 1: 发布 0: 下架'
+			comment: '状态 1: 发布 0: 下架 2: 草稿'
 		},
 		look_nums: {
 			type: DataTypes.BIGINT,

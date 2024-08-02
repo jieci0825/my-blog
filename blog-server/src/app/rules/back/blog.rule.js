@@ -1,13 +1,12 @@
 const { Rule } = require('@/validator')
 
 const createBlogRules = {
-	date: new Rule().isString().required(),
 	title: new Rule().isString().required(),
-	description: new Rule().isString().min(1).max(200).required(),
+	description: new Rule().isString().min(0).max(200),
 	htmlContent: new Rule().isString().required(),
-	status: new Rule().enum([0, 1]).required(),
+	status: new Rule().enum([0, 1, 2]).required(),
 	tagIds: new Rule().isArray(),
-	categoryId: new Rule().isNumber().min(1).required()
+	categoryId: new Rule().isNumber()
 }
 
 const getBlogListRules = {
