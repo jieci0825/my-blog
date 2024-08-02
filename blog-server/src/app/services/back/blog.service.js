@@ -109,8 +109,47 @@ async function getBlogDetail(id) {
 	return blogDetail
 }
 
+/**
+ * 编辑博客
+ * @params {object} data
+ */
+async function editBlog(data) {
+	const updateData = {
+		preview_url: data.previewUrl,
+		title: data.title,
+		description: data.description,
+		html_content: data.htmlContent,
+		status: data.status,
+		category_id: data.categoryId || null
+	}
+	const result = await sequelize.transaction(async t => {
+		await Blog.update(updateData, { where: { id: data.id }, transaction: t })
+		const tagInsertData = data.tagIds.map(tagId => {
+			return { tag_id: tagId, blog_id: data.id }
+		})
+		// 删除之前的标签关联在添加新的标签关联
+		await BlogTagUnite.destroy({ where: { blog_id: data.id }, force: true, transaction: t })
+		await BlogTagUnite.bulkCreate(tagInsertData, { transaction: t })
+	})
+
+	return result
+}
+
+/**
+ * 删除博客
+ */
+async function deleteBlog(id) {
+	const result = await sequelize.transaction(async t => {
+		// 删除之前的标签关联
+		await BlogTagUnite.destroy({ where: { blog_id: id }, force: true, transaction: t })
+		await Blog.destroy({ where: { id }, force: true, transaction: t })
+	})
+}
+
 module.exports = {
 	createBlog,
 	getBlogList,
-	getBlogDetail
+	getBlogDetail,
+	editBlog,
+	deleteBlog
 }

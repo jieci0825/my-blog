@@ -1,4 +1,4 @@
-const { createBlogRules, getBlogListRules } = require('@/app/rules/back/blog.rule')
+const { createBlogRules, getBlogListRules, editBlogRules } = require('@/app/rules/back/blog.rule')
 const { DataSuccess, Success } = require('@/core/error-type')
 const { Validator } = require('@/validator')
 const blogService = require('@ser-back/blog.service')
@@ -31,8 +31,28 @@ async function getBlogDetail(ctx) {
 	throw new DataSuccess(result)
 }
 
+/**
+ * 编辑博客
+ */
+async function editBlog(ctx) {
+	const { data } = new Validator().validate(ctx, editBlogRules)
+	await blogService.editBlog(data)
+	throw new Success('编辑博客成功')
+}
+
+/**
+ * 删除博客
+ */
+async function deleteBlog(ctx) {
+	const { id } = ctx.params
+	await blogService.deleteBlog(id)
+	throw new Success('删除博客成功')
+}
+
 module.exports = {
 	createBlog,
 	getBlogList,
-	getBlogDetail
+	getBlogDetail,
+	editBlog,
+	deleteBlog
 }
