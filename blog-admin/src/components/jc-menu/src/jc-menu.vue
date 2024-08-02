@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import JcMenuItem from './jc-menu-item.vue'
+import ResizeObserver from 'resize-observer-polyfill'
 import { JcMenuProps } from './jc-menu'
 import { useRoute } from 'vue-router'
 import { computed, onMounted, ref, useAttrs } from 'vue'
-import JcMenuItem from './jc-menu-item.vue'
 import { getAncestorNodes } from '@/utils'
 import { useGlobalGetters, useUserGetters } from '@/store'
-import ResizeObserver from 'resize-observer-polyfill'
 import { getCurrentInstance } from 'vue'
 import { More } from '@element-plus/icons-vue'
 

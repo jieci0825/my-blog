@@ -2,9 +2,9 @@
 import { inject, ref } from 'vue'
 import { Plus, Edit, Delete, ZoomIn } from '@element-plus/icons-vue'
 import { genFileId } from 'element-plus'
-import type { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 import { convertBytes, previewImage } from '@/utils'
 import { JcUploadKey } from './constants'
+import type { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 
 const jcUploadInject = inject(JcUploadKey, undefined)
 

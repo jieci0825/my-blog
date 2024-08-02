@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import Editor from '@toast-ui/editor'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/i18n/zh-cn'
+import Editor from '@toast-ui/editor'
+import { ref, onMounted } from 'vue'
 import { debounce } from '@/utils'
 import { codeToHtml } from 'shiki'
 import type { EditorEmits, EditorProps, InsertFnType } from './editor-type'

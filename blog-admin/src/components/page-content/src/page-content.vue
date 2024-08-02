@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { PageConteEmits, PageContentProps } from './page-content'
-import { usePageContent } from '@/hooks'
 import JcTable from '@/components/jc-table'
+import { computed, ref } from 'vue'
+import { usePageContent } from '@/hooks'
 import { Edit, Delete, Plus } from '@element-plus/icons-vue'
+import type { PageConteEmits, PageContentProps } from './page-content'
 
 defineOptions({ name: 'PageContent' })
 

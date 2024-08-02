@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Notification, Ship, Setting } from '@element-plus/icons-vue'
 import PrimaryBox from './primary-box.vue'
 import OtherConfigBox from './other-config-box.vue'
 import LayoutBox from './layout-box.vue'
+import { Notification, Ship, Setting } from '@element-plus/icons-vue'
 
 defineOptions({ name: 'GlobalSetting' })
 </script>

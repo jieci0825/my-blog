@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { provide } from 'vue'
-import type { JcUploadProps } from './jc-upload'
-import { JcUploadKey } from './constants'
 import JcOneUpload from './jc-one-upload.vue'
+import { provide } from 'vue'
+import { JcUploadKey } from './constants'
+import type { JcUploadProps } from './jc-upload'
 
 defineOptions({ name: 'JcUpload' })
 
