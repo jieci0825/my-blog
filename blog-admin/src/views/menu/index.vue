@@ -87,10 +87,10 @@ const usePageContentData = {
 <template>
 	<div class="menu-container container">
 		<PageContent
-			:ref="setRef('menuPageContentRef')"
 			@handleTableEdit="handleEditMenu"
 			@handleTableDelete="handleDeleteMenu"
 			@actCreate="handleCreateMenu"
+			:ref="setRef('menuPageContentRef')"
 			:use-page-content="usePageContentData"
 			:tableConfig="menuTableConfig">
 			<template #menuIcon="{ row }">
@@ -107,8 +107,8 @@ const usePageContentData = {
 		<!-- 抽屉 -->
 		<JcDrawer
 			v-model="drawerVisable"
-			size="500px"
-			:title="drawerTitle">
+			:title="drawerTitle"
+			size="500px">
 			<JcForm
 				v-model="curMenuInfo"
 				v-bind="menuCreateEditFormConfig"

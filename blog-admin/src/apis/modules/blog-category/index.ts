@@ -8,21 +8,21 @@ const PREFIX = '/blog/category'
  * 获取博客分类列表
  */
 export const reqGetBlogCategoryList = () => {
-	return request.get<IBaseType<BlogCategoryItem[]>>({ url: `${PREFIX}` })
+	return request.get<IBaseType<BlogCategoryItem[]>>({ url: PREFIX })
 }
 
 /**
  * 创建博客分类
  */
 export const reqCreateBlogCategory = (data: CreateBlogCategoryParams) => {
-	return request.post<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.post<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**
  * 编辑博客分类
  */
 export const reqEditBlogCategory = (data: BlogCategoryItem) => {
-	return request.put<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.put<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**

@@ -1,6 +1,6 @@
 import request from '@/apis/request'
-import type { IBaseType } from '../types'
-import type { CreateBlogParams } from './type.ts'
+import type { IBaseType, IBaseListType } from '../types'
+import type { CreateBlogParams, BlogItem } from './type.ts'
 
 const PREFIX = '/blog'
 
@@ -8,5 +8,33 @@ const PREFIX = '/blog'
  * 创建博客
  */
 export const reqCreateBlog = (data: CreateBlogParams) => {
-	return request.post<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.post<IBaseType<string>>({ url: PREFIX, data })
+}
+
+/**
+ * 获取博客列表
+ */
+export const reqGetBlogList = () => {
+	return request.get<IBaseListType<BlogItem>>({ url: PREFIX })
+}
+
+/**
+ * 获取博客详情
+ */
+export const reqGetBlogDetail = (id: number | string) => {
+	return request.get<IBaseType<BlogItem>>({ url: `${PREFIX}/${id}` })
+}
+
+/**
+ * 删除博客
+ */
+export const reqDeleteBlog = (id: number | string) => {
+	return request.delete<IBaseType<string>>({ url: `${PREFIX}/${id}` })
+}
+
+/**
+ * 编辑博客
+ */
+export const reqEditBlog = (data: BlogItem) => {
+	return request.put<IBaseType<string>>({ url: PREFIX, data })
 }

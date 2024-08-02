@@ -21,17 +21,17 @@ const props = withDefaults(defineProps<JcDrawerProps>(), {
 		class="jc-drawer-contianer"
 		v-if="visable">
 		<el-drawer
-			:close-on-click-modal="props.closeOnClickModal"
-			:before-close="props.beforeClose"
 			v-model="visable"
-			v-bind="$attrs">
+			v-bind="$attrs"
+			:close-on-click-modal="props.closeOnClickModal"
+			:before-close="props.beforeClose">
 			<template
 				v-for="(_, slot) in $slots"
-				:key="slot"
-				v-slot:[slot]="slotProps">
+				v-slot:[slot]="slotProps"
+				:key="slot">
 				<slot
-					:name="slot"
-					v-bind="slotProps"></slot>
+					v-bind="slotProps"
+					:name="slot"></slot>
 			</template>
 		</el-drawer>
 	</div>

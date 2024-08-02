@@ -49,8 +49,8 @@ defineExpose({
 		<div class="form-wrapper">
 			<JcForm
 				v-if="props.formConfig"
-				v-model="formData"
 				@submit="onSubmit"
+				v-model="formData"
 				v-bind="props.formConfig"></JcForm>
 		</div>
 		<!-- actions -->
@@ -76,22 +76,22 @@ defineExpose({
 					:key="slot"
 					v-slot:[slot]="scope">
 					<slot
-						:name="slot"
-						v-bind="scope"></slot>
+						v-bind="scope"
+						:name="slot"></slot>
 				</template>
 				<template #operate="scope">
 					<el-button
 						@click="handleTableEdit(scope.row)"
-						type="primary"
 						:icon="Edit"
+						type="primary"
 						plain
 						size="small"
 						>编辑</el-button
 					>
 					<el-button
 						@click="handleTableDelete(scope.row)"
-						type="danger"
 						:icon="Delete"
+						type="danger"
 						plain
 						size="small"
 						>删除</el-button
@@ -104,9 +104,9 @@ defineExpose({
 			class="paginator-wrapper"
 			v-if="props.paginatorConfig">
 			<JcPaginator
-				v-bind="props.paginatorConfig"
 				@page-change="onPageChange"
 				@size-change="onSizeChange"
+				v-bind="props.paginatorConfig"
 				:total="pagination.total"></JcPaginator>
 		</div>
 	</div>

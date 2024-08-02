@@ -90,8 +90,8 @@ getAllMenuList()
 			<template #operate="{ row }">
 				<el-button
 					@click="setRoleInfo(row, ActionType.ASSIGN)"
-					type="primary"
 					:icon="Postcard"
+					type="primary"
 					plain
 					size="small"
 					>分配权限</el-button
@@ -99,8 +99,8 @@ getAllMenuList()
 				<el-button
 					:disabled="row.roleName === SUPER_ADMIN_NAME"
 					@click="setRoleInfo(row, ActionType.EDIT)"
-					type="primary"
 					:icon="Edit"
+					type="primary"
 					plain
 					size="small"
 					>编辑</el-button
@@ -108,8 +108,8 @@ getAllMenuList()
 				<el-button
 					:disabled="row.roleName === SUPER_ADMIN_NAME"
 					@click="handleTableDelete(row)"
-					type="danger"
 					:icon="Delete"
+					type="danger"
 					plain
 					size="small"
 					>删除</el-button
@@ -128,9 +128,9 @@ getAllMenuList()
 			</template>
 			<template v-else>
 				<JcForm
+					@submit="handleSubmit"
 					v-bind="roleFormConfig"
-					v-model="curRoleInfo"
-					@submit="handleSubmit"></JcForm>
+					v-model="curRoleInfo"></JcForm>
 			</template>
 		</JcDrawer>
 	</div>

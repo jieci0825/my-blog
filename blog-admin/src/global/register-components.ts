@@ -6,9 +6,10 @@ import JcUpload from '@/components/jc-upload'
 import JcDrawer from '@/components/jc-drawer'
 import JcLogo from '@/components/jc-logo'
 import JcMenu from '@/components/jc-menu'
+import JcImage from '@/components/jc-image'
 import PageContent from '@/components/page-content'
 
-const comps = [JcForm, JcTable, JcPaginator, JcUpload, JcDrawer, JcLogo, JcMenu, PageContent]
+const comps = [JcForm, JcTable, JcPaginator, JcUpload, JcDrawer, JcLogo, JcMenu, JcImage, PageContent]
 
 export default function (app: App): void {
 	comps.forEach(comp => app.component(comp.name as string, comp))

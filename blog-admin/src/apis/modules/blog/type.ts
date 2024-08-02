@@ -1,13 +1,14 @@
+import type { BlogStatus } from '@/typings'
 import type { BlogTagItem } from '../blog-tag/type'
 
 export interface BlogItem {
-	id: string
+	id: number
 	date: string
 	title: string
 	previewUrl?: string
 	description?: string
 	htmlContent: string
-	status: 0 | 1 | 2
+	status: BlogStatus
 	categoryName?: string
 	lookNums: number
 	likeNums: number
@@ -21,7 +22,7 @@ export interface CreateBlogParams {
 	previewUrl?: string
 	description?: string
 	htmlContent: string
-	status: 0 | 1 | 2
+	status: BlogStatus
 	tagIds: number[]
 	categoryId?: number
 }

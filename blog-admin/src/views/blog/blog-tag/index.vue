@@ -67,10 +67,10 @@ const usePageContent = {
 <template>
 	<div class="blog-tag-container container">
 		<PageContent
-			:ref="setRef('tagPageContentRef')"
 			@handleTableEdit="handleTableEdit"
 			@handleTableDelete="handleTableDelete"
 			@actCreate="handleCreateTag"
+			:ref="setRef('tagPageContentRef')"
 			:use-page-content="usePageContent"
 			:form-config="tagSearchFormConfig"
 			:tableConfig="tagTableConfig"

@@ -14,16 +14,16 @@ const props = withDefaults(defineProps<JcDialogProps>(), {
 		class="jc-drawer-contianer"
 		v-if="visable">
 		<el-dialog
-			:close-on-click-modal="props.closeOnClickModal"
 			v-model="visable"
-			v-bind="$attrs">
+			v-bind="$attrs"
+			:close-on-click-modal="props.closeOnClickModal">
 			<template
 				v-for="(_, slot) in $slots"
-				:key="slot"
-				v-slot:[slot]="slotProps">
+				v-slot:[slot]="slotProps"
+				:key="slot">
 				<slot
-					:name="slot"
-					v-bind="slotProps"></slot>
+					v-bind="slotProps"
+					:name="slot"></slot>
 			</template>
 		</el-dialog>
 	</div>

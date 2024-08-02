@@ -8,21 +8,21 @@ const PREFIX = '/menu'
  * 获取全部的菜单列表
  */
 export const reqGetAllMenuList = (params: ReqGetMenuListParams) => {
-	return request.get<IBaseType<MenuItem[]>>({ url: `${PREFIX}`, params })
+	return request.get<IBaseType<MenuItem[]>>({ url: PREFIX, params })
 }
 
 /**
  * 创建菜单
  */
 export const reqCreateMenu = (data: MenuItem) => {
-	return request.post<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.post<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**
  * 编辑菜单
  */
 export const reqEditMenu = (data: MenuItem) => {
-	return request.put<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.put<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**

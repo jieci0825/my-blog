@@ -105,16 +105,16 @@ onMounted(() => {
 		v-bind="attrs"
 		:unique-opened="getAccordion"
 		:collapse="props.isCollapse"
+		:default-active="`${route.meta.id}`"
 		active-text-color="var(--primary-color)"
-		background-color="var(--aside-bg-color)"
-		:default-active="`${route.meta.id}`">
+		background-color="var(--aside-bg-color)">
 		<JcMenuItem
 			:menu-list="showMenuList"
 			:ancestors="ancestors"
 			:current-path="currentPath"></JcMenuItem>
 		<el-sub-menu
-			:class="['el-tooltip__trigger']"
 			index="more-index"
+			:class="['el-tooltip__trigger']"
 			v-if="hideMenuList.length">
 			<template #title>
 				<el-icon :size="18">

@@ -179,10 +179,10 @@ const getVerifyCode = async () => {
 				@submit="confirmModifyPassword">
 				<template #codeAppend>
 					<GetVerifyCode
-						style="width: 110px"
-						prefix="pwd"
+						@click="getVerifyCode"
 						:is-click="isGetCaptchaPassword"
-						@click="getVerifyCode" />
+						style="width: 110px"
+						prefix="pwd" />
 				</template>
 			</JcForm>
 		</JcDialog>
@@ -197,10 +197,10 @@ const getVerifyCode = async () => {
 				@submit="confirmReplaceEmail">
 				<template #codeAppend>
 					<GetVerifyCode
-						style="width: 110px"
-						prefix="email"
 						:is-click="isGettCaptchaReplaceEmail"
-						@click="getVerifyCode" />
+						@click="getVerifyCode"
+						style="width: 110px"
+						prefix="email" />
 				</template>
 			</JcForm>
 		</JcDialog>

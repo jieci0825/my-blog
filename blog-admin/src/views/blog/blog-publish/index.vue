@@ -6,9 +6,10 @@ import { FullScreen, Close, MessageBox, Position } from '@element-plus/icons-vue
 import { useEventListener } from '@/hooks'
 import { blogApi, blogCategoryApi } from '@/apis'
 import { useRefs } from '@/hooks/use-refs'
+import { uploadFile } from '@/cos'
+import { EBlogStatus } from '@/typings'
 import type { CreateBlogParams } from '@/apis/modules/blog/type'
 import type { BlogCategoryItem } from '@/apis/modules/blog-category/type'
-import { uploadFile } from '@/cos'
 
 defineOptions({ name: 'BlogPublish' })
 
@@ -16,7 +17,7 @@ const blogData: CreateBlogParams = reactive({
 	title: '',
 	description: '',
 	htmlContent: '',
-	status: 1,
+	status: EBlogStatus.PUBLISH,
 	tagIds: [],
 	categoryId: 0
 })
@@ -31,21 +32,6 @@ useEventListener(window, 'keydown', e => {
 		isFull.value = false
 	}
 })
-
-const handleDraft = async () => {
-	await submitIntercept()
-	blogData.status = 2
-	submitBlog(blogData, '已保存至草稿箱')
-}
-
-function reset() {
-	blogData.title = ''
-	blogData.htmlContent = ''
-	blogData.status = 1
-	blogData.tagIds = []
-	blogData.categoryId = 0
-	refs.editorRef.setHtml('')
-}
 
 // 分类列表
 const categoryList = ref<BlogCategoryItem[]>([])
@@ -62,6 +48,14 @@ const openPublishDrawer = () => {
 	visible.value = true
 }
 
+// 草稿
+const handleDraft = async () => {
+	await submitIntercept()
+	blogData.status = EBlogStatus.DRAFT
+	submitBlogData(blogData, '已保存至草稿箱')
+}
+
+// 发布
 const handlePublish = async (data: CreateBlogParams) => {
 	await submitIntercept()
 	// 处理文件
@@ -70,16 +64,28 @@ const handlePublish = async (data: CreateBlogParams) => {
 		data.previewUrl = result.url
 	}
 	const _blogData = Object.assign({}, blogData, data)
-	await submitBlog(_blogData, '成功发布博客')
+	await submitBlogData(_blogData, '成功发布博客')
 	visible.value = false
 }
 
-async function submitBlog(blogData: CreateBlogParams, message: string) {
+// 提交博客数据
+async function submitBlogData(blogData: CreateBlogParams, message: string) {
 	await blogApi.reqCreateBlog(blogData)
 	ElMessage.success(message)
 	reset()
 }
 
+// 重置
+function reset() {
+	blogData.title = ''
+	blogData.htmlContent = ''
+	blogData.status = EBlogStatus.PUBLISH
+	blogData.tagIds = []
+	blogData.categoryId = 0
+	refs.editorRef.setHtml('')
+}
+
+// 提交拦截
 function submitIntercept() {
 	return new Promise<void>(resolve => {
 		if (!blogData.title) {
@@ -102,15 +108,15 @@ function submitIntercept() {
 				placeholder="请输入博客标题..."></el-input>
 			<el-icon
 				@click="isFull = !isFull"
-				class="icon"
-				:size="30">
+				:size="30"
+				class="icon">
 				<FullScreen v-if="!isFull" />
 				<Close v-else />
 			</el-icon>
 			<el-button
 				@click="handleDraft"
-				style="margin-left: 20px"
-				:size="size">
+				:size="size"
+				style="margin-left: 20px">
 				<el-icon
 					style="margin-right: 5px"
 					:size="20">
@@ -132,16 +138,16 @@ function submitIntercept() {
 		</div>
 		<div class="content">
 			<Editor
-				:ref="setRef('editorRef')"
-				v-model:data="blogData.htmlContent" />
+				v-model:data="blogData.htmlContent"
+				:ref="setRef('editorRef')" />
 		</div>
 
 		<JcDrawer
 			title="发布博客"
 			v-model="visible">
 			<JcForm
-				v-bind="publishFormConfig"
-				@submit="handlePublish">
+				@submit="handlePublish"
+				v-bind="publishFormConfig">
 				<template #tagHeader>
 					<div style="font-size: 14px">搜索并选择需要添加的标签</div>
 				</template>

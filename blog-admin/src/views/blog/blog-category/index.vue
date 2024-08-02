@@ -65,10 +65,10 @@ const usePageContent = {
 <template>
 	<div class="blog-category-container container">
 		<PageContent
-			:ref="setRef('categoryPageContentRef')"
 			@handleTableEdit="handleTableEdit"
 			@handleTableDelete="handleTableDelete"
 			@actCreate="handleCreateCategory"
+			:ref="setRef('categoryPageContentRef')"
 			:use-page-content="usePageContent"
 			:tableConfig="categoryTableConfig"></PageContent>
 

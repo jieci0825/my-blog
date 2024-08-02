@@ -16,11 +16,11 @@ const { curPrimaryColor, setPrimaryColor } = useTheme()
 <template>
 	<div class="primary-box">
 		<div
-			@click="setPrimaryColor(item.hex)"
-			class="primary-box-item"
 			v-for="item in primaryColor"
+			@click="setPrimaryColor(item.hex)"
 			:key="item.hex"
-			:style="{ '--c': item.hex }">
+			:style="{ '--c': item.hex }"
+			class="primary-box-item">
 			<div class="preview"></div>
 			<div class="info">
 				<span class="color-name">{{ item.name }}</span>

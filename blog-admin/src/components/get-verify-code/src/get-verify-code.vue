@@ -57,9 +57,9 @@ if (!isState.value) {
 
 <template>
 	<el-button
-		:disabled="isDisabled"
-		v-bind="$attrs"
 		@click="handleClick"
+		v-bind="$attrs"
+		:disabled="isDisabled"
 		>{{ isState ? '获取验证码' : `${count} s` }}</el-button
 	>
 </template>

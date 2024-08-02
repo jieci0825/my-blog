@@ -88,16 +88,16 @@ const handleReset = (formEl: FormInstance | undefined) => {
 		<el-form
 			@submit.native.prevent="handleSubmit(jcFormRef)"
 			v-bind="totalProps"
-			ref="jcFormRef"
-			:model="formData">
+			:model="formData"
+			ref="jcFormRef">
 			<el-row
-				:style="{ width: '100%' }"
-				v-bind="props.rowConfig">
+				v-bind="props.rowConfig"
+				:style="{ width: '100%' }">
 				<!-- 单独配置的 col 规则大于整体布局规则 -->
 				<el-col
 					v-for="(item, index) in props.formItems"
-					:key="index"
-					v-bind="item.col ? { span: item.col } : props.colLayout">
+					v-bind="item.col ? { span: item.col } : props.colLayout"
+					:key="index">
 					<el-form-item
 						:prop="item.field"
 						:style="props.formItemStyle"
@@ -106,26 +106,26 @@ const handleReset = (formEl: FormInstance | undefined) => {
 						<template v-if="item.type === 'text' || item.type === 'password'">
 							<template v-if="item.isNumber">
 								<el-input
-									spellcheck="false"
 									v-model.number="formData[item.field]"
-									auto-complete="new-password"
-									autocomplete="off"
 									:disabled="item.disabled"
 									:type="item.type"
 									:show-password="item.type === 'password'"
-									:placeholder="item.placeholder">
+									:placeholder="item.placeholder"
+									auto-complete="new-password"
+									spellcheck="false"
+									autocomplete="off">
 								</el-input>
 							</template>
 							<template v-else>
 								<el-input
-									spellcheck="false"
 									v-model="formData[item.field]"
-									auto-complete="new-password"
-									autocomplete="off"
 									:disabled="item.disabled"
 									:type="item.type"
 									:show-password="item.type === 'password'"
-									:placeholder="item.placeholder">
+									:placeholder="item.placeholder"
+									spellcheck="false"
+									auto-complete="new-password"
+									autocomplete="off">
 									<template
 										v-if="item.prependSlot"
 										#prepend>
@@ -174,8 +174,8 @@ const handleReset = (formEl: FormInstance | undefined) => {
 							<el-input
 								v-model="formData[item.field]"
 								v-bind="item.otherElConfig"
-								type="textarea"
-								:placeholder="item.placeholder" />
+								:placeholder="item.placeholder"
+								:type="item.type" />
 						</template>
 						<!-- 文件上传 -->
 						<template v-else-if="item.type === 'file'">

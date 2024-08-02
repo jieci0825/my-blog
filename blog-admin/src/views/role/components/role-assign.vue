@@ -49,13 +49,13 @@ const handleSubmit = () => {
 			:default-expand-all="true"
 			:default-checked-keys="defaultCheckedKeys"
 			:data="allMenuList"
+			:props="{ label: 'menuTitle', children: 'children' }"
 			show-checkbox
-			node-key="id"
-			:props="{ label: 'menuTitle', children: 'children' }" />
+			node-key="id" />
 		<div class="actions">
 			<el-button
-				type="primary"
 				@click="handleSubmit"
+				type="primary"
 				>确定</el-button
 			>
 		</div>

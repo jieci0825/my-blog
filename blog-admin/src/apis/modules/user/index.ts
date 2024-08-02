@@ -15,14 +15,14 @@ const PREFIX = '/user'
  * 创建用户
  */
 export function reqCreateUser(data: UserItem) {
-	return request.post<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.post<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**
  * 获取用户信息
  */
 export function reqUserInfo() {
-	return request.get<IBaseType<UserItem>>({ url: `${PREFIX}` })
+	return request.get<IBaseType<UserItem>>({ url: PREFIX })
 }
 
 /**
@@ -43,7 +43,7 @@ export function reqGetUserList(params: GetUserListParams) {
  * 编辑用户信息
  */
 export function reqEditUserInfo(data: UserItem) {
-	return request.put<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.put<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**

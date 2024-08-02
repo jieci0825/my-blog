@@ -69,21 +69,21 @@ const handleOnePreview = () => {
 
 <template>
 	<div
-		class="one-upload-wrapper"
-		v-if="jcUploadInject?.model === 'one'">
+		v-if="jcUploadInject?.model === 'one'"
+		class="one-upload-wrapper">
 		<div
-			class="one-upload"
-			:style="jcUploadInject?.oneStyle">
+			:style="jcUploadInject?.oneStyle"
+			class="one-upload">
 			<el-upload
+				v-bind="jcUploadInject?.otherELConfig"
 				:show-file-list="false"
-				ref="oneUploadRef"
-				action="#"
 				:limit="1"
 				:accept="jcUploadInject?.accept"
 				:on-change="onOneChange"
 				:on-exceed="handleExceed"
-				v-bind="jcUploadInject?.otherELConfig"
-				:auto-upload="false">
+				:auto-upload="false"
+				ref="oneUploadRef"
+				action="#">
 				<el-icon :size="25"><Plus /></el-icon>
 			</el-upload>
 
@@ -94,24 +94,24 @@ const handleOnePreview = () => {
 				<div class="mask">
 					<div class="actions">
 						<div
-							class="action-item"
-							@click="handleOneEdit">
+							@click="handleOneEdit"
+							class="action-item">
 							<el-icon :size="18">
 								<Edit />
 							</el-icon>
 							<span>编辑</span>
 						</div>
 						<div
-							class="action-item"
-							@click="handleOnePreview">
+							@click="handleOnePreview"
+							class="action-item">
 							<el-icon :size="18">
 								<ZoomIn />
 							</el-icon>
 							<span>预览</span>
 						</div>
 						<div
-							class="action-item"
-							@click="handleOneDelete">
+							@click="handleOneDelete"
+							class="action-item">
 							<el-icon :size="18">
 								<Delete />
 							</el-icon>

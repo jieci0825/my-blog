@@ -9,14 +9,14 @@ const PREFIX = '/role'
  * 创建角色
  */
 export const reqCreateRole = async (data: ReqCreateRole) => {
-	return request.post<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.post<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**
  * 获取角色列表
  */
 export const reqGetRoleList = async () => {
-	return request.get<IBaseType<RoleItem[]>>({ url: `${PREFIX}` })
+	return request.get<IBaseType<RoleItem[]>>({ url: PREFIX })
 }
 
 /**
@@ -30,7 +30,7 @@ export const reqDeleteRole = async (id: number) => {
  * 编辑角色信息
  */
 export const reqEditRole = async (data: RoleItem) => {
-	return request.put<IBaseType<string>>({ url: `${PREFIX}`, data })
+	return request.put<IBaseType<string>>({ url: PREFIX, data })
 }
 
 /**

@@ -105,12 +105,12 @@ const handleAssignRole = async () => {
 			:paginator-config="{}">
 			<template #avatarUrl="{ row }">
 				<div
-					class="img-box"
-					@click="previewImage({ urlList: [row.avatarUrl] })">
+					@click="previewImage({ urlList: [row.avatarUrl] })"
+					class="img-box">
 					<el-image
+						:src="row.avatarUrl"
 						fit="cover"
-						style="width: 100%; height: 100%"
-						:src="row.avatarUrl" />
+						style="width: 100%; height: 100%" />
 				</div>
 			</template>
 			<template #roleNickname="{ row }">
@@ -122,24 +122,24 @@ const handleAssignRole = async () => {
 			<template #operate="{ row }">
 				<el-button
 					@click="openRoleAssignPanel(row)"
-					type="primary"
 					:icon="Postcard"
+					type="primary"
 					plain
 					size="small"
 					>分配角色</el-button
 				>
 				<el-button
 					@click="handleTableEdit(row)"
-					type="primary"
 					:icon="Edit"
+					type="primary"
 					plain
 					size="small"
 					>编辑</el-button
 				>
 				<el-button
 					@click="handleTableLogoff(row)"
-					type="danger"
 					:icon="Aim"
+					type="danger"
 					plain
 					size="small"
 					>注销</el-button
@@ -150,8 +150,8 @@ const handleAssignRole = async () => {
 		<!-- 抽屉 -->
 		<JcDrawer
 			v-model="drawerVisable"
-			size="500px"
-			:title="drawerTitle">
+			:title="drawerTitle"
+			size="500px">
 			<JcForm
 				v-model="curUserInfo"
 				v-bind="userFormConfig"
@@ -163,8 +163,8 @@ const handleAssignRole = async () => {
 			title="分配角色">
 			<el-radio-group v-model="selectRole">
 				<el-radio
-					:value="role.id"
 					v-for="role in getRoleList"
+					:value="role.id"
 					:key="role.id"
 					>{{ role.roleNickname }}</el-radio
 				>
