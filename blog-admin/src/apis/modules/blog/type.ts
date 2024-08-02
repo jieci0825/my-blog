@@ -1,9 +1,27 @@
-// 博客查询条件
-export interface QueryBlogCondition {
-	page: number
-	pageSize: number
-	keyword?: string
-	category?: string
+import type { BlogTagItem } from '../blog-tag/type'
+
+export interface BlogItem {
+	id: string
+	date: string
+	title: string
+	previewUrl?: string
+	description?: string
+	htmlContent: string
+	status: 0 | 1 | 2
+	categoryName?: string
+	lookNums: number
+	likeNums: number
+	tags: BlogTagItem[]
+	categoryId?: number | null
+	authorId: number
 }
 
-export interface BlogItem {}
+export interface CreateBlogParams {
+	title: string
+	previewUrl?: string
+	description?: string
+	htmlContent: string
+	status: 0 | 1 | 2
+	tagIds: number[]
+	categoryId?: number
+}

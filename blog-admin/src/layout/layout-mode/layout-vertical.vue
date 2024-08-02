@@ -47,7 +47,9 @@ watch(
 						<Transition
 							:name="getRouteAnimation"
 							mode="out-in">
-							<Component :is="Component" />
+							<keep-alive include="BlogPublish">
+								<Component :is="Component" />
+							</keep-alive>
 						</Transition>
 					</router-view>
 				</el-main>

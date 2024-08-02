@@ -80,6 +80,7 @@ const overviewList = computed(() => {
 				justify-content: center;
 				align-items: center;
 				margin-right: 10px;
+				transition: var(--bg-color-transition);
 				.iconfont {
 					font-size: 25px;
 					color: var(--el-color-primary);

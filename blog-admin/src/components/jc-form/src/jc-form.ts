@@ -35,6 +35,7 @@ export interface JcFormItem {
 	formatProps?: FormatProps // 用于格式化 label 和 value 字段名
 	prependSlot?: string
 	appendSlot?: string
+	headerSlot?: string
 }
 
 interface RowConfig {

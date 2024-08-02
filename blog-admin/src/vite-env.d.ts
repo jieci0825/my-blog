@@ -1,13 +1,10 @@
 /// <reference types="vite/client" />
 
 declare module 'nprogress'
-
 declare module 'crypto-js'
-
 declare module 'dayjs'
-
+declare module '@toast-ui/editor'
 declare module 'resize-observer-polyfill'
-
 declare module 'element-plus/dist/locale/zh-cn.mjs'
 
 declare module '*.vue' {

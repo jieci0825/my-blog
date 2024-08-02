@@ -8,7 +8,7 @@ const PREFIX = '/blog/tag'
  * 获取标签列表
  */
 export const reqGetBlogTagList = (params: GetBlogTagListParams) => {
-	return request.get<IBaseType<IBaseListType<BlogTagItem>>>({ url: PREFIX, params })
+	return request.get<IBaseListType<BlogTagItem>>({ url: PREFIX, params })
 }
 
 /**

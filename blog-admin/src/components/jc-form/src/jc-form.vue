@@ -146,6 +146,11 @@ const handleReset = (formEl: FormInstance | undefined) => {
 								v-bind="item.otherElConfig"
 								:disabled="item.disabled"
 								:placeholder="item.placeholder">
+								<template
+									v-if="item.headerSlot"
+									#header>
+									<slot :name="item.headerSlot"></slot>
+								</template>
 								<el-option
 									v-for="it in item.options"
 									:key="it.id"
@@ -153,6 +158,7 @@ const handleReset = (formEl: FormInstance | undefined) => {
 									:value="it[item.formatProps?.value || 'value']" />
 							</el-select>
 						</template>
+						<!-- 单选 -->
 						<template v-else-if="item.type === 'radio'">
 							<el-radio-group v-model="formData[item.field]">
 								<el-radio

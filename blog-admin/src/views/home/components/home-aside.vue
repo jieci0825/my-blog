@@ -129,6 +129,7 @@ function getOptions(accessDeviceData: AccessDeviceCount) {
 			color: var(--el-color-primary);
 			font-weight: bold;
 			text-align: center;
+			transition: var(--bg-color-transition);
 			.active {
 				font-size: 25px;
 			}
