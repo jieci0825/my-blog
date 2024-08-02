@@ -36,6 +36,9 @@
 				color: var(--el-color-primary);
 			}
 		}
+		.el-menu {
+			margin-top: 5px;
+		}
 	}
 	&.el-menu--horizontal {
 		display: flex;
@@ -45,6 +48,10 @@
 			border-radius: 0;
 			min-width: fit-content;
 			margin-bottom: 0;
+			.el-sub-menu__title {
+				border-radius: 0;
+				border-bottom: none;
+			}
 		}
 	}
 	&.el-menu--popup {
