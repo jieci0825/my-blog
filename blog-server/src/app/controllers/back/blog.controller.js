@@ -22,7 +22,17 @@ async function getBlogList(ctx) {
 	throw new DataSuccess(result)
 }
 
+/**
+ * 获取博客详情
+ */
+async function getBlogDetail(ctx) {
+	const { id } = ctx.params
+	const result = await blogService.getBlogDetail(id)
+	throw new DataSuccess(result)
+}
+
 module.exports = {
 	createBlog,
-	getBlogList
+	getBlogList,
+	getBlogDetail
 }

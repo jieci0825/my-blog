@@ -6,6 +6,7 @@ const { Op } = require('sequelize')
 const blogCategoryService = require('./blog-category.service')
 const { toCamelCaseForObj, formatDateTime } = require('@/utils')
 const { User } = require('@/app/models/user.model')
+const { BlogCategory } = require('@model/blog-category.model')
 
 /**
  * 创建博客
@@ -18,7 +19,7 @@ async function createBlog(data) {
 		title: data.title,
 		description: data.description,
 		html_content: data.htmlContent,
-		status: 1,
+		status: data.status,
 		author_id: data.authorId,
 		category_id: data.categoryId || null
 	}
@@ -26,10 +27,7 @@ async function createBlog(data) {
 	const result = await sequelize.transaction(async t => {
 		const blog = await Blog.create(insertData, { transaction: t })
 		const tagInsertData = data.tagIds.map(tagId => {
-			return {
-				tag_id: tagId,
-				blog_id: blog.id
-			}
+			return { tag_id: tagId, blog_id: blog.id }
 		})
 		await BlogTagUnite.bulkCreate(tagInsertData, { transaction: t })
 	})
@@ -95,7 +93,24 @@ async function getBlogList(data) {
 	}
 }
 
+/**
+ * 获取博客详情
+ */
+async function getBlogDetail(id) {
+	const blogDetail = await Blog.findOne({ where: { id } })
+	// 标签
+	const BlogTagIds = await BlogTagUnite.findAll({ where: { blog_id: blogDetail.id } })
+	const tagIds = BlogTagIds.map(item => item.tag_id)
+	const tagList = await BlogTag.findAll({ where: { id: tagIds } })
+	blogDetail.dataValues.tags = tagList
+	// 分类
+	const category = await BlogCategory.findOne({ where: { id: blogDetail.category_id } })
+	blogDetail.dataValues.categoryName = category ? category.dataValues.category_name : '未分类'
+	return blogDetail
+}
+
 module.exports = {
 	createBlog,
-	getBlogList
+	getBlogList,
+	getBlogDetail
 }
