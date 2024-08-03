@@ -74,7 +74,6 @@ async function highlight() {
 }
 
 const onChange = () => {
-	emits('update:data', editor.getHTML())
 	highlight()
 }
 

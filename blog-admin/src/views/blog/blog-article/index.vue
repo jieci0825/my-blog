@@ -48,6 +48,7 @@ const handleSubmit = async (data: BlogItem) => {
 		const result = await uploadFile(data.previewUrl as unknown as File)
 		data.previewUrl = result.url
 	}
+	data.htmlContent = refs.editorRef.getHtml()
 	const resp = await blogApi.reqEditBlog(data)
 	ElMessage.success(resp.msg)
 	dialogVisable.value = false
@@ -83,7 +84,7 @@ const usePageContent = {
 			<template #preview="{ row }">
 				<JcImage
 					:width="100"
-					:height="70"
+					:height="60"
 					:src="row.previewUrl" />
 			</template>
 			<template #tags="{ row }">
@@ -117,7 +118,8 @@ const usePageContent = {
 				<template #htmlContent>
 					<Editor
 						v-if="curBlogInfo"
-						v-model:data="curBlogInfo.htmlContent" />
+						v-model:data="curBlogInfo.htmlContent"
+						:ref="setRef('editorRef')" />
 				</template>
 			</JcForm>
 		</JcDialog>
@@ -135,6 +137,7 @@ const usePageContent = {
 	:deep(.el-dialog) {
 		margin: 0;
 		height: 100%;
+		overflow: hidden auto;
 	}
 }
 </style>

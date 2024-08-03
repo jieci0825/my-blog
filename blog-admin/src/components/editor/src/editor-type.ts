@@ -6,5 +6,4 @@ export interface EditorProps {
 
 export interface EditorEmits {
 	(e: 'uploadFile', file: File, callback: InsertFnType): void
-	(e: 'update:data', data: string): void
 }

@@ -15,6 +15,7 @@ defineOptions({ name: 'BlogPublish' })
 
 const blogData: CreateBlogParams = reactive({
 	title: '',
+	previewUrl: '',
 	description: '',
 	htmlContent: '',
 	status: EBlogStatus.PUBLISH,
@@ -70,6 +71,7 @@ const handlePublish = async (data: CreateBlogParams) => {
 
 // 提交博客数据
 async function submitBlogData(blogData: CreateBlogParams, message: string) {
+	blogData.htmlContent = refs.editorRef.getHtml()
 	await blogApi.reqCreateBlog(blogData)
 	ElMessage.success(message)
 	reset()
@@ -91,7 +93,7 @@ function submitIntercept() {
 		if (!blogData.title) {
 			return ElMessage.warning('请输入博客标题')
 		}
-		if (!blogData.htmlContent) {
+		if (refs.editorRef.getHtml() === '<p><br></p>') {
 			return ElMessage.warning('请输入博客内容')
 		}
 		resolve()
