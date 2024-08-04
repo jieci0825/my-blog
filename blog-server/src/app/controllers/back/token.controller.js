@@ -16,7 +16,7 @@ async function token(ctx) {
 	const { data } = new Validator().validate(ctx, tokenRules)
 
 	const userInfo = await User.findOne({ where: { account: data.account, status: 1 } })
-	if (!userInfo) throw new ParamsError('当前用户不存在')
+	if (!userInfo) throw new ParamsError('当前账号不存在')
 
 	const { id, account, password, role_id } = userInfo.dataValues
 
@@ -29,9 +29,8 @@ async function token(ctx) {
 	}
 
 	const tokenData = { id, account, roleId: role_id }
-
 	const { TokenConfig } = global.config
-	const token = generateToken(tokenData, TokenConfig.PRIVATE_KEY, TokenConfig.expiresIn)
+	const token = generateToken(tokenData, TokenConfig.PRIVATE_KEY, TokenConfig.EXPIRESIN)
 	throw new DataSuccess({ token })
 }
 

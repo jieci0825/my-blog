@@ -7,6 +7,7 @@ const blogCategoryService = require('./blog-category.service')
 const { toCamelCaseForObj, formatDateTime } = require('@/utils')
 const { User } = require('@/app/models/user.model')
 const { BlogCategory } = require('@model/blog-category.model')
+const { NotFound } = require('@/core/error-type')
 
 /**
  * 创建博客
@@ -29,7 +30,13 @@ async function createBlog(data) {
 		const tagInsertData = data.tagIds.map(tagId => {
 			return { tag_id: tagId, blog_id: blog.id }
 		})
+		// 批量插入博客标签关联表
 		await BlogTagUnite.bulkCreate(tagInsertData, { transaction: t })
+		// 更新分类的博客数量
+		if (insertData.category_id) {
+			const category = await BlogCategory.findByPk(insertData.category_id)
+			await category.increment('blog_nums', { by: 1, transaction: t })
+		}
 	})
 
 	return result
@@ -114,6 +121,9 @@ async function getBlogDetail(id) {
  * @params {object} data
  */
 async function editBlog(data) {
+	const blog = await Blog.findByPk(data.id)
+	if (!blog) throw new NotFound('博客不存在')
+
 	const updateData = {
 		preview_url: data.previewUrl,
 		title: data.title,
@@ -130,6 +140,22 @@ async function editBlog(data) {
 		// 删除之前的标签关联在添加新的标签关联
 		await BlogTagUnite.destroy({ where: { blog_id: data.id }, force: true, transaction: t })
 		await BlogTagUnite.bulkCreate(tagInsertData, { transaction: t })
+
+		if (updateData.category_id === blog.category_id) return
+
+		// * 更新分类id与之前的分类不一致时才更新
+		//  - 如果当前更新的分类id不存在则，则只需要更新旧的分类的博客数量减1
+		if (!updateData.category_id) {
+			const category = await BlogCategory.findByPk(blog.category_id)
+			await category.decrement('blog_nums', { by: 1, transaction: t })
+		}
+		// - 如果当前更新的分类id存在则，则需要更新旧的分类的博客数量减1，在将新的分类的博客数量加1
+		else {
+			const newCategory = await BlogCategory.findByPk(updateData.category_id)
+			const oldCategory = await BlogCategory.findByPk(blog.category_id)
+			await newCategory.increment('blog_nums', { by: 1, transaction: t })
+			await oldCategory.decrement('blog_nums', { by: 1, transaction: t })
+		}
 	})
 
 	return result
@@ -144,6 +170,7 @@ async function deleteBlog(id) {
 		await BlogTagUnite.destroy({ where: { blog_id: id }, force: true, transaction: t })
 		await Blog.destroy({ where: { id }, force: true, transaction: t })
 	})
+	return result
 }
 
 module.exports = {

@@ -17,8 +17,10 @@ module.exports = {
 	},
 	TokenConfig: {
 		PRIVATE_KEY: PRIVATE_KEY.toString(),
-		PUBLIC_KEY: PRIVATE_KEY.toString(),
-		expiresIn: '1d'
+		PUBLIC_KEY: PUBLIC_KEY.toString(),
+		REFRESH_KEY: 'mm2qIh8X6MPxR2mMl4U4S.fUQNos65Y1LLL0tLRCtiRx6JhvAtdFm',
+		REFRESH_EXPIRESIN: '30s',
+		EXPIRESIN: '10s'
 	},
 	siteHomeInfo: {
 		title: '劫辞の树洞',

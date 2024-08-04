@@ -12,7 +12,14 @@ const CaptchaType = createEnums({
 	EMAIL: 100 // 邮箱
 })
 
+// 账号主体类型
+const ACCOUNT_TYPE = createEnums({
+	EMAIL: 'email', // 邮箱
+	SYSTEM_ACCOUNT: 'system_account' // 系统账号
+})
+
 module.exports = {
 	LoginType,
-	CaptchaType
+	CaptchaType,
+	ACCOUNT_TYPE
 }

@@ -78,13 +78,25 @@ function createEnums(enums) {
 
 /**
  * 生成 token
- * @param {*} info 保存的信息
+ * @param {object} info 保存的信息
  * @param {string} secretKey 密钥
  * @param {*} expiresIn 有效时间
  * @returns {string}
  */
 function generateToken(info, secretKey, expiresIn) {
 	const token = jwt.sign(info, secretKey, { expiresIn, algorithm: 'RS256' })
+	return token
+}
+
+/**
+ * 生成刷新 token
+ * @param {object} info 保存的信息
+ * @param {string} secretKey 密钥
+ * @param {*} expiresIn 有效时间
+ * @returns {string}
+ */
+function generateRefreshToken(info, secretKey, expiresIn) {
+	const token = jwt.sign(info, secretKey, { expiresIn })
 	return token
 }
 
@@ -316,6 +328,7 @@ module.exports = {
 	md5password,
 	createEnums,
 	generateToken,
+	generateRefreshToken,
 	genBackPrefix,
 	genFrontPrefix,
 	toCamelCase,
