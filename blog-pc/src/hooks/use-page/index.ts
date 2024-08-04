@@ -1,10 +1,15 @@
-import { computed, onBeforeMount, reactive, toRefs } from 'vue'
+import { computed, isRef, onBeforeMount, reactive, toRefs } from 'vue'
 import type { UsePageOptions } from './type'
+
+function _isRef(obj: any) {
+	return isRef(obj) ? obj.value : obj
+}
 
 const defaultOptions: UsePageOptions = {
 	immediate: true,
 	listField: 'list',
-	totalField: 'total'
+	totalField: 'total',
+	isPage: true
 }
 
 export function usePage(request: Function, queryParams: object, options?: UsePageOptions) {
@@ -43,13 +48,13 @@ export function usePage(request: Function, queryParams: object, options?: UsePag
 
 	async function fetchData() {
 		// 合并传递的查询参数与分页数据为查询条件
-		Object.assign(state.condition, queryParams, pageParams.value)
+		Object.assign(state.condition, _isRef(queryParams), _options.isPage ? pageParams.value : {})
 		// 如果存在传递的查询参数，则将其保存
-		queryParams && (state.initQueryParams = queryParams)
+		state.queryParams && (state.initQueryParams = _isRef(queryParams))
 
 		const resp = await request(state.condition)
-		state.data = resp.data.data[_options.listField!]
-		state.pagination.total = resp.data.data[_options.totalField || 'total']
+		state.data = resp.data[_options.listField!]
+		state.pagination.total = resp.data[_options.totalField || 'total']
 		state.respRawData = resp.data
 
 		_options?.respAfterCallback && _options.respAfterCallback(resp.data)

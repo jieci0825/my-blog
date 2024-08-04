@@ -21,8 +21,8 @@ const props = defineProps<BlogDetailContentProps>()
 			</div>
 		</div>
 		<div
-			class="main markdown-body"
-			v-html="props.blogInfo.htmlContent"></div>
+			v-html="props.blogInfo.htmlContent"
+			class="main markdown-body"></div>
 	</div>
 </template>
 

@@ -5,7 +5,7 @@ const primaryColor = [
 	{ name: '水龙吟', hex: '#84a729' },
 	{ name: '苍苍', hex: '#526efa' },
 	{ name: '霁青', hex: '#63bbd0' },
-	{ name: '天水碧', hex: '#55a3ae' },
+	{ name: '天水碧', hex: '#16baaa' },
 	{ name: '琥珀', hex: '#ff7400' },
 	{ name: '鹤顶', hex: '#d50021' }
 ]

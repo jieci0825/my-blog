@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { formatTime } from '@/utils'
+import type { BlogItem } from '@/apis/modules/blog/type'
 
-// todo：补齐类型
-const props = defineProps<{ itemData: any }>()
+const props = defineProps<{ itemData: BlogItem }>()
 </script>
 
 <template>
@@ -38,11 +38,11 @@ const props = defineProps<{ itemData: any }>()
 				</div>
 				<div class="tags">
 					<el-tag
+						v-for="tag in props.itemData.tags"
+						:key="tag.id"
 						type="info"
-						size="small"
-						v-for="tag in props.itemData.tagList"
-						:key="tag.name">
-						{{ tag.name }}
+						size="small">
+						{{ tag.tagName }}
 					</el-tag>
 				</div>
 			</div>
@@ -143,6 +143,8 @@ const props = defineProps<{ itemData: any }>()
 		display: flex;
 		.left {
 			width: 100%;
+			display: flex;
+			flex-direction: column;
 			.description {
 				width: 100%;
 				font-size: 16px;
@@ -162,6 +164,7 @@ const props = defineProps<{ itemData: any }>()
 				}
 			}
 			.tags {
+				margin-top: auto;
 				display: flex;
 				align-items: center;
 				gap: 10px;

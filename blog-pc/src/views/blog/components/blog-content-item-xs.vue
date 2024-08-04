@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { formatTime } from '@/utils'
+import type { BlogItem } from '@/apis/modules/blog/type'
 
 // todo：补齐类型
-const props = defineProps<{ itemData: any }>()
+const props = defineProps<{ itemData: BlogItem }>()
 
 const toBlogDetail = () => {
 	window.open(`/blog-detail/${props.itemData.id}`, '_blank')

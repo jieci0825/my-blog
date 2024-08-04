@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import Toc, { type TocItem } from '@/components/toc'
-import axios from 'axios'
 import BlogSidebarItemSkeleton from './blog-sidebar-item-skeleton.vue'
+import { ref } from 'vue'
 import { useSkeleton } from '@/hooks'
 import { useGlobalGetters } from '@/store'
+import { blogApi } from '@/apis'
+import { EBlogRank } from '@/typings'
+import { BlogItem } from '@/apis/modules/blog/type'
 
 const { loadingSkeleton, closeSkeleton } = useSkeleton()
 
@@ -12,69 +14,11 @@ const { getAuthorInfoState } = useGlobalGetters()
 
 // 分类列表
 const categoryList = ref<TocItem[]>([])
-const getCategoryList = () => {
-	categoryList.value = [
-		{
-			label: '第一章',
-			children: [
-				{
-					label: '第一节',
-					children: [
-						{
-							label: '第一小节'
-						},
-						{
-							label: '第二小节'
-						}
-					]
-				},
-				{
-					label: '第二节',
-					children: [
-						{
-							label: '第一小节'
-						}
-					]
-				}
-			]
-		},
-		{
-			label: '第二章',
-			children: [
-				{
-					label: '第一节',
-					children: [
-						{
-							label: '第一小节'
-						},
-						{
-							label: '第二小节',
-							children: [
-								{
-									label: '第一小小节'
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			label: '第三章',
-			children: [
-				{
-					label: '第一节',
-					children: [
-						{
-							label: '第一小节'
-						}
-					]
-				}
-			]
-		}
-	]
-
-	// todo: 关闭骨架屏
+const getCategoryList = async () => {
+	const resp = await blogApi.reqGetBlogCategoryList()
+	categoryList.value = resp.data.map(item => {
+		return { id: item.id, label: item.categoryName, count: item.blogNums }
+	})
 	closeSkeleton()
 }
 getCategoryList()
@@ -85,14 +29,10 @@ const tocClick = (item: TocItem, evt: MouseEvent) => {
 }
 
 // 热门 blog
-const hotBlogList = ref<any[]>([])
+const hotBlogList = ref<BlogItem[]>([])
 const getHotBlogList = async () => {
-	const resp = await axios({
-		method: 'GET',
-		url: 'https://s.coder-helper.coderjc.cn/api/front/document/rank/hot'
-	})
-	hotBlogList.value = resp.data.data
-	// todo: 关闭骨架屏
+	const resp = await blogApi.reqGetBlogRank({ type: EBlogRank.HOT })
+	hotBlogList.value = resp.data
 	closeSkeleton()
 }
 getHotBlogList()
@@ -143,7 +83,10 @@ getHotBlogList()
 								class="item"
 								v-for="item in hotBlogList"
 								:key="item.id">
-								{{ item.title }}
+								<div class="text">
+									<span>{{ item.title }}</span>
+								</div>
+								<span class="look">{{ item.lookNums }}</span>
 							</div>
 						</div>
 					</div>
@@ -247,13 +190,24 @@ getHotBlogList()
 				width: 100%;
 				margin-top: 10px;
 				.item {
+					display: flex;
 					font-size: 15px;
 					line-height: 24px;
-					.one-omit();
 					color: var(--el-text-color-regular);
 					&:hover {
 						cursor: pointer;
 						color: var(--primary-color);
+					}
+					.text {
+						flex: 1;
+						margin-right: 10px;
+						.one-omit();
+					}
+					.look {
+						flex-shrink: 0;
+						margin-left: auto;
+						font-size: 13px;
+						color: var(--el-text-color-placeholder);
 					}
 				}
 			}

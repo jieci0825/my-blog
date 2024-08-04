@@ -3,40 +3,22 @@ import BlogContentItem from './blog-content-item.vue'
 import BlogContentItemSkeleton from './blog-content-item-skeleton.vue'
 import BlogContentItemXS from './blog-content-item-xs.vue'
 import BlogContentItemXSSkeleton from './blog-content-item-xs-skeleton.vue'
-import axios from 'axios'
+import { ref } from 'vue'
 import { usePage, useSkeleton } from '@/hooks'
+import { blogApi } from '@/apis'
+import type { GetBlogListParams } from '@/apis/modules/blog/type'
 
 // blog 列表
 const { loadingSkeleton, closeSkeleton } = useSkeleton()
 
-// test
-const fetchData = async (params: any) => {
-	return axios({
-		method: 'POST',
-		url: 'https://s.coder-helper.coderjc.cn/api/front/document',
-		data: params
-	})
-}
+const condition = ref<GetBlogListParams>({ page: 1, pageSize: 10, title: '' })
 
 const {
 	data: blogList,
 	pagination,
 	onPage,
 	onPageSize
-} = usePage(
-	fetchData,
-	{
-		limit: 10,
-		page: 1,
-		sort: 'lately',
-		tagIds: [],
-		title: '',
-		type: 'article'
-	},
-	{
-		respAfterCallback: closeSkeleton
-	}
-)
+} = usePage(blogApi.reqGetBlogList, condition, { respAfterCallback: closeSkeleton })
 </script>
 
 <template>
@@ -72,23 +54,23 @@ const {
 		<div class="footer">
 			<div class="pagination">
 				<el-pagination
-					size="small"
-					background
 					@current-change="onPage"
 					@size-change="onPageSize"
 					:page-sizes="[5, 10, 15, 20]"
+					:total="pagination.total"
 					layout="total, sizes, ->, prev, pager, next, jumper"
-					:total="pagination.total" />
+					size="small"
+					background />
 			</div>
 			<div class="pagination-xs">
 				<el-pagination
-					size="small"
-					background
 					@current-change="onPage"
 					@size-change="onPageSize"
 					:page-sizes="[5, 10, 15, 20]"
+					:total="pagination.total"
+					size="small"
 					layout="total, prev, pager, next"
-					:total="pagination.total" />
+					background />
 			</div>
 		</div>
 	</div>

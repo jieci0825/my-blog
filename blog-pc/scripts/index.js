@@ -19,4 +19,4 @@ function onResize() {
 
 // onResize()
 
-window.addEventListener('resize', debounce(onResize, 100))
+// window.addEventListener('resize', debounce(onResize, 100))

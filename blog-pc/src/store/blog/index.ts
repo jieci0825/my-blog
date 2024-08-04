@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { QueryBlogItem } from './type'
+import type { BlogItem } from '@/apis/modules/blog/type'
 
 export const piniaBlogStore = defineStore('blog', () => {
-	const queryBlogListState = ref<QueryBlogItem[]>([])
+	const queryBlogListState = ref<BlogItem[]>([])
 
-	const setQueryBlogListState = (data: QueryBlogItem[]) => {
+	const setQueryBlogListState = (data: BlogItem[]) => {
 		queryBlogListState.value = data
 	}
 

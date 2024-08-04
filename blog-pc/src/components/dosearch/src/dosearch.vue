@@ -2,9 +2,9 @@
 import { useBlogGetters, useBlogActions } from '@/store'
 import { ref, nextTick, watch } from 'vue'
 import { KeyEnum, type IFooterTips } from './dosearch.type'
-import type { QueryBlogItem } from '@/store/blog/type'
 import { useEventListener } from '@/hooks'
 import { debounce } from '@/utils'
+import type { BlogItem } from '@/apis/modules/blog/type'
 
 const visibleModel = defineModel<boolean>('visible', { required: true, default: false })
 
@@ -13,7 +13,7 @@ const keyword = ref('')
 const { queryBlogListState } = useBlogGetters()
 const { getQueryBlogList, clearQueryBlogList } = useBlogActions()
 
-const formatHtmlQueryBlogList = ref<QueryBlogItem[]>([])
+const formatHtmlQueryBlogList = ref<BlogItem[]>([])
 
 watch(
 	() => queryBlogListState.value,
@@ -22,7 +22,7 @@ watch(
 	}
 )
 
-function _formatHtmlQueryBlogListFn(list: QueryBlogItem[]) {
+function _formatHtmlQueryBlogListFn(list: BlogItem[]) {
 	return list.map(item => {
 		const index = item.title.indexOf(keyword.value)
 		if (index === -1) return item
@@ -36,7 +36,7 @@ function _formatHtmlQueryBlogListFn(list: QueryBlogItem[]) {
 // 选中索引
 const selectIndex = ref(0)
 // 选中项
-const selectItem = ref<QueryBlogItem | null>(null)
+const selectItem = ref<BlogItem | null>(null)
 // 是否处于输入状态
 const isComposing = ref(false)
 // 引用内容区域dom
@@ -145,7 +145,7 @@ const onInput = () => {
 	getQueryBlogList({
 		page: 1,
 		pageSize: 30,
-		keyword: keyword.value
+		title: keyword.value
 	})
 }
 
@@ -170,7 +170,7 @@ function destroy() {
 }
 
 // 点击搜索列表项
-const handleClickItem = (item: QueryBlogItem) => {
+const handleClickItem = (item: BlogItem) => {
 	selectItem.value = item
 	handleConfirm()
 }

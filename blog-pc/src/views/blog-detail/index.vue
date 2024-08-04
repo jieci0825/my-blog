@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import axios from 'axios'
 import BlogDetailContent from './components/blog-detail-content.vue'
 import BlogDetailSidebar from './components/blog-detail-sidebar.vue'
+import { blogApi } from '@/apis'
 import { nextTick, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { codeToHtml } from 'shiki'
@@ -12,11 +12,8 @@ const blogInfo = ref({})
 const titleList = ref<Element[]>([])
 
 const getDetail = async () => {
-	const { data } = await axios({
-		method: 'GET',
-		url: `https://s.coder-helper.coderjc.cn/api/front/document/detail/${$route.params.id}`
-	})
-	blogInfo.value = data.data
+	const resp = await blogApi.reqGetBlogDetail($route.params.id as string)
+	blogInfo.value = resp.data
 
 	nextTick(() => {
 		highlight()
