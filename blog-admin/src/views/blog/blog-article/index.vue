@@ -118,7 +118,7 @@ const usePageContent = {
 				<template #htmlContent>
 					<Editor
 						v-if="curBlogInfo"
-						v-model:data="curBlogInfo.htmlContent"
+						:data="curBlogInfo.htmlContent"
 						:ref="setRef('editorRef')" />
 				</template>
 			</JcForm>

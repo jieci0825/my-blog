@@ -140,7 +140,7 @@ function submitIntercept() {
 		</div>
 		<div class="content">
 			<Editor
-				v-model:data="blogData.htmlContent"
+				:data="blogData.htmlContent"
 				:ref="setRef('editorRef')" />
 		</div>
 

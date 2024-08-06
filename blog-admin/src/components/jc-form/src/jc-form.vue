@@ -174,6 +174,14 @@ const handleReset = (formEl: FormInstance | undefined) => {
 								:init-preview-image="formData[item.field]"
 								:model="item.model"></JcUpload>
 						</template>
+						<!-- 选择日期 -->
+						<template v-else-if="item.type === 'date-select'">
+							<el-date-picker
+								v-model="formData[item.field]"
+								v-bind="item.otherElConfig"
+								:type="item?.otherElConfig?.type || 'date'"
+								:placeholder="item.placeholder" />
+						</template>
 						<!-- 自定义 -->
 						<template v-else-if="item.type === 'custom'">
 							<slot :name="item.slotName"></slot>

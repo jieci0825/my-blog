@@ -51,6 +51,11 @@ const routeDynamic: RouteRecordRaw[] = [
 		component: () => import(/* webpackChunkName: "blog-tag" */ '@/views/blog/blog-tag/index.vue')
 	},
 	{
+		path: '/comment',
+		name: 'comment',
+		component: () => import(/* webpackChunkName: "comment" */ '@/views/comment/index.vue')
+	},
+	{
 		path: '/friend-chain',
 		name: 'friend-chain',
 		component: () => import(/* webpackChunkName: "friend-chain" */ '@/views/friend-chain/index.vue')
@@ -64,6 +69,11 @@ const routeDynamic: RouteRecordRaw[] = [
 		path: '/my-center',
 		name: 'my-center',
 		component: () => import(/* webpackChunkName: "my-center" */ '@/views/my-center/index.vue')
+	},
+	{
+		path: '/log',
+		name: 'log',
+		component: () => import(/* webpackChunkName: "log" */ '@/views/log/index.vue')
 	}
 ]
 

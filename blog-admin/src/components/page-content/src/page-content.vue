@@ -22,9 +22,9 @@ const queryParams = computed(() => {
 	return Object.assign({}, formData.value, props.usePageContent?.queryParams || {})
 })
 const { onPageChange, onSizeChange, data, pagination, fetchData, search } = usePageContent({
-	request: props.usePageContent?.request,
 	queryParams,
-	isPage: !!props.paginatorConfig
+	isPage: !!props.paginatorConfig,
+	...props.usePageContent
 })
 
 const onSubmit = () => {

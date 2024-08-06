@@ -11,6 +11,7 @@ export type FormItemType =
 	| 'radio'
 	| 'select'
 	| 'custom'
+	| 'date-select'
 
 interface FormatProps {
 	label?: string
