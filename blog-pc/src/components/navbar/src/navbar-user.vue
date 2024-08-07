@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown, User, SwitchButton } from '@element-plus/icons-vue'
+import { User, SwitchButton } from '@element-plus/icons-vue'
 import { useGlobalActions, useUserGetters } from '@/store'
 import { useRouter } from 'vue-router'
 
@@ -33,7 +33,6 @@ const { logout } = useGlobalActions()
 <style scoped lang="less">
 .layout-user-box {
 	flex-shrink: 0;
-	margin-left: 25px;
 	display: flex;
 	align-items: center;
 	cursor: pointer;

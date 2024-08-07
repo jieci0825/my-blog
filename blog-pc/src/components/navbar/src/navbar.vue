@@ -178,7 +178,7 @@ const { isLogin } = useUserGetters()
 			.search {
 				cursor: pointer;
 				margin: 0 20px;
-				color: var(--el-text-color-placeholder);
+				color: var(--el-text-color-regular);
 				display: flex;
 				align-items: center;
 				gap: 10px;
@@ -301,12 +301,10 @@ const { isLogin } = useUserGetters()
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				width: 22px;
-				height: 22px;
-				border-radius: 50%;
-				border-radius: 50%;
 				cursor: pointer;
 				svg {
+					width: 22px;
+					height: 22px;
 					fill: var(--el-text-color-regular);
 					width: 100%;
 					height: 100%;

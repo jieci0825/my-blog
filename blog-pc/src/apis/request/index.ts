@@ -32,9 +32,10 @@ const jcRequest: JcRequest = new JcRequest({
 						originRequest._retry = true
 
 						// 使用新的实例发送请求获取令牌
-						const _response = await refreshIns.post(`${BASE_URL}/token/refresh`, {
-							grantType: 'refresh_token', // 表示是刷新 token
-							refreshToken: getLocalCache(BLOG_REFRESH_TOKEN) || '' // refresh 令牌
+						const _response = await refreshIns.get(`${BASE_URL}/token/refresh`, {
+							headers: {
+								'refresh-authorization': getLocalCache(BLOG_REFRESH_TOKEN) || ''
+							}
 						})
 
 						const { accessToken, refreshToken } = _response.data.data
@@ -52,7 +53,7 @@ const jcRequest: JcRequest = new JcRequest({
 							type: 'warning'
 						})
 							.then(() => {
-								router.push(`/login?from=${router.currentRoute.value.fullPath}`)
+								router.push(`/login?redirect=${router.currentRoute.value.fullPath}`)
 							})
 							.catch()
 					}
