@@ -44,27 +44,30 @@ body.gray-mode {
 
 body {
 	width: 100vw;
-	height: 100vh;
-	font-size: 14px;
+	height: 1000px;
+	font-size: 16px;
+	font-family: @beautifyFont;
+}
+#app {
+	height: 100%;
+}
+
+input {
+	font-family: @beautifyFont;
+}
+.el-button span {
 	font-family: @beautifyFont;
 }
 
 .reset-font {
 	font-family: @defalutFont;
 }
-
-.reset-font .el-button span {
-	font-family: @defalutFont;
-}
-
+.reset-font input,
+.reset-font .el-button span,
 .reset-font .markdown-body code,
 .reset-font .markdown-body kbd,
 .reset-font .markdown-body pre {
 	font-family: @defalutFont;
-}
-
-.el-button span {
-	font-family: @beautifyFont;
 }
 
 ul li {

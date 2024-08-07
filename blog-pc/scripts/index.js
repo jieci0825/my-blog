@@ -13,10 +13,17 @@ function setFontSize(doc, win, designWidth) {
 	refreshRem()
 }
 
-function onResize() {
+function setViewportHeight() {
+	const vh = window.innerHeight
+	document.body.style.height = `${vh}px`
+}
+
+function onChange() {
+	setViewportHeight()
 	// setFontSize(document, window, 750)
 }
 
-// onResize()
+onChange()
 
-// window.addEventListener('resize', debounce(onResize, 100))
+window.addEventListener('resize', debounce(onChange, 100))
+window.addEventListener('orientationchange', debounce(onChange, 100))

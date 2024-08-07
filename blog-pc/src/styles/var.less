@@ -13,6 +13,8 @@
 	--bbs-1: rgba(0, 0, 0, 0.1);
 	--base-box-shadow: var(--bbs) 0px 0px 0px 0px, var(--bbs) 0px 0px 0px 0px, var(--bbs-1) 0px 1px 3px 0px,
 		var(--bbs-1) 0px 1px 2px -1px;
+	--base-box-shadow-1: var(--bbs) 0px 0px 0px 0px, var(--bbs) 0px 0px 0px 0px, var(--bbs-1) 0px 0px 3px 0px,
+		var(--bbs-1) 0px 0px 2px -1px;
 	/* 圆角 */
 	--base-b-r: 4px;
 	/* text */
@@ -36,6 +38,9 @@
 
 	/* el */
 	--el-font-family: 'FiraCode-Regular', 'FZKai-Z03s';
+	// 过渡
+	--bg-color-transition: background-color 0.3s;
+	--color-transition: color 0.3s;
 }
 
 html.dark {
@@ -43,10 +48,12 @@ html.dark {
 	--bg-color-1: #000101;
 	--text-color: #e5e3fa;
 	/* 阴影 */
-	--bbs: rgba(255, 255, 255, 0);
-	--bbs-1: rgba(255, 255, 255, 0.1);
+	--bbs: rgba(255, 255, 255, 0.1);
+	--bbs-1: rgba(255, 255, 255, 0.2);
 	--base-box-shadow: var(--bbs) 0px 0px 0px 0px, var(--bbs) 0px 0px 0px 0px, var(--bbs-1) 0px 1px 3px 0px,
 		var(--bbs-1) 0px 1px 2px -1px;
+	--base-box-shadow-1: var(--bbs) 0px 0px 0px 0px, var(--bbs) 0px 0px 0px 0px, var(--bbs-1) 0px 0px 3px 0px,
+		var(--bbs-1) 0px 0px 2px -1px;
 }
 
 // 媒体查询

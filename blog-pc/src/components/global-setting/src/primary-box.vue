@@ -52,11 +52,19 @@ const { setPrimaryColor } = useGlobalActions()
 		border: 2px dashed var(--c);
 		display: flex;
 		align-items: center;
+		@media (max-width: @size-sm) {
+			height: 50px;
+			border-radius: 4px;
+		}
 		.preview {
 			width: 8px;
 			height: 100%;
 			background-color: var(--c);
 			border-radius: 8px;
+			@media (max-width: @size-sm) {
+				width: 6px;
+				border-radius: 6px;
+			}
 		}
 		.info {
 			flex: 1;
@@ -65,6 +73,10 @@ const { setPrimaryColor } = useGlobalActions()
 			flex-direction: column;
 			color: var(--c);
 			font-size: 16px;
+			@media (max-width: @size-sm) {
+				margin-left: 6px;
+				font-size: 14px;
+			}
 			.color-name {
 				font-weight: bold;
 			}
@@ -78,6 +90,12 @@ const { setPrimaryColor } = useGlobalActions()
 				height: 30px;
 				fill: var(--c);
 				margin-left: 10px;
+			}
+			@media (max-width: @size-sm) {
+				svg {
+					width: 22px;
+					height: 22px;
+				}
 			}
 		}
 	}

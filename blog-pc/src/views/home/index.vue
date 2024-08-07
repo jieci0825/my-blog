@@ -14,8 +14,8 @@ import HomeFooter from './components/home-footer.vue'
 .home-container {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	width: 100%;
+	height: 100%;
 	--home-padding: 64px;
 	--home-sm-padding: 24px;
 	--home-max-width: 1080px;

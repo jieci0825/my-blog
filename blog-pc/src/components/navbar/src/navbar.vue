@@ -2,28 +2,17 @@
 import NavScreen from './nav-screen.vue'
 import NavbarActions from './navbar-actions.vue'
 import { useRouter, useRoute } from 'vue-router'
-import type { NavbarEmits, NavbarMenuItem } from './navbar.type'
 import { computed, ref } from 'vue'
 import { useEventListener } from '@/hooks'
 import { debounce } from '@/utils'
+import { User } from '@element-plus/icons-vue'
+import type { NavbarEmits, NavbarMenuItem } from './navbar.type'
 
 const navbarMenu: NavbarMenuItem[] = [
-	{
-		label: '首页',
-		path: '/home'
-	},
-	{
-		label: '网络日志',
-		path: '/blog'
-	},
-	{
-		label: '友情链接',
-		path: '/friend-chain'
-	},
-	{
-		label: '关于我',
-		path: '/about'
-	}
+	{ label: '首页', path: '/home' },
+	{ label: '网络日志', path: '/blog' },
+	{ label: '友情链接', path: '/friend-chain' },
+	{ label: '关于我', path: '/about' }
 ]
 
 const emits = defineEmits<NavbarEmits>()
@@ -90,6 +79,7 @@ useEventListener(window, 'resize', onSize)
 						</div>
 					</div>
 				</div>
+				<!-- hamburger -->
 				<div class="hamburger-wrap">
 					<div
 						:class="['hamburger-btn', { closed: isCloesd }]"
@@ -99,7 +89,18 @@ useEventListener(window, 'resize', onSize)
 						<div class="line"></div>
 					</div>
 				</div>
+				<div class="divide"></div>
+				<!-- actions -->
 				<NavbarActions></NavbarActions>
+				<div class="divide"></div>
+				<!-- user -->
+				<div class="user-wrap">
+					<el-icon
+						:size="22"
+						@click="$router.push('/login')">
+						<User />
+					</el-icon>
+				</div>
 			</div>
 		</div>
 		<NavScreen
@@ -114,6 +115,15 @@ useEventListener(window, 'resize', onSize)
 	width: 100%;
 	height: 100%;
 	background-color: var(--bg-color);
+	.divide {
+		margin: 0 10px;
+		width: 1px;
+		height: 40%;
+		background-color: var(--border-color);
+		@media (max-width: @size-sm) {
+			margin: 0 8px;
+		}
+	}
 	.wrapper {
 		padding: 0 30px;
 		width: 100%;
@@ -141,7 +151,7 @@ useEventListener(window, 'resize', onSize)
 				align-items: center;
 				font-size: 22px;
 				@media (max-width: @size-xs) {
-					font-size: 18px;
+					font-size: 20px;
 				}
 				svg {
 					width: 1.2em;
@@ -198,18 +208,25 @@ useEventListener(window, 'resize', onSize)
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
+					@media (max-width: @size-sm) {
+						width: 30px;
+					}
 					.line {
 						width: 25px;
-						height: 3px;
+						height: 2px;
 						background-color: var(--el-text-color-regular);
 						border-radius: 6px;
 						margin: 3px 0;
 						transition: all 0.25s ease-in-out;
+						@media (max-width: @size-sm) {
+							width: 23px;
+							height: 2px;
+						}
 					}
 					&.closed {
 						.line {
 							&:nth-child(1) {
-								transform: translateY(10px) rotate(45deg);
+								transform: translateY(8px) rotate(45deg);
 							}
 							&:nth-child(2) {
 								opacity: 0;
@@ -267,6 +284,21 @@ useEventListener(window, 'resize', onSize)
 							text-decoration: none;
 						}
 					}
+				}
+			}
+			.user-wrap {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				border-radius: 50%;
+				cursor: pointer;
+				svg {
+					fill: var(--el-text-color-regular);
+					width: 100%;
+					height: 100%;
 				}
 			}
 		}

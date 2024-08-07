@@ -1,5 +1,5 @@
 import { BLOG_GLOBAL_CONFIG, DEFAULT_PRIMARY_COLOR } from '@/constants'
-import { switchFontBeautify } from '@/store/global/helper'
+import { switchFontBeautify } from '@/store/modules/global/helper'
 import { getLocalCache } from '@/utils'
 import { useTheme } from '../use-theme'
 

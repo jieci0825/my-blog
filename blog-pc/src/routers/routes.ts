@@ -32,6 +32,14 @@ export default [
 		]
 	},
 	{
+		path: '/login',
+		name: 'login',
+		component: () => import('@/views/login/index.vue'),
+		meta: {
+			title: '登录'
+		}
+	},
+	{
 		path: '/:pathMatch(.*)*',
 		name: 'not-found',
 		component: () => import('@/views/not-found/index.vue'),

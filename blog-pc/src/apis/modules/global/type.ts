@@ -4,3 +4,24 @@ export interface AuthorInfo {
 	description: string
 	sign: string
 }
+
+export interface GetCaptchaParams {
+	account: string
+	email: string
+}
+
+export interface LoginParams {
+	account: string
+	password: string
+}
+
+export interface LoginParamsResp {
+	token: string
+}
+
+export interface SiteHomeInfo {
+	title: string
+	slogan: string
+	publish: string
+	runDays: number
+}

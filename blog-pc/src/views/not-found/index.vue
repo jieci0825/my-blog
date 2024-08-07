@@ -30,7 +30,7 @@ const router = useRouter()
 	flex-direction: column;
 	align-items: center;
 	width: 100vw;
-	height: 100vh;
+	height: 100%;
 	font-family: '阿里妈妈东方大楷 Regular';
 	color: var(--el-text-color-primary);
 	span {

@@ -10,7 +10,7 @@ import { BlogItem } from '@/apis/modules/blog/type'
 
 const { loadingSkeleton, closeSkeleton } = useSkeleton()
 
-const { getAuthorInfoState } = useGlobalGetters()
+const { getAuthorInfo } = useGlobalGetters()
 
 // 分类列表
 const categoryList = ref<TocItem[]>([])
@@ -45,20 +45,20 @@ getHotBlogList()
 			<div class="item-wrap">
 				<div class="author-item">
 					<div class="info">
-						<p class="nickname">{{ getAuthorInfoState?.nickname }}</p>
+						<p class="nickname">{{ getAuthorInfo?.nickname }}</p>
 						<p class="sign">
 							<span>
-								{{ getAuthorInfoState?.sign }}
+								{{ getAuthorInfo?.sign }}
 							</span>
 						</p>
 						<p class="description">
 							<span>
-								{{ getAuthorInfoState?.description }}
+								{{ getAuthorInfo?.description }}
 							</span>
 						</p>
 					</div>
 					<div class="avatar">
-						<img :src="getAuthorInfoState?.avatarUrl" />
+						<img :src="getAuthorInfo?.avatarUrl" />
 					</div>
 				</div>
 			</div>

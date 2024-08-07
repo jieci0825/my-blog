@@ -22,7 +22,7 @@ const handleTheme = () => {
 	<div class="actions">
 		<!-- theme -->
 		<div class="action-item">
-			<el-icon :size="size">
+			<el-icon :size="size + 4">
 				<Sunny
 					@click="handleTheme"
 					v-if="!isDark" />
@@ -53,17 +53,10 @@ const handleTheme = () => {
 
 <style scoped lang="less">
 .actions {
-	margin-left: 10px;
-	padding-left: 20px;
-	border-left: 2px solid var(--border-color);
 	height: 40%;
 	display: flex;
 	align-items: center;
-	gap: 20px;
-	@media (max-width: @size-sm) {
-		margin-left: 0;
-		padding-left: 10px;
-	}
+	gap: 10px;
 	.action-item {
 		display: flex;
 		align-items: center;

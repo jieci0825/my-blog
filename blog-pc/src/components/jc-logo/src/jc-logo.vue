@@ -23,3 +23,11 @@ defineOptions({ name: 'JcLogo' })
 			p-id="3991"></path>
 	</svg>
 </template>
+
+<style lang="less">
+svg {
+	width: 100%;
+	height: 100%;
+	fill: var(--primary-color);
+}
+</style>

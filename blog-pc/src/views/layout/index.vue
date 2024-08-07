@@ -31,21 +31,21 @@ const { getRouteAnimation } = useGlobalGetters()
 				</Transition>
 			</router-view>
 		</div>
+
+		<!-- dosearch -->
+		<Dosearch v-model:visible="visibleDosearch"></Dosearch>
+
+		<el-backtop
+			target=".main-area"
+			:right="30"
+			:bottom="30" />
 	</div>
-
-	<!-- dosearch -->
-	<Dosearch v-model:visible="visibleDosearch"></Dosearch>
-
-	<el-backtop
-		target=".main-area"
-		:right="30"
-		:bottom="30" />
 </template>
 
 <style scoped lang="less">
 .layout-container {
 	width: 100vw;
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	.header-area {
@@ -61,7 +61,7 @@ const { getRouteAnimation } = useGlobalGetters()
 	.main-area {
 		width: 100%;
 		margin-top: var(--header-height);
-		height: calc(100vh - var(--header-height));
+		height: calc(100% - var(--header-height));
 		overflow: auto;
 		scroll-behavior: smooth;
 	}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TextErasure from '@/components/text-erasure'
+import { useGlobalGetters } from '@/store'
 
 const actionList = [
 	{
@@ -13,6 +14,8 @@ const actionList = [
 		isPlain: true
 	}
 ]
+
+const { getSiteHomeInfo } = useGlobalGetters()
 </script>
 
 <template>
@@ -23,10 +26,12 @@ const actionList = [
 			</div>
 			<div class="main">
 				<TextErasure
-					text="劫辞の树洞"
+					v-if="getSiteHomeInfo"
+					:text="getSiteHomeInfo.title"
 					class="name"></TextErasure>
 				<TextErasure
-					text="见字如面，愿君不啻微茫，造炬成阳"
+					v-if="getSiteHomeInfo"
+					:text="getSiteHomeInfo.slogan"
 					class="text"></TextErasure>
 
 				<div class="actions">

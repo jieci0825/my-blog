@@ -1,7 +1,7 @@
-import { piniaBlogStore } from '../blog'
+import { piniaBlogStore } from '../modules/blog'
 import { computed } from 'vue'
-import type { GetBlogListParams } from '@/apis/modules/blog/type'
 import { blogApi } from '@/apis'
+import type { GetBlogListParams } from '@/apis/modules/blog/type'
 
 export const useBlogGetters = () => {
 	const blogStore = piniaBlogStore()

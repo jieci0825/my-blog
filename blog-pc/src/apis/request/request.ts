@@ -1,6 +1,5 @@
 // 导入 axios 实例
 import axios from 'axios'
-
 // 导入 axios 内部封装的类型
 import type { AxiosInstance } from 'axios'
 // 导入自定义类型

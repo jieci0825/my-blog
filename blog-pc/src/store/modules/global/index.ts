@@ -1,20 +1,31 @@
 import { defineStore } from 'pinia'
 import { ref, watch, reactive, toRefs } from 'vue'
-import { setLocalCache, getLocalCache } from '@/utils'
-import { BLOG_GLOBAL_CONFIG, DEFAULT_PRIMARY_COLOR } from '@/constants'
+import { setLocalCache, getLocalCache, removeLocalCache } from '@/utils'
+import { BLOG_GLOBAL_CONFIG, BLOG_TOKEN, DEFAULT_PRIMARY_COLOR } from '@/constants'
 import { switchFontBeautify } from './helper'
 import { useTheme } from '@/hooks/use-theme'
 import type { AuthorInfo } from '@/apis/modules/global/type'
 import type { GlobalConfig, ThemeType } from './type'
+import type { SiteHomeInfo } from '@/apis/modules/global/type'
 
 const { setPrimaryColor: setThemePrimaryColor } = useTheme()
 
 export const piniaGlobalStore = defineStore('global', () => {
-	const authorInfoState = ref<AuthorInfo | null>(null)
-
-	// 设置作者信息
+	// 作者信息
+	const authorInfo = ref<AuthorInfo | null>(null)
 	const setAuthorInfo = (info: AuthorInfo) => {
-		authorInfoState.value = info
+		authorInfo.value = info
+	}
+
+	// token
+	const token = ref<string | undefined>(getLocalCache(BLOG_TOKEN))
+	const setToken = (value: string) => {
+		setLocalCache(BLOG_TOKEN, value)
+		token.value = value
+	}
+	const clearToken = () => {
+		removeLocalCache(BLOG_TOKEN)
+		token.value = undefined
 	}
 
 	// 全局配置
@@ -66,15 +77,26 @@ export const piniaGlobalStore = defineStore('global', () => {
 		;(globalConfig[field] as boolean) = value === undefined ? !globalConfig[field] : value
 	}
 
+	// 站点首页信息
+	const siteHomeInfo = ref<SiteHomeInfo | null>()
+	const setSiteHomeInfo = (data: SiteHomeInfo) => {
+		siteHomeInfo.value = data
+	}
+
 	return {
 		...toRefs(globalConfig),
-		authorInfoState,
+		authorInfo,
 		setAuthorInfo,
 		toggleGrayMode,
 		toggleColorWeakness,
 		setRouteAnimation,
 		toggleFontBeautify,
 		toggleTheme,
-		setPrimaryColor
+		setPrimaryColor,
+		token,
+		setToken,
+		clearToken,
+		siteHomeInfo,
+		setSiteHomeInfo
 	}
 })
