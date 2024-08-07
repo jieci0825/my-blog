@@ -84,7 +84,7 @@ const verifyFrontToken = async (ctx, next) => {
 	try {
 		const { TokenConfig } = global.config
 		const decode = jwt.verify(token, TokenConfig.PRIVATE_KEY)
-		ctx.user = decode
+		ctx.decode = decode
 		await next()
 	} catch (error) {
 		// token 过期 - TokenExpiredError
