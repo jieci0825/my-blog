@@ -46,9 +46,13 @@ async function createBlog(data) {
  * 获取博客列表
  * @params {object} data
  */
-async function getBlogList(data) {
+async function getBlogList(data, mode = 'back') {
 	const where = {}
 	if (data.title) where.title = { [Op.substring]: data.title }
+
+	if (mode === 'front') {
+		where.status = 1
+	}
 
 	// 获取所有的分类
 	const allBlogCategory = await blogCategoryService.getBlogCategoryList()
@@ -59,6 +63,7 @@ async function getBlogList(data) {
 		where,
 		offset: data.page,
 		limit: data.pageSize,
+		order: [['date', 'DESC']],
 		attributes: { exclude: ['html_content', 'createdAt', 'updatedAt', 'deletedAt'] }
 	})
 

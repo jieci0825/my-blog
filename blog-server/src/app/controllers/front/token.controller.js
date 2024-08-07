@@ -2,9 +2,12 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { getTokenRules } = require('@/app/rules/front/token.rule')
 const { DataSuccess, ParamsError, AuthFailed } = require('@/core/error-type')
-const { decrypt, generateToken, generateRefreshToken } = require('@/utils')
+const { decrypt, generateToken, generateRefreshToken, genNumberCode } = require('@/utils')
 const { Validator } = require('@/validator')
 const { User } = require('@model/user.model')
+const { Captcha } = require('@model/captcha.model')
+const backTokenService = require('@ser-back/token.service')
+const { getCaptchaRules } = require('@/app/rules/back/token.rule')
 
 /**
  * 获取 token
@@ -76,7 +79,27 @@ async function refresh(ctx) {
 	}
 }
 
+/**
+ * 获取验证码
+ */
+async function getCaptcha(cxt) {
+	const { data } = new Validator().validate(cxt, getCaptchaRules)
+	const captcha = await genNumberCode(Captcha)
+	const insertData = {
+		captcha,
+		type: CaptchaType.EMAIL,
+		account: data.account,
+		email: data.email
+	}
+	await backTokenService.createCaptcha(insertData)
+
+	sendMail(data.email, captcha)
+
+	throw new DataSuccess(null, '验证码已发送')
+}
+
 module.exports = {
 	getToken,
-	refresh
+	refresh,
+	getCaptcha
 }

@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const readline = require('readline')
-const { toCamelCaseForObj } = require('.')
+const { toCamelCaseForObj, formatDateTime } = require('.')
+const { queryIpAddress } = require('./ip-tools')
 
 // 日志文件目录
 const logDir = path.resolve(__dirname, '../logs')
@@ -15,7 +16,7 @@ function readLogFile(fileName, deviceCount, offset, limit) {
 
 		const logs = []
 
-		rl.on('line', lineData => {
+		rl.on('line', async lineData => {
 			if (!lineData) return
 			deviceCount.total++
 
@@ -45,6 +46,11 @@ function readLogFile(fileName, deviceCount, offset, limit) {
 			}
 
 			if (logs.length < limit && deviceCount.total > offset) {
+				// 根据 ip 获取归属地
+				const address = await queryIpAddress(logInfo.remote_addr)
+				logInfo.ipAddressInfo = address ? formatIpAddress(address) : null
+				// 格式化时间
+				logInfo.datetime = formatDateTime(new Date(logInfo.datetime))
 				logs.push(toCamelCaseForObj(logInfo))
 			}
 		})
@@ -53,6 +59,29 @@ function readLogFile(fileName, deviceCount, offset, limit) {
 			resolve(logs)
 		})
 	})
+}
+
+function formatIpAddress(ipAddress) {
+	if (!ipAddress) return
+	const regions = ipAddress.region.split('|')
+
+	function isExist(value) {
+		return value && value !== '0'
+	}
+
+	const country = isExist(regions[0]) ? regions[0] : '未知'
+	const province = isExist(regions[2]) ? regions[2] : '未知'
+	const city = isExist(regions[3]) ? regions[3] : '未知'
+	const ispName = isExist(regions[4]) ? regions[4] : '未知'
+
+	const ipAddressInfo = {
+		country,
+		province,
+		city,
+		ispName,
+		fullAddress: `${country}-${province}-${city}-${ispName}`
+	}
+	return ipAddressInfo
 }
 
 function isDeviceType(userAgent, deviceType) {
@@ -67,7 +96,7 @@ async function getAccessLog(date, { order = 'DESC', page = 1, pageSize = 10 }) {
 	const offset = (page - 1) * pageSize
 	// ! 做测试使用，始终返回固定的日志数据
 	// const logFileName = `${date}.access.log`
-	const logFileName = `2024-07-31.access.log`
+	const logFileName = `2024-08-06.access.log`
 
 	// 检测日志文件是否存在
 	if (!fs.existsSync(path.resolve(logDir, logFileName))) {

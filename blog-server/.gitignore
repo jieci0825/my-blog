@@ -15,7 +15,6 @@ credential.config.js
 global.config.js
 mail.yaml
 keys
-logs
 
 # Editor directories and files
 .vscode/*

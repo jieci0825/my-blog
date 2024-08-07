@@ -27,7 +27,7 @@ async function getBlogRank(ctx) {
  */
 async function getBlogList(ctx) {
 	const { data } = new Validator().validate(ctx)
-	const result = await backBlogService.getBlogList(data)
+	const result = await backBlogService.getBlogList(data, 'front')
 	throw new DataSuccess(result)
 }
 
