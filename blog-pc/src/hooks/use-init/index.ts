@@ -6,9 +6,8 @@ export const useInit = async () => {
 	initFontBeautify()
 	initTheme()
 
-	const { setAuthorInfo } = useGlobalActions()
-
+	const { setAuthorInfo, loadLocal } = useGlobalActions()
 	const authorInfoResp = await globalApi.reqGetAuthorInfo()
-
 	setAuthorInfo(authorInfoResp.data)
+	loadLocal()
 }

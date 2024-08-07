@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { UserItem } from '@/apis/modules/user/type'
 import { ref } from 'vue'
+import type { UserItem } from '@/apis/modules/user/type'
 
 export const piniaUserStore = defineStore('user', () => {
 	// 用户信息

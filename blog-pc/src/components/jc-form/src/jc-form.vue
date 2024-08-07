@@ -70,6 +70,10 @@ const handleReset = (formEl: FormInstance | undefined) => {
 
 	emits('reset')
 }
+
+defineExpose({
+	jcFormRef
+})
 </script>
 
 <template>

@@ -16,7 +16,8 @@ export interface LoginParams {
 }
 
 export interface LoginParamsResp {
-	token: string
+	accessToken: string
+	refreshToken: string
 }
 
 export interface SiteHomeInfo {

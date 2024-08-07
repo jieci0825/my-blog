@@ -1,6 +1,9 @@
 import { computed } from 'vue'
 import { piniaGlobalStore } from '../modules/global'
 import { globalApi } from '@/apis'
+import { getLocalCache, removeLocalCache, setLocalCache } from '@/utils'
+import { BLOG_TOKEN, BLOG_REFRESH_TOKEN } from '@/constants'
+import { useUserActions } from './use-user-store'
 import type { LoginParams } from '@/apis/modules/global/type'
 
 export const useGlobalGetters = () => {
@@ -48,19 +51,42 @@ export const useGlobalActions = () => {
 		toggleFontBeautify,
 		toggleTheme,
 		setPrimaryColor,
-		setSiteHomeInfo
+		setSiteHomeInfo,
+		setToken
 	} = piniaGlobalStore()
+	const { reqGetLoginUserInfo, clearLoginUserInfo } = useUserActions()
 
 	// 登录
 	const login = async (data: LoginParams) => {
 		const resp = await globalApi.reqLogin(data)
-		console.log(resp)
+		setToken(resp.data.accessToken)
+		setLocalCache(BLOG_TOKEN, resp.data.accessToken)
+		setLocalCache(BLOG_REFRESH_TOKEN, resp.data.refreshToken)
+
+		// 获取登录的用户信息
+		await reqGetLoginUserInfo()
+	}
+
+	// 退出登录
+	const logout = async () => {
+		setToken('')
+		clearLoginUserInfo()
+		removeLocalCache(BLOG_TOKEN)
+		removeLocalCache(BLOG_REFRESH_TOKEN)
 	}
 
 	// 获取站点首页信息
 	const reqGetSiteHomeInfo = async () => {
 		const resp = await globalApi.reqGetSiteHomeInfo()
 		setSiteHomeInfo(resp.data)
+	}
+
+	// 加载本地数据
+	const loadLocal = async () => {
+		const token = getLocalCache(BLOG_TOKEN)
+		if (token) {
+			await reqGetLoginUserInfo()
+		}
 	}
 
 	return {
@@ -72,6 +98,8 @@ export const useGlobalActions = () => {
 		toggleTheme,
 		setPrimaryColor,
 		login,
-		reqGetSiteHomeInfo
+		reqGetSiteHomeInfo,
+		loadLocal,
+		logout
 	}
 }

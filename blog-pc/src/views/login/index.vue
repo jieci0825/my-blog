@@ -4,12 +4,36 @@ import loginFormConfig from './config/login-form.config'
 import { ref } from 'vue'
 import { useGlobalActions, useGlobalGetters } from '@/store'
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
+import { useRefs } from '@/hooks'
+import { useRoute, useRouter } from 'vue-router'
+import { encrypt } from '@/utils'
 import type { LoginParams } from '@/apis/modules/global/type'
 
 const { getSiteHomeInfo } = useGlobalGetters()
 const { login } = useGlobalActions()
 
 const loginFormData = ref<LoginParams>({ account: '', password: '' })
+
+const { refs, setRef } = useRefs()
+
+const route = useRoute()
+const router = useRouter()
+const handleBack = () => {
+	router.push({ path: (route.query.redirect as string) || '/' })
+}
+
+const handleLogin = async () => {
+	const validate = refs.loginFormRef.jcFormRef.validate
+	try {
+		await validate()
+		const data = {
+			account: loginFormData.value.account,
+			password: encrypt(loginFormData.value.password)
+		}
+		await login(data)
+		handleBack()
+	} catch (error) {}
+}
 </script>
 
 <template>
@@ -27,8 +51,10 @@ const loginFormData = ref<LoginParams>({ account: '', password: '' })
 				</div>
 				<div class="main">
 					<JcForm
+						@submit="handleLogin"
 						v-model="loginFormData"
 						v-bind="loginFormConfig"
+						:ref="setRef('loginFormRef')"
 						size="large">
 						<template #accountLabel>
 							<el-icon> </el-icon>
@@ -41,7 +67,11 @@ const loginFormData = ref<LoginParams>({ account: '', password: '' })
 									</el-link>
 								</div>
 								<div class="btn-wrap">
-									<el-button type="primary">登录</el-button>
+									<el-button
+										type="primary"
+										@click="handleLogin"
+										>登录</el-button
+									>
 								</div>
 							</div>
 						</template>
@@ -59,7 +89,9 @@ const loginFormData = ref<LoginParams>({ account: '', password: '' })
 			</div>
 			<div class="nav">
 				<div class="close nav-item">
-					<el-link type="primary">
+					<el-link
+						@click="handleBack"
+						type="primary">
 						<el-icon :size="16"><DArrowLeft /></el-icon>
 						<span>返回</span>
 					</el-link>
@@ -96,6 +128,7 @@ const loginFormData = ref<LoginParams>({ account: '', password: '' })
 			width: 100vw;
 			height: 100%;
 			margin-top: 0;
+			padding-top: 30px;
 		}
 		.nav {
 			flex-shrink: 0;

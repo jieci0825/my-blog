@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import NavScreen from './nav-screen.vue'
+import NavScreen from './navbar-screen.vue'
 import NavbarActions from './navbar-actions.vue'
+import NavbarUser from './navbar-user.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
 import { useEventListener } from '@/hooks'
 import { debounce } from '@/utils'
 import { User } from '@element-plus/icons-vue'
+import { useUserGetters } from '@/store'
 import type { NavbarEmits, NavbarMenuItem } from './navbar.type'
 
 const navbarMenu: NavbarMenuItem[] = [
@@ -44,6 +46,13 @@ const onSize = debounce((e: any) => {
 }, 100)
 
 useEventListener(window, 'resize', onSize)
+
+const router = useRouter()
+const goToLogin = () => {
+	router.push({ path: '/login', query: { redirect: $route.fullPath } })
+}
+
+const { isLogin } = useUserGetters()
 </script>
 
 <template>
@@ -95,9 +104,11 @@ useEventListener(window, 'resize', onSize)
 				<div class="divide"></div>
 				<!-- user -->
 				<div class="user-wrap">
+					<NavbarUser v-if="isLogin" />
 					<el-icon
+						v-else
 						:size="22"
-						@click="$router.push('/login')">
+						@click="goToLogin">
 						<User />
 					</el-icon>
 				</div>
@@ -167,7 +178,7 @@ useEventListener(window, 'resize', onSize)
 			.search {
 				cursor: pointer;
 				margin: 0 20px;
-				color: var(--el-text-color-regular);
+				color: var(--el-text-color-placeholder);
 				display: flex;
 				align-items: center;
 				gap: 10px;
