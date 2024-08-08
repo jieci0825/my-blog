@@ -6,12 +6,6 @@ const tokenRules = {
 }
 
 const getCaptchaRules = {
-	account: new Rule()
-		.isString()
-		.required()
-		.min(6)
-		.max(12)
-		.pattern(/^[a-zA-Z0-9]+$/), // 字母和数字
 	email: new Rule()
 		.isString()
 		.required([''])

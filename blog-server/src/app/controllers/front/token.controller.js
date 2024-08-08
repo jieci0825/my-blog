@@ -10,6 +10,7 @@ const backTokenService = require('@ser-back/token.service')
 const { getCaptchaRules } = require('@/app/rules/back/token.rule')
 const { CaptchaType } = require('@/enums')
 const { sendMail } = require('@/utils/email')
+const schedule = require('node-schedule')
 
 /**
  * 获取 token
@@ -83,23 +84,46 @@ async function refresh(ctx) {
 	}
 }
 
+const sendEmailMessageMap = {}
 /**
  * 获取验证码
  */
 async function getCaptcha(cxt) {
 	const { data } = new Validator().validate(cxt, getCaptchaRules)
+
+	if (sendEmailMessageMap[data.email]) {
+		throw new ParamsError('请勿频繁发送验证码，每30秒获取一次')
+	}
+
 	const captcha = await genNumberCode(Captcha)
 	const insertData = {
 		captcha,
 		type: CaptchaType.EMAIL,
-		account: data.account,
+		account: data.account || '',
 		email: data.email
 	}
 	await backTokenService.createCaptcha(insertData)
 
 	sendMail(data.email, captcha)
 
+	_limitEmailFrequency(data.email)
+
 	throw new DataSuccess(null, '验证码已发送')
+}
+
+/**
+ * 限制邮件接收频率
+ * @param {*} email
+ */
+function _limitEmailFrequency(email) {
+	sendEmailMessageMap[email] = true
+
+	// 当前时间加上 10 秒
+	const date = new Date(Date.now() + 30000)
+	// 进行任务调度
+	schedule.scheduleJob(date, function () {
+		sendEmailMessageMap[email] = false
+	})
 }
 
 module.exports = {

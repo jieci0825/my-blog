@@ -12,7 +12,6 @@ Captcha.init(
 		},
 		captcha: {
 			type: DataTypes.STRING,
-			allowNull: false,
 			comment: '验证码'
 		},
 		date: {
