@@ -38,3 +38,32 @@ export interface ReplaceBindEmailParams {
 	newEmail: string
 	oldEmail: string
 }
+
+export interface RegisterParams {
+	account: string
+	password: string
+	email: string
+	captcha: string
+}
+
+export interface ModifyUserPasswordParams {
+	email: string
+	captcha: string
+	account: string
+	oldPassword: string
+	newPassword: string
+}
+
+export interface ReplaceBindEmailParams {
+	captcha: string
+	account: string
+	newEmail: string
+	oldEmail: string
+}
+
+export interface EditLoginUserInfoParams {
+	nickname?: string
+	avatarUrl?: string
+	description?: string
+	sign?: string
+}

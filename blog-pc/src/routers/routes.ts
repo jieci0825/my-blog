@@ -28,6 +28,22 @@ export default [
 				meta: {
 					title: '详情'
 				}
+			},
+			{
+				path: 'about',
+				name: 'about',
+				component: () => import('@/views/about/index.vue'),
+				meta: {
+					title: '关于'
+				}
+			},
+			{
+				path: 'my-center',
+				name: 'my-center',
+				component: () => import('@/views/my-center/index.vue'),
+				meta: {
+					title: '个人中心'
+				}
 			}
 		]
 	},
@@ -37,6 +53,14 @@ export default [
 		component: () => import('@/views/login/index.vue'),
 		meta: {
 			title: '登录'
+		}
+	},
+	{
+		path: '/register',
+		name: 'register',
+		component: () => import('@/views/register/index.vue'),
+		meta: {
+			title: '注册'
 		}
 	},
 	{

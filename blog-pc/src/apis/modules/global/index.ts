@@ -1,5 +1,13 @@
 import request from '@/apis/request'
-import type { AuthorInfo, GetCaptchaParams, LoginParams, LoginParamsResp, SiteHomeInfo } from './type.ts'
+import type {
+	AuthorInfo,
+	GetCaptchaParams,
+	LoginParams,
+	LoginParamsResp,
+	SiteHomeInfo,
+	GetCredentialResp,
+	createFileRecordParams
+} from './type.ts'
 import type { IBaseType } from '../types'
 
 /**
@@ -30,4 +38,18 @@ export function reqGetCaptcha(params: GetCaptchaParams) {
  */
 export function reqGetSiteHomeInfo() {
 	return request.get<IBaseType<SiteHomeInfo>>({ url: '/global/site-home-info' })
+}
+
+/**
+ * 获取临时凭证
+ */
+export function reqGetUploadCredential() {
+	return request.get<IBaseType<GetCredentialResp>>({ url: '/global/credential' })
+}
+
+/**
+ * 创建文件记录
+ */
+export function reqCreateFileRecord(data: createFileRecordParams) {
+	return request.post<IBaseType>({ url: `/global/record`, data })
 }

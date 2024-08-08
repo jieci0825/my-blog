@@ -1,90 +1,96 @@
 <script setup lang="ts">
 import JcForm from '@/components/jc-form'
-import loginFormConfig from './config/login-form.config'
-import { ref } from 'vue'
-import { useGlobalActions, useGlobalGetters } from '@/store'
-import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
+import GetVerifyCode from '@/components/get-verify-code'
+import registerFormFn from './config/register-form.config'
+import { computed, ref } from 'vue'
+import { DArrowLeft } from '@element-plus/icons-vue'
 import { useRefs } from '@/hooks'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { encrypt } from '@/utils'
-import type { LoginParams } from '@/apis/modules/global/type'
+import { globalApi, userApi } from '@/apis'
+import type { RegisterForm } from './types'
 
-const { getSiteHomeInfo } = useGlobalGetters()
-const { login } = useGlobalActions()
+const registerFormData = ref<RegisterForm>({ account: '', password: '', email: '', captcha: '', repassword: '' })
 
-const loginFormData = ref<LoginParams>({ account: '', password: '' })
+const registerFormConfig = registerFormFn(registerFormData)
 
 const { refs, setRef } = useRefs()
 
 const route = useRoute()
 const router = useRouter()
 const handleBack = () => {
-	router.push({ path: (route.query.redirect as string) || '/' })
-}
-const goToRegister = () => {
-	router.push({ path: '/register', query: route.query })
+	router.push({ path: '/login', query: route.query })
 }
 
-const handleLogin = async () => {
-	const validate = refs.loginFormRef.jcFormRef.validate
+const handleRegister = async () => {
+	const validate = refs.reigsterFormRef.jcFormRef.validate
 	try {
 		await validate()
 		const data = {
-			account: loginFormData.value.account,
-			password: encrypt(loginFormData.value.password)
+			account: registerFormData.value.account,
+			email: registerFormData.value.email,
+			captcha: registerFormData.value.captcha,
+			password: encrypt(registerFormData.value.password)
 		}
-		await login(data)
+		const resp = await userApi.reqRegister(data)
+		ElMessage.success(resp.msg)
 		handleBack()
 	} catch (error) {}
+}
+
+const isGetCaptchaRegister = computed(() => {
+	return !!registerFormData.value.email
+})
+
+const getVerifyCode = async () => {
+	const { email, account } = registerFormData.value
+	if (!email) return ElMessage.error('请输入邮箱')
+	if (!account) return ElMessage.error('请输入账号')
+
+	const resp = await globalApi.reqGetCaptcha({ email, account })
+	ElMessage.success(resp.msg)
 }
 </script>
 
 <template>
-	<div class="login-container">
-		<div class="login-wrapper">
+	<div class="register-container">
+		<div class="register-wrapper">
 			<div class="content">
 				<div class="header">
 					<div class="logo">
 						<JcLogo />
 					</div>
 					<div class="text">
-						<div class="title">{{ getSiteHomeInfo?.title }}</div>
-						<div class="description">如果您愿意，可以在这里留下您的痕迹</div>
+						<div class="title">您好-旅行者</div>
+						<div class="description">花径不曾缘客扫，蓬门今始为君开</div>
 					</div>
 				</div>
 				<div class="main">
 					<JcForm
-						@submit="handleLogin"
-						v-model="loginFormData"
-						v-bind="loginFormConfig"
-						:ref="setRef('loginFormRef')"
+						@submit="handleRegister"
+						v-model="registerFormData"
+						v-bind="registerFormConfig"
+						:ref="setRef('reigsterFormRef')"
 						size="large">
+						<template #codeAppend>
+							<GetVerifyCode
+								@click="getVerifyCode"
+								:is-click="isGetCaptchaRegister"
+								style="width: 110px"
+								prefix="register" />
+						</template>
 						<template #footer>
 							<div class="main-footer">
-								<div class="forget">
-									<el-link type="primary">
-										<span>忘记密码?</span>
-									</el-link>
-								</div>
 								<div class="btn-wrap">
 									<el-button
 										type="primary"
-										@click="handleLogin"
-										>登录</el-button
+										@click="handleRegister"
+										>注册</el-button
 									>
 								</div>
 							</div>
 						</template>
 					</JcForm>
-				</div>
-				<el-divider> 其他方式登录 </el-divider>
-				<div class="footer">
-					<div class="footer-item">
-						<div class="icon">
-							<span class="iconfont icon-more"></span>
-						</div>
-						<div class="text">敬请期待</div>
-					</div>
 				</div>
 			</div>
 			<div class="nav">
@@ -93,15 +99,7 @@ const handleLogin = async () => {
 						@click="handleBack"
 						type="primary">
 						<el-icon :size="16"><DArrowLeft /></el-icon>
-						<span>返回</span>
-					</el-link>
-				</div>
-				<div class="to-register nav-item">
-					<el-link
-						type="primary"
-						@click="goToRegister">
-						<span>注册</span>
-						<el-icon :size="16"><DArrowRight /></el-icon>
+						<span>返回登录</span>
 					</el-link>
 				</div>
 			</div>
@@ -110,16 +108,15 @@ const handleLogin = async () => {
 </template>
 
 <style scoped lang="less">
-.login-container {
+.register-container {
 	width: 100vw;
 	height: 100%;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	.login-wrapper {
+	.register-wrapper {
 		width: 450px;
-		height: 460px;
 		border-radius: var(--base-b-r);
 		box-shadow: var(--base-box-shadow-1);
 		display: flex;
@@ -129,6 +126,7 @@ const handleLogin = async () => {
 			box-shadow: none;
 			width: 100vw;
 			height: 100%;
+			margin-top: 0;
 			padding-top: 30px;
 		}
 		.nav {
@@ -183,14 +181,6 @@ const handleLogin = async () => {
 				margin-top: 30px;
 				.main-footer {
 					width: 100%;
-					.forget {
-						padding: 10px 0;
-						line-height: 1;
-						font-size: 16px;
-						width: 100%;
-						text-align: right;
-						color: var(--el-color-primary-light-3);
-					}
 					.btn-wrap {
 						display: flex;
 						align-items: center;

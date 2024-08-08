@@ -4,6 +4,7 @@ import { globalApi } from '@/apis'
 import { getLocalCache, removeLocalCache, setLocalCache } from '@/utils'
 import { BLOG_TOKEN, BLOG_REFRESH_TOKEN } from '@/constants'
 import { useUserActions } from './use-user-store'
+import { useRouter } from 'vue-router'
 import type { LoginParams } from '@/apis/modules/global/type'
 
 export const useGlobalGetters = () => {
@@ -26,9 +27,10 @@ export const useGlobalGetters = () => {
 	const getTheme = computed(() => globalStore.theme)
 	// 获取主色
 	const getPrimaryColor = computed(() => globalStore.primaryColor)
-
 	// 获取站点首页信息
 	const getSiteHomeInfo = computed(() => globalStore.siteHomeInfo)
+	// 获取token
+	const getToken = computed(() => globalStore.token)
 
 	return {
 		getAuthorInfo,
@@ -38,7 +40,8 @@ export const useGlobalGetters = () => {
 		getFontBeautify,
 		getTheme,
 		getPrimaryColor,
-		getSiteHomeInfo
+		getSiteHomeInfo,
+		getToken
 	}
 }
 
@@ -55,6 +58,7 @@ export const useGlobalActions = () => {
 		setToken
 	} = piniaGlobalStore()
 	const { reqGetLoginUserInfo, clearLoginUserInfo } = useUserActions()
+	const router = useRouter()
 
 	// 登录
 	const login = async (data: LoginParams) => {
@@ -73,6 +77,7 @@ export const useGlobalActions = () => {
 		clearLoginUserInfo()
 		removeLocalCache(BLOG_TOKEN)
 		removeLocalCache(BLOG_REFRESH_TOKEN)
+		router.push('/home')
 	}
 
 	// 获取站点首页信息

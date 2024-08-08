@@ -10,16 +10,15 @@ const loginFormConfig: JcFormProps = {
 			placeholder: '请输入密码',
 			labelSlot: 'passwordLabel',
 			formItemStyle: {
-				margin: '0'
+				margin: 0
 			}
 		}
 	],
-	// labelPosition: 'top',
 	rules: {
 		account: [{ required: true, message: '账号不能为空', trigger: 'blur' }],
 		password: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
 	},
-	labelWidth: '0px',
+	labelWidth: 0,
 	hideRequiredAsterisk: true,
 	colLayout: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24 },
 	footerConfig: { resetText: '清空', submitText: '登录' }

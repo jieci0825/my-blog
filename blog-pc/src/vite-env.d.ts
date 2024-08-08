@@ -2,6 +2,7 @@
 
 declare module 'nprogress'
 declare module 'crypto-js'
+declare module '@/cos'
 declare module 'element-plus/dist/locale/zh-cn.mjs'
 
 declare module '*.vue' {
