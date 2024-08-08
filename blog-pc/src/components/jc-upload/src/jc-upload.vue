@@ -34,4 +34,8 @@ provide(JcUploadKey, {
 	</div>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.jc-upload-wrapper {
+	width: fit-content;
+}
+</style>

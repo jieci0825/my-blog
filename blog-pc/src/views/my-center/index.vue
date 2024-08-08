@@ -160,7 +160,7 @@ const getVerifyCode = async () => {
 		<!-- 更换头像 -->
 		<JcDialog
 			v-model="avatarVisable"
-			width="400"
+			width="300"
 			title="更换头像">
 			<div class="avatar-content">
 				<JcUpload
@@ -221,18 +221,15 @@ const getVerifyCode = async () => {
 	.my-center-wrapper {
 		max-width: 800px;
 		margin: 0 auto;
-		// padding: 20px;
-		// border-radius: var(--base-b-r);
-		// border: 1px solid var(--border-color);
 		.main {
 			margin: auto;
 		}
-		.avatar-content {
-			margin: 0 auto;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
+	}
+	.avatar-content {
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
 </style>

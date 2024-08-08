@@ -134,6 +134,7 @@ const handleOnePreview = () => {
 
 <style lang="less" scoped>
 .one-upload-wrapper {
+	width: 100%;
 	.one-upload {
 		width: 140px;
 		height: 140px;
