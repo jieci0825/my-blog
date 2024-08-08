@@ -51,8 +51,8 @@ const verifySuperAdmin = async (ctx, next) => {
  */
 const verifyCaptcha = async (ctx, next) => {
 	const { data } = new Validator().validate(ctx)
-	const { captcha, account } = data
-	const codeInfo = await Captcha.findOne({ where: { account, captcha } })
+	const { captcha, email, oldEmail } = data
+	const codeInfo = await Captcha.findOne({ where: { email: email || oldEmail, captcha } })
 	if (!codeInfo) {
 		throw new AuthFailed('验证码错误或者不存在')
 	}

@@ -8,6 +8,8 @@ const { User } = require('@model/user.model')
 const { Captcha } = require('@model/captcha.model')
 const backTokenService = require('@ser-back/token.service')
 const { getCaptchaRules } = require('@/app/rules/back/token.rule')
+const { CaptchaType } = require('@/enums')
+const { sendMail } = require('@/utils/email')
 
 /**
  * 获取 token
@@ -20,6 +22,8 @@ async function getToken(ctx) {
 	const isEmail = new RegExp('^[^s@]+@[^s@]+.[^s@]+$').test(data.account)
 	if (isEmail) {
 		where.email = data.account
+	} else {
+		where.account = data.account
 	}
 
 	const userInfo = await User.findOne({ where })

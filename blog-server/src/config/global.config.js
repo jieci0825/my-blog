@@ -32,6 +32,15 @@ module.exports = {
 	adminName: 'SuperAdmin',
 	adminAccount: 'coderjc',
 	port: 9527,
-	captchaExpiresIn: 1000 * 60 * 5 // 验证码有效时长
-	// captchaExpiresIn: 1000 * 10 // 测试时间-验证码有效时长
+	captchaExpiresIn: 1000 * 60 * 5, // 验证码有效时长
+	defaultAvatars: [
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-1.jpeg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-2.jpg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-3.jpeg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-4.jpeg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-5.jpg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-6.jpeg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-7.jpg',
+		'http://cos.coderjc.cn/my-resource/default-avatar/avatar-8.jpeg'
+	]
 }
