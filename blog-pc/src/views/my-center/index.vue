@@ -100,7 +100,8 @@ const myInfoList: BoxItem[] = [
 		key: 'avatarUrl',
 		contentField: 'avatarUrl',
 		slotOpt: { defalutSlot: 'avatar' },
-		operateCallback: handleAvatar
+		operateCallback: handleAvatar,
+		operateText: { editText: '更换头像' }
 	},
 	{ label: '昵称', key: 'nickname', contentField: 'nickname' },
 	{ label: '个性签名', key: 'sign', contentField: 'sign' },
@@ -112,9 +113,7 @@ const accountInfoList: BoxItem[] = [
 	{
 		label: '密码',
 		key: 'password',
-		slotOpt: {
-			defalutSlot: 'password'
-		},
+		slotOpt: { defalutSlot: 'password' },
 		operateCallback: openModifyPasswordPanel,
 		operateText: { editText: '修改密码' }
 	}
@@ -139,9 +138,13 @@ const getVerifyCode = async () => {
 					:list="myInfoList"
 					@save="handleSave">
 					<template #avatar>
-						<el-avatar
-							:size="60"
-							:src="getCurUserInfo?.avatarUrl" />
+						<div class="avatar-box">
+							<el-image
+								:preview-src-list="[getCurUserInfo?.avatarUrl]"
+								:src="getCurUserInfo?.avatarUrl"
+								style="width: 100%; height: 100%"
+								fit="cover" />
+						</div>
 					</template>
 				</BoxWrap>
 				<BoxWrap
@@ -223,6 +226,13 @@ const getVerifyCode = async () => {
 		margin: 0 auto;
 		.main {
 			margin: auto;
+			.avatar-box {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				overflow: hidden;
+				border: 1px solid var(--border-color);
+			}
 		}
 	}
 	.avatar-content {
