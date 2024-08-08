@@ -119,12 +119,20 @@ function setCurEditContent(val: string) {
 		}
 		.label {
 			width: 100px;
+			flex-shrink: 0;
 			font-weight: 600;
+			@media (max-width: @size-xs) {
+				width: 70px;
+			}
 		}
 		.content {
 			flex: 1;
+			p {
+				word-break: break-all;
+			}
 		}
 		.operate {
+			flex-shrink: 0;
 			margin-left: 10px;
 		}
 	}
