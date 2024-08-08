@@ -4,11 +4,12 @@ import JcUpload from '@/components/jc-upload/src/jc-upload.vue'
 import modifyPasswordFormConfig from './config/modify-password-form'
 import replaceEmailFormConfig from './config/replace-email-form'
 import GetVerifyCode from '@/components/get-verify-code'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { globalApi, userApi } from '@/apis'
 import { uploadFile } from '@/cos'
 import { useGlobalActions, useUserActions, useUserGetters } from '@/store'
-import { encrypt } from '@/utils'
+import { useEventListener } from '@/hooks'
+import { debounce, encrypt } from '@/utils'
 import type { BoxItem } from './types'
 import type { UserItem, ModifyUserPasswordParams, ReplaceBindEmailParams } from '@/apis/modules/user/type'
 
@@ -127,10 +128,27 @@ const getVerifyCode = async () => {
 	const resp = await globalApi.reqGetCaptcha({ email, account })
 	ElMessage.success(resp.msg)
 }
+
+const isLableTop = ref(false)
+const labelPosition = computed(() => (isLableTop.value ? 'top' : 'right'))
+
+const dOnResize = debounce(() => {
+	if (document.body.clientWidth <= 640) {
+		isLableTop.value = true
+	} else {
+		isLableTop.value = false
+	}
+}, 300)
+
+onMounted(() => {
+	dOnResize()
+})
+
+useEventListener(window, 'resize', dOnResize)
 </script>
 
 <template>
-	<div class="my-center-container">
+	<div :class="['my-center-container', isLableTop ? 'xs' : '']">
 		<div class="my-center-wrapper">
 			<div class="header"></div>
 			<div class="main">
@@ -183,9 +201,10 @@ const getVerifyCode = async () => {
 			width="500"
 			title="修改密码">
 			<JcForm
+				@submit="confirmModifyPassword"
 				v-model="modifyPasswordData"
 				v-bind="modifyPasswordFormConfig"
-				@submit="confirmModifyPassword">
+				:label-position="labelPosition">
 				<template #codeAppend>
 					<GetVerifyCode
 						@click="getVerifyCode"
@@ -201,9 +220,10 @@ const getVerifyCode = async () => {
 			width="500"
 			title="换绑邮箱">
 			<JcForm
+				@submit="confirmReplaceEmail"
 				v-model="replaceEmailData"
 				v-bind="replaceEmailFormConfig"
-				@submit="confirmReplaceEmail">
+				:label-position="labelPosition">
 				<template #codeAppend>
 					<GetVerifyCode
 						:is-click="isGettCaptchaReplaceEmail"
@@ -240,6 +260,17 @@ const getVerifyCode = async () => {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	&.xs {
+		:deep(.el-overlay-dialog) {
+			overflow: hidden auto;
+		}
+		:deep(.el-dialog) {
+			width: 100vw !important;
+			margin: 0;
+			border-radius: 0;
+			height: 100%;
+		}
 	}
 }
 </style>

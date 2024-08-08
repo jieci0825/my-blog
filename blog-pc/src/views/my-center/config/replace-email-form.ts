@@ -41,6 +41,7 @@ const replaceEmailFormConfig: JcFormProps = {
 		captcha: [{ required: true, message: '该项不能为空', trigger: 'blur' }]
 	},
 	labelWidth: 100,
+
 	colLayout: {
 		xs: 24,
 		sm: 24,
