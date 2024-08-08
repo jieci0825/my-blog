@@ -12,7 +12,7 @@ const modifyPasswordFormConfig: JcFormProps = {
 			label: '邮箱',
 			field: 'email',
 			type: 'text',
-			placeholder: '输入接收验证码的邮箱'
+			disabled: true
 		},
 		{
 			label: '验证码',

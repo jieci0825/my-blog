@@ -46,6 +46,7 @@ const isGetCaptchaPassword = computed(() => {
 	return !!modifyPasswordData.value.email && !!modifyPasswordData.value.account
 })
 const openModifyPasswordPanel = () => {
+	modifyPasswordData.value.email = getUserInfo.value?.email || ''
 	passwordVisable.value = true
 }
 const { logout } = useGlobalActions()

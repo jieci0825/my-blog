@@ -6,7 +6,7 @@ function _isRef(obj: any) {
 
 export interface IPageContent {
 	request?: (params: any) => Promise<any> // 请求数据的 api
-	formatRespData?: (data: any) => any // 格式化请求到数据的函数
+	formatRespData?: (data: any) => { list: any[]; total: number } // 格式化请求到数据的函数
 	respCallback?: (data: any) => void // 请求成功后的回调函数
 	immediate?: true // 是否立即执行一次请求
 	listField?: string // list字段名

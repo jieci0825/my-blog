@@ -51,11 +51,11 @@ function setCurEditContent(val: string) {
 					<slot
 						:name="item.slotOpt.defalutSlot"
 						:row="item">
-						<p>{{ item.contentField ? getUserInfo![item.contentField] : false || '这个人很懒，什么都没留下' }}</p>
+						<p>{{ item.contentField ? getUserInfo?getUserInfo[item.contentField] :undefined : false || '这个人很懒，什么都没留下' }}</p>
 					</slot>
 				</template>
 				<template v-else>
-					<p>{{ item.contentField ? getUserInfo![item.contentField] : false || '这个人很懒，什么都没留下' }}</p>
+					<p>{{ item.contentField ? getUserInfo?getUserInfo[item.contentField] :undefined : false || '这个人很懒，什么都没留下' }}</p>
 				</template>
 			</div>
 			<div
