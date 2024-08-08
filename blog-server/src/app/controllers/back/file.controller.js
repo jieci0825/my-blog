@@ -32,8 +32,8 @@ async function getCredential(ctx) {
 async function createFileRecord(ctx) {
 	const { data } = new Validator().validate(ctx)
 	// 创建文件记录
-	const fileRecord = await fileService.createFileRecord(data)
-	throw new DataSuccess(fileRecord)
+	await fileService.createFileRecord(data)
+	throw new DataSuccess('创建文件记录成功')
 }
 
 module.exports = {
