@@ -1,6 +1,7 @@
 const { DataSuccess } = require('@/core/error-type')
 const { getDaysDiff } = require('@/utils')
 const globalService = require('@ser-front/global.service')
+const cosTools = require('@/utils/cos-tools')
 
 /**
  * 获取作者信息
@@ -19,7 +20,28 @@ async function getSiteHomeInfo(ctx) {
 	throw new DataSuccess(data)
 }
 
+/**
+ * 获取临时凭证
+ */
+async function getCredential(ctx) {
+	// 获取策略
+	const policy = cosTools.packagePolicy('UPLOAD')
+
+	// 获取临时凭证参数
+	const params = {
+		Name: 'coderjc', // 自定义调用方英文名称
+		Policy: policy,
+		DurationSeconds: 60
+	}
+
+	// 获取临时凭证
+	const credential = await cosTools.getCredential(params)
+
+	throw new DataSuccess(credential)
+}
+
 module.exports = {
 	getAuthorInfo,
-	getSiteHomeInfo
+	getSiteHomeInfo,
+	getCredential
 }
