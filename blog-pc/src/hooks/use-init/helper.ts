@@ -7,7 +7,7 @@ const { switchTheme, setPrimaryColor } = useTheme()
 
 // 初始化字体美化
 export const initFontBeautify = () => {
-	const isFontBeautify = getLocalCache(BLOG_GLOBAL_CONFIG) ? getLocalCache(BLOG_GLOBAL_CONFIG).fontBeautify : false
+	const isFontBeautify = getLocalCache(BLOG_GLOBAL_CONFIG) ? getLocalCache(BLOG_GLOBAL_CONFIG).fontBeautify : true
 	switchFontBeautify(isFontBeautify)
 }
 
